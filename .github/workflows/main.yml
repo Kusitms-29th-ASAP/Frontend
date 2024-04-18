@@ -2,7 +2,7 @@ name: git push into another repo to deploy to vercel
 
 on:
   push:
-    branches: [main]
+    branches: [develop]
 
 jobs:
   build:
@@ -22,7 +22,7 @@ jobs:
         with:
           source-directory: 'output'
           destination-github-username: yyypearl
-          destination-repository-name: SchoolPoint_vercel
+          destination-repository-name: SchoolPoint_deploy
           user-email: ${{ secrets.OFFICIAL_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
