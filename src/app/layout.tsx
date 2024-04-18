@@ -19,13 +19,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={theme}>
-          <GlobalFont />
-          {children}
-        </ThemeProvider>
-      </QueryClientProvider>
-    </Provider>
+    <html>
+      <body>
+        <Provider store={store}>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider theme={theme}>
+              <GlobalFont />
+              {children}
+            </ThemeProvider>
+          </QueryClientProvider>
+        </Provider>
+      </body>
+    </html>
   );
 }
