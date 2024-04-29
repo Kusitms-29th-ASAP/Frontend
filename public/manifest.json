@@ -1,0 +1,33 @@
+{
+  "theme_color": "#FF8700",
+  "background_color": "#05CEC2",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "스쿨포인트",
+  "short_name": "스쿨포인트",
+  "description": "AI 기반 통합 알림장 소통 플랫폼",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
