@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import Tabbar from "./Tabbar";
+import Tabbar from "@/components/common/Tabbar";
 
 export default {
   component: Tabbar,
