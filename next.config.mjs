@@ -1,11 +1,17 @@
-// next.config.mjs
 import withPlugins from "next-compose-plugins";
 import withPWA from "next-pwa";
 import typescript from "next-plugin-graphql";
-// Import other plugins as needed
 
 const nextConfig = {
   reactStrictMode: true,
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
+
+    return config;
+  },
 };
 
 export default withPlugins(
@@ -26,7 +32,6 @@ export default withPlugins(
         },
       },
     ],
-    // Add other plugins as needed
   ],
   nextConfig
 );
