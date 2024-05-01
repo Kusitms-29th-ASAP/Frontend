@@ -1,6 +1,7 @@
 import { DefaultTheme } from "styled-components";
 
 const colors = {
+  primary800: "#E36E03",
   primary700: "#F47500",
   primary600: "#F17D2A",
   primary500: "#FF8700",
