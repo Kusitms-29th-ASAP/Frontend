@@ -3,7 +3,6 @@
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "styled-components";
 import { theme } from "@/styles/theme";
-import GlobalFont from "@/styles/GlobalFont";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
@@ -29,10 +28,7 @@ export default function RootLayout({
       <body>
         <Provider store={store}>
           <QueryClientProvider client={queryClient}>
-            <ThemeProvider theme={theme}>
-              <GlobalFont />
-              {children}
-            </ThemeProvider>
+            <ThemeProvider theme={theme}>{children}</ThemeProvider>
           </QueryClientProvider>
         </Provider>
       </body>
