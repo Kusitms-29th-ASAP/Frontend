@@ -55,9 +55,9 @@ const CheckBoxLayout = styled.div<CheckBoxProps>`
   align-items: center;
   user-select: none;
   padding: 0 12px;
+  cursor: pointer;
   color: ${theme.colors.b700};
   ${({ theme }) => theme.fonts.body3_m};
-  cursor: pointer;
 
   &.checkBtn {
     padding: 15px 12px;
@@ -69,7 +69,9 @@ const CheckBoxLayout = styled.div<CheckBoxProps>`
       display: none;
     }
     border: ${(props) =>
-      props.checked ? `1px solid ${theme.colors.primary300}` : ``};
+      props.checked
+        ? `1px solid ${theme.colors.primary300}`
+        : `1px solid transparent`};
   }
 `;
 
@@ -87,12 +89,13 @@ const CheckboxContainer = styled.label<CheckBoxProps>`
   }
 `;
 
-const CheckboxInput = styled.input`
+const CheckboxInput = styled.input<CheckBoxProps>`
   appearance: none;
   width: 1.3rem;
   height: 1.3rem;
   border: 2px solid ${theme.colors.primary50};
   background-color: ${theme.colors.primary50};
+
   background-image: url("data:image/svg+xml; base64, PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgcng9IjQiIGZpbGw9IiNGRkUyQzIiLz4NCjxwYXRoIGQ9Ik0xNCA3TDguNSAxMi41TDYgMTAiIHN0cm9rZT0iI0ZGRDA5QyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4NCjwvc3ZnPg==");
   background-size: 100% 100%;
   background-position: 50%;
