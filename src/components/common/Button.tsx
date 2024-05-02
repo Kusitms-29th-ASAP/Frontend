@@ -18,6 +18,7 @@ export interface ButtonProps extends ButtonTypes {
   children?: React.ReactNode;
   onClick?: (e: React.MouseEvent) => void;
   style?: React.CSSProperties & { fontSize?: string };
+  disabled?: boolean;
 }
 
 const Button = (props: ButtonProps) => {
@@ -29,6 +30,7 @@ const Button = (props: ButtonProps) => {
     iconPosition = "left",
     onClick,
     style,
+    disabled,
   } = props;
 
   let buttonClassName = buttonType;
@@ -46,6 +48,7 @@ const Button = (props: ButtonProps) => {
       style={style}
       iconPosition={iconPosition}
       onClick={onClick}
+      disabled={disabled}
     >
       <IconLeft>{icon && iconPosition === "left" && icon}</IconLeft>
       {text}
@@ -71,7 +74,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   border-radius: 0.5rem;
   ${(props) => props.theme.fonts.body3_m};
   white-space: nowrap;
-  box-sizing: border-box;
+  cursor: pointer;
   gap: 10px;
   transition:
     color 200ms,
@@ -87,7 +90,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     &:active {
       background: ${theme.colors.primary800};
     }
-    &disable {
+    &:disabled {
       color: ${theme.colors.b400};
       background: ${theme.colors.b200};
     }
@@ -103,7 +106,6 @@ const StyledButton = styled.button<StyledButtonProps>`
     }
   }
   &.primaryBorder {
-    width: 320px;
     justify-content: flex-start;
     padding: 12px 11px;
     color: ${theme.colors.b600};
@@ -122,7 +124,6 @@ const StyledButton = styled.button<StyledButtonProps>`
 
   /* size */
   &.large {
-    width: 320px;
     padding: 16px 28px;
     ${(props) => props.theme.fonts.body3_m};
   }
@@ -131,7 +132,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     width: 236px;
     height: 44px;
     padding: 14px 12px;
-    ${(props) => props.theme.fonts.cpation1_m};
+    ${(props) => props.theme.fonts.caption1_m};
   }
 
   &.small {
@@ -139,7 +140,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     height: 44px;
     justify-content: center;
     border-radius: 10px;
-    ${(props) => props.theme.fonts.cpation1_m};
+    ${(props) => props.theme.fonts.caption1_m};
   }
 `;
 

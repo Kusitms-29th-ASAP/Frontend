@@ -41,6 +41,6 @@ const StyledInput = styled.input`
 
   &::placeholder {
     color: ${theme.colors.b400};
-    ${(props) => props.theme.fonts.cpation3_r};
+    ${(props) => props.theme.fonts.caption3_r};
   }
 `;

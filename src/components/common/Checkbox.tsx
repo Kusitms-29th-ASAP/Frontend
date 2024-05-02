@@ -1,60 +1,89 @@
 import { theme } from "@/styles/theme";
 import styled from "styled-components";
+import Image from "next/image";
 
 export type checkboxType = "checkbox" | "checkBtn";
 
 export interface CheckBoxProps {
   value?: string | number;
   label?: string;
+  text?: string;
   checked?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   checkboxType?: string;
+  essential?: boolean;
 }
 
 const Checkbox: React.FC<CheckBoxProps> = ({
   value,
   label,
+  text,
   checked,
   onChange,
   checkboxType,
+  essential,
 }) => {
   return (
-    <CheckboxContainer
+    <CheckBoxLayout
       className={checkboxType === "checkBtn" ? "checkBtn" : ""}
+      checked={checked}
     >
-      <CheckboxInput
-        value={value}
-        type="checkbox"
-        checked={checked}
-        onChange={onChange}
+      <CheckboxContainer essential={essential ? true : false} checked={checked}>
+        <CheckboxInput
+          value={value}
+          type="checkbox"
+          checked={checked}
+          onChange={onChange}
+        />
+        {label}
+        <span>{text}</span>
+      </CheckboxContainer>
+      <Image
+        src="/assets/common/right_arrow.svg"
+        alt="arrow"
+        width={20}
+        height={20}
       />
-      {label}
-    </CheckboxContainer>
+    </CheckBoxLayout>
   );
 };
 
 export default Checkbox;
 
-const CheckboxContainer = styled.label`
+const CheckBoxLayout = styled.div<CheckBoxProps>`
   display: flex;
-  flex-direction: row;
   align-items: center;
-  cursor: pointer;
   user-select: none;
-  margin-right: 0.5rem;
+  padding: 0 12px;
+  color: ${theme.colors.b700};
+  ${({ theme }) => theme.fonts.body3_m};
+  cursor: pointer;
+
   &.checkBtn {
-    width: 101px;
-    height: 48px;
-    gap: 10px;
-    white-space: nowrap;
-    color: ${theme.colors.b500};
+    padding: 15px 12px;
+    ${({ theme }) => theme.fonts.body1_b};
+    color: ${theme.colors.b700};
     background-color: rgba(255, 135, 0, 0.05);
-    border: 1px solid ${theme.colors.primary300};
     border-radius: 10px;
-    padding: 14px 12px;
-    &:checked {
-      color: ${theme.colors.primary500};
+    img {
+      display: none;
     }
+    border: ${(props) =>
+      props.checked ? `1px solid ${theme.colors.primary300}` : ``};
+  }
+`;
+
+const CheckboxContainer = styled.label<CheckBoxProps>`
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  cursor: pointer;
+
+  span {
+    margin-left: 8px;
+    ${({ theme }) => theme.fonts.caption1_m};
+    color: ${(props) =>
+      props.essential ? theme.colors.primary500 : theme.colors.b400};
   }
 `;
 
@@ -68,7 +97,7 @@ const CheckboxInput = styled.input`
   background-size: 100% 100%;
   background-position: 50%;
   border-radius: 0.35rem;
-  margin-right: 0.5rem;
+  margin-right: 16px;
 
   &:hover {
     box-shadow: 0 0 0 max(2px, 0.3em) ${theme.colors.primary100};
