@@ -7,18 +7,7 @@ export default {
   component: Checkbox,
 } as Meta;
 
-const Template: StoryFn<CheckBoxProps> = (args) => {
-  const [checked, setChecked] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
-    if (args.onChange) {
-      args.onChange(e);
-    }
-  };
-
-  return <Checkbox {...args} checked={checked} onChange={handleChange} />;
-};
+const Template: StoryFn<CheckBoxProps> = (args) => <Checkbox {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

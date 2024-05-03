@@ -39,6 +39,7 @@ const Terms = () => {
           text="선택사항 포함"
           checked={isAllAgreed}
           onChange={(e) => handleAllAgreeChange(e.target.checked)}
+          color="black"
         />
         <Checkbox
           label="서비스 이용약관"

@@ -12,17 +12,28 @@ export interface CheckBoxProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   checkboxType?: string;
   essential?: boolean;
+  color?: "primary" | "black";
 }
 
-const Checkbox: React.FC<CheckBoxProps> = ({
-  value,
-  label,
-  text,
-  checked,
-  onChange,
-  checkboxType,
-  essential,
-}) => {
+const Checkbox = (props: CheckBoxProps) => {
+  const {
+    value,
+    label,
+    text,
+    checked,
+    onChange,
+    checkboxType,
+    essential,
+    color = "primary",
+  } = props;
+
+  let checkboxClassName = checkboxType;
+  if (color === "primary") {
+    checkboxClassName += " primary";
+  } else if (color === "black") {
+    checkboxClassName += " black";
+  }
+
   return (
     <CheckBoxLayout
       className={checkboxType === "checkBtn" ? "checkBtn" : ""}
@@ -57,13 +68,26 @@ const CheckBoxLayout = styled.div<CheckBoxProps>`
   user-select: none;
   padding: 0 12px;
   cursor: pointer;
-  color: ${theme.colors.b700};
-  ${({ theme }) => theme.fonts.body3_m};
+
+  &.primary {
+    color: ${theme.colors.b500};
+    ${({ theme }) => theme.fonts.body2_m};
+  }
+  &.black {
+    color: ${theme.colors.b700};
+    ${({ theme }) => theme.fonts.body1_b};
+  }
 
   &.checkBtn {
+    &.primary {
+      color: ${theme.colors.primary500};
+      ${({ theme }) => theme.fonts.body2_m};
+    }
+    &.black {
+      color: ${theme.colors.b700};
+      ${({ theme }) => theme.fonts.body1_b};
+    }
     padding: 15px 12px;
-    ${({ theme }) => theme.fonts.body1_b};
-    color: ${theme.colors.b700};
     background-color: rgba(255, 135, 0, 0.05);
     border-radius: 10px;
     img {
