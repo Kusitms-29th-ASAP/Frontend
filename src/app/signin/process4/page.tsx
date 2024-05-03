@@ -5,42 +5,24 @@ import Checkbox from "@/components/common/Checkbox";
 import Tobbar from "@/components/common/Tobbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import Subtitle from "@/components/signin/Subtitle";
+import { AllergyCategories } from "@/context/Allergy";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import styled from "styled-components";
 
 const CONTEXT1 = "마지막 단계에요!";
 const CONTEXT2 = "알레르기 정보 설정은 나중에 바꿀 수 있어요.";
 const TITLE = "자녀의 알레르기 유발 식재료가 \n 있다면, 체크해주세요.";
 
-const categories = [
-  {
-    name: "우유 및 계란",
-    items: ["우유", "난류"],
-  },
-  {
-    name: "곡류",
-    items: ["메밀", "밀"],
-  },
-  {
-    name: "견과류",
-    items: ["호두", "땅콩", "대두", "잣"],
-  },
-  {
-    name: "육류",
-    items: ["닭고기", "돼지고기", "쇠고기"],
-  },
-  {
-    name: "해산물",
-    items: ["고등어", "새우", "오징어", "게", "조개류"],
-  },
-  {
-    name: "과일/채소류 및 기타",
-    items: ["복숭아", "토마토", "아황산류"],
-  },
-];
-
 const SigninProcess4 = () => {
   const router = useRouter();
+  const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+
+  const handleCheckboxChange = (item: string) => {
+    setCheckedItems((prev) => ({ ...prev, [item]: !prev[item] }));
+  };
 
   const handleNextButtonClick = () => {
     router.push("/signin/process5");
@@ -55,12 +37,18 @@ const SigninProcess4 = () => {
       <Context>{CONTEXT2}</Context>
 
       <ContentBox>
-        {categories.map((category) => (
+        {AllergyCategories.map((category) => (
           <div key={category.name}>
             <Subtitle>{category.name}</Subtitle>
             <CheckboxBox>
               {category.items.map((item) => (
-                <Checkbox key={item} label={item} checkboxType="checkBtn" />
+                <Checkbox
+                  key={item}
+                  label={item}
+                  checkboxType="checkBtn"
+                  checked={checkedItems[item] || false}
+                  onChange={() => handleCheckboxChange(item)}
+                />
               ))}
             </CheckboxBox>
           </div>

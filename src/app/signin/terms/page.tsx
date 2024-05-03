@@ -47,6 +47,7 @@ const Terms = () => {
           text="필수"
           checked={isServiceAgreed}
           onChange={(e) => setIsServiceAgreed(e.target.checked)}
+          color="primary"
         />
         <Checkbox
           label="개인정보 수집 및 이용동의"
@@ -54,12 +55,14 @@ const Terms = () => {
           text="필수"
           checked={isPrivacyAgreed}
           onChange={(e) => setIsPrivacyAgreed(e.target.checked)}
+          color="primary"
         />
         <Checkbox
           label="마케팅 수신 동의"
           text="선택"
           checked={isMarketingAgreed}
           onChange={(e) => setIsMarketingAgreed(e.target.checked)}
+          color="primary"
         />
       </AgreeBox>
 

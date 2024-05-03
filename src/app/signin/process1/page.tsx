@@ -37,13 +37,13 @@ const SigninProcess1 = () => {
         <Subtitle>회원님은 현재...</Subtitle>
         <CheckButtonBox>
           <Checkbox
-            text="학부모님"
+            label="학부모님"
             checkboxType="checkBtn"
             checked={userType === "parent"}
             onChange={() => handleUserTypeChange("parent")}
           />
           <Checkbox
-            text="교사"
+            label="교사"
             checkboxType="checkBtn"
             checked={userType === "teacher"}
             onChange={() => handleUserTypeChange("teacher")}

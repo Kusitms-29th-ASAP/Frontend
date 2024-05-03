@@ -50,13 +50,13 @@ const SigninProcess2 = () => {
           <Subtitle>자녀의 성별을 입력해주세요.</Subtitle>
           <CheckButtonBox>
             <Checkbox
-              text="남자"
+              label="남자"
               checkboxType="checkBtn"
               checked={sexType === "male"}
               onChange={() => handleSexTypeChange("male")}
             />
             <Checkbox
-              text="여자"
+              label="여자"
               checkboxType="checkBtn"
               checked={sexType === "female"}
               onChange={() => handleSexTypeChange("female")}

@@ -12,7 +12,7 @@ export interface CheckBoxProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   checkboxType?: string;
   essential?: boolean;
-  color?: "primary" | "black";
+  color?: "primary" | "gray" | "black";
 }
 
 const Checkbox = (props: CheckBoxProps) => {
@@ -22,23 +22,22 @@ const Checkbox = (props: CheckBoxProps) => {
     text,
     checked,
     onChange,
-    checkboxType,
+    checkboxType = "checkbox",
     essential,
-    color = "primary",
+    color = "gray",
   } = props;
 
   let checkboxClassName = checkboxType;
   if (color === "primary") {
     checkboxClassName += " primary";
+  } else if (color === "gray") {
+    checkboxClassName += " gray";
   } else if (color === "black") {
     checkboxClassName += " black";
   }
 
   return (
-    <CheckBoxLayout
-      className={checkboxType === "checkBtn" ? "checkBtn" : ""}
-      checked={checked}
-    >
+    <CheckBoxLayout className={checkboxClassName} checked={checked}>
       <CheckboxContainer essential={essential ? true : false} checked={checked}>
         <CheckboxInput
           value={value}
@@ -69,24 +68,7 @@ const CheckBoxLayout = styled.div<CheckBoxProps>`
   padding: 0 12px;
   cursor: pointer;
 
-  &.primary {
-    color: ${theme.colors.b500};
-    ${({ theme }) => theme.fonts.body2_m};
-  }
-  &.black {
-    color: ${theme.colors.b700};
-    ${({ theme }) => theme.fonts.body1_b};
-  }
-
   &.checkBtn {
-    &.primary {
-      color: ${theme.colors.primary500};
-      ${({ theme }) => theme.fonts.body2_m};
-    }
-    &.black {
-      color: ${theme.colors.b700};
-      ${({ theme }) => theme.fonts.body1_b};
-    }
     padding: 15px 12px;
     background-color: rgba(255, 135, 0, 0.05);
     border-radius: 10px;
@@ -97,6 +79,21 @@ const CheckBoxLayout = styled.div<CheckBoxProps>`
       props.checked
         ? `1px solid ${theme.colors.primary300}`
         : `1px solid transparent`};
+  }
+
+  /* color */
+  &.primary {
+    color: ${theme.colors.b700};
+    ${({ theme }) => theme.fonts.body3_m};
+  }
+  &.gray {
+    color: ${(props) =>
+      props.checked ? `${theme.colors.primary500}` : `${theme.colors.b500}`};
+    ${({ theme }) => theme.fonts.body2_m};
+  }
+  &.black {
+    color: ${theme.colors.b700};
+    ${({ theme }) => theme.fonts.body1_b};
   }
 `;
 
