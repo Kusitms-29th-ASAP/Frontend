@@ -51,6 +51,7 @@ const Checkbox: React.FC<CheckBoxProps> = ({
 export default Checkbox;
 
 const CheckBoxLayout = styled.div<CheckBoxProps>`
+  width: 100%;
   display: flex;
   align-items: center;
   user-select: none;

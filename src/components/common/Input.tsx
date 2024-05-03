@@ -28,7 +28,7 @@ export default Input;
 const StyledInput = styled.input`
   width: 100%;
   height: 44px;
-  padding: 10px;
+  padding: 14px 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,9 +38,9 @@ const StyledInput = styled.input`
   background: rgba(255, 135, 0, 0.05);
   color: ${theme.colors.b700};
   outline: none;
+  ${(props) => props.theme.fonts.caption1_m};
 
   &::placeholder {
     color: ${theme.colors.b400};
-    ${(props) => props.theme.fonts.caption3_r};
   }
 `;

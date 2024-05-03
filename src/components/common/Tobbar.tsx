@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
 export interface TobbarProps {
@@ -7,9 +8,14 @@ export interface TobbarProps {
 
 const Tobbar = (props: TobbarProps) => {
   const { text } = props;
+  const router = useRouter();
+
+  const handleBackButtonClick = () => {
+    router.back();
+  };
 
   return (
-    <Container>
+    <Container onClick={handleBackButtonClick}>
       <Image
         src="/assets/common/left_arrow.svg"
         width="16"
