@@ -16,7 +16,8 @@ body {
   width: 100%;
   height: 100%;
   font-family: "Pretendard";
-  border: 1px solid lightgray;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
   white-space: pre-line;
 }
 
