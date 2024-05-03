@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/common/Button";
-import { CheckButton } from "@/components/common/Checkbox.stories";
+import Checkbox from "@/components/common/Checkbox";
 import Input from "@/components/common/Input";
 import Tobbar from "@/components/common/Tobbar";
 import ProgressBar from "@/components/signin/ProgressBar";
@@ -49,13 +49,13 @@ const SigninProcess2 = () => {
         <div>
           <Subtitle>자녀의 성별을 입력해주세요.</Subtitle>
           <CheckButtonBox>
-            <CheckButton
+            <Checkbox
               text="남자"
               checkboxType="checkBtn"
               checked={sexType === "male"}
               onChange={() => handleSexTypeChange("male")}
             />
-            <CheckButton
+            <Checkbox
               text="여자"
               checkboxType="checkBtn"
               checked={sexType === "female"}

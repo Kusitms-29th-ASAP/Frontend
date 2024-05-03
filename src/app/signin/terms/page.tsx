@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/common/Button";
-import { CheckButton } from "@/components/common/Checkbox.stories";
+import Checkbox from "@/components/common/Checkbox";
 import Tobbar from "@/components/common/Tobbar";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -33,28 +33,28 @@ const Terms = () => {
       <ContentBox>{CONTENT}</ContentBox>
 
       <AgreeBox>
-        <CheckButton
+        <Checkbox
           label="약관 전체 동의"
           checkboxType="checkBtn"
           text="선택사항 포함"
           checked={isAllAgreed}
           onChange={(e) => handleAllAgreeChange(e.target.checked)}
         />
-        <CheckButton
+        <Checkbox
           label="서비스 이용약관"
           essential={true}
           text="필수"
           checked={isServiceAgreed}
           onChange={(e) => setIsServiceAgreed(e.target.checked)}
         />
-        <CheckButton
+        <Checkbox
           label="개인정보 수집 및 이용동의"
           essential={true}
           text="필수"
           checked={isPrivacyAgreed}
           onChange={(e) => setIsPrivacyAgreed(e.target.checked)}
         />
-        <CheckButton
+        <Checkbox
           label="마케팅 수신 동의"
           text="선택"
           checked={isMarketingAgreed}

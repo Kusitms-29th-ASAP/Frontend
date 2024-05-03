@@ -1,7 +1,6 @@
 "use client";
 
 import Button from "@/components/common/Button";
-import { CheckButton } from "@/components/common/Checkbox.stories";
 import Input from "@/components/common/Input";
 import Tobbar from "@/components/common/Tobbar";
 import ProgressBar from "@/components/signin/ProgressBar";
@@ -9,6 +8,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
 import Subtitle from "@/components/signin/Subtitle";
+import Checkbox from "@/components/common/Checkbox";
 
 const CONTEXT = "안녕하세요!\n스쿨포인트에 오신 걸 환영해요.";
 
@@ -36,13 +36,13 @@ const SigninProcess1 = () => {
       <ContentBox>
         <Subtitle>회원님은 현재...</Subtitle>
         <CheckButtonBox>
-          <CheckButton
+          <Checkbox
             text="학부모님"
             checkboxType="checkBtn"
             checked={userType === "parent"}
             onChange={() => handleUserTypeChange("parent")}
           />
-          <CheckButton
+          <Checkbox
             text="교사"
             checkboxType="checkBtn"
             checked={userType === "teacher"}
