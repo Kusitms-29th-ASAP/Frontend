@@ -2,8 +2,9 @@ import { theme } from "@/styles/theme";
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import Checkbox from "./Checkbox";
+import Image from "next/image";
 
-export type listboxType = "check" | "none";
+export type listboxType = "check" | "none" | "direct";
 
 export interface ListBoxProps {
   type: ReactNode;
@@ -32,7 +33,7 @@ const ListBox = (props: ListBoxProps) => {
 
   return (
     <StyledListBox className={listboxClassName} color={color} style={style}>
-      {listboxType === "check" && <Checkbox />}
+      {(listboxType === "check" || "direct") && <Checkbox />}
       <Content>
         <Type className={listboxClassName}>
           {listboxType === "none" && (
@@ -41,10 +42,33 @@ const ListBox = (props: ListBoxProps) => {
             </span>
           )}
           {type}
+          {listboxType === "direct" && (
+            <Span
+              style={{
+                fontSize: "11px",
+                fontWeight: "400",
+                color: theme.colors.sub_mint,
+              }}
+            >
+              {time}
+            </Span>
+          )}
         </Type>
         <Text>{text}</Text>
       </Content>
-      <Time className={listboxClassName}>{time}</Time>
+      {listboxType === "direct" ? (
+        <Delete>
+          <Span>삭제</Span>
+          <Image
+            src="/assets/icons/ic_minus-circle.svg"
+            alt="delete"
+            width={16}
+            height={16}
+          />
+        </Delete>
+      ) : (
+        <Time className={listboxClassName}>{time}</Time>
+      )}
     </StyledListBox>
   );
 };
@@ -83,6 +107,10 @@ const Content = styled.div`
 
 const Type = styled.div`
   height: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
   color: ${theme.colors.b400};
   white-space: pre-wrap;
   ${(props) => props.theme.fonts.caption2_r};
@@ -95,9 +123,29 @@ const Type = styled.div`
   }
 `;
 
+const Span = styled.span`
+  font-size: 11px;
+  font-weight: 400;
+`;
+
 const Text = styled.div`
   color: ${theme.colors.b700};
   ${(props) => props.theme.fonts.body3_m};
+`;
+
+const Delete = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+  margin-right: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: ${theme.colors.b400};
+  ${(props) => props.theme.fonts.caption3_r};
 `;
 
 const Time = styled.div`
