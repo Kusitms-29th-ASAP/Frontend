@@ -145,7 +145,6 @@ const Container = styled.div`
   position: sticky;
   bottom: 0;
   left: 0;
-  z-index: 100;
 `;
 
 const Tab = styled.div<TabProps>`
@@ -156,12 +155,8 @@ const Tab = styled.div<TabProps>`
   text-align: center;
   color: ${({ selected, theme }) =>
     selected ? theme.colors.primary600 : theme.colors.b400};
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 138%;
+  ${(props) => props.theme.fonts.caption3_r}
   gap: 2px;
-  font-family: "Pretendard";
 `;
 
 const Bar = styled.div<TabProps>`
