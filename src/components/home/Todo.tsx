@@ -64,12 +64,12 @@ const Todo = () => {
     }
   };
 
-  const handleAddTodo = () => {
-    if (addTodo) {
-      setAddTodo(false);
-    } else {
-      setAddTodo(true);
-    }
+  const handleOpenAddTodo = () => {
+    setAddTodo(true);
+  };
+
+  const handleCloseAddTodo = () => {
+    setAddTodo(false);
   };
 
   return (
@@ -98,7 +98,7 @@ const Todo = () => {
         {todoData.map((data, index) => (
           <ListBox
             key={index}
-            listboxType="check"
+            listboxType={data.direct ? "direct" : "check"}
             color={data.time === "내일까지" ? "orange" : "mint"}
             type={data.type}
             text={data.text}
@@ -107,7 +107,7 @@ const Todo = () => {
         ))}
       </TodoLists>
       <Plus>
-        <PlusButton onClick={handleAddTodo}>
+        <PlusButton onClick={handleOpenAddTodo}>
           <Image
             src="/assets/icons/ic_plus.svg"
             alt="add"
@@ -116,8 +116,9 @@ const Todo = () => {
           />
           할 일 직접 추가하기
         </PlusButton>
-        {addTodo && <AddTodoPopup />}
       </Plus>
+      {addTodo && <AddTodoPopup onClose={handleCloseAddTodo} />}
+      {addTodo && <Overlay onClick={handleCloseAddTodo} />}
     </TodoContainer>
   );
 };
@@ -136,6 +137,7 @@ const TodoContainer = styled.div`
   z-index: 10;
   line-height: 150%;
   letter-spacing: -0.28px;
+  position: relative;
 `;
 
 const DateLine = styled.div`
@@ -150,6 +152,8 @@ const DateLine = styled.div`
 
 const TodoLists = styled.div`
   width: 100%;
+  height: 156px;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -182,4 +186,14 @@ const PlusButton = styled.button`
     border-radius: 8px;
     background: rgba(255, 135, 0, 0.1);
   }
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10;
 `;

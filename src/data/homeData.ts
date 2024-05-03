@@ -2,23 +2,33 @@ export interface Todo {
     type: string;
     text: string;
     time: string;
+    direct: boolean;
 }
 
 export const todoData: Todo[] = [
     {
         type: "가정통신문",
         text: "방과후학교 가정통신물 회신",
-        time: "내일까지"
+        time: "내일까지",
+        direct: false,
     },
     {
         type: "준비물",
         text: "미술활동 물통 준비",
-        time: "내일까지"
+        time: "내일까지",
+        direct: false,
     },
     {
         type: "준비물",
         text: "미술활동 물통 준비",
-        time: "월요일까지"
+        time: "월요일까지",
+        direct: false,
+    },
+    {
+        type: "준비물",
+        text: "[직접추가]",
+        time: "월요일까지",
+        direct: true,
     },
 ];
 
@@ -39,7 +49,7 @@ export const mealData:string[] = [
 ]
 
 export interface mealTable {
-    date: Number;
+    date: number;
     menu: string[];
 };
 

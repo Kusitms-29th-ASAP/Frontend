@@ -12,19 +12,19 @@ const MealTable = () => {
 
   const [mealTable, setMealTable] = useState(false);
 
-  const handleMealTable = () => {
-    if (mealTable) {
-      setMealTable(false);
-    } else {
-      setMealTable(true);
-    }
+  const handleOpenMealTable = () => {
+    setMealTable(true);
+  };
+
+  const handleCloseMealTable = () => {
+    setMealTable(false);
   };
 
   return (
     <MealContainer>
       <Title>
         {dayOfWeek}요일 시간표
-        <More onClick={handleMealTable}>
+        <More onClick={handleOpenMealTable}>
           자세히 보기
           <Image
             src="/assets/icons/ic_chevron_right.svg"
@@ -39,7 +39,8 @@ const MealTable = () => {
           return <List key={index}>{data}</List>;
         })}
       </TableContainer>
-      {mealTable && <MealTablePopup />}
+      {mealTable && <MealTablePopup onClose={handleCloseMealTable} />}
+      {mealTable && <Overlay onClick={handleCloseMealTable} />}
     </MealContainer>
   );
 };
@@ -93,4 +94,14 @@ const List = styled.div`
   padding: 6px 12px;
   color: ${theme.colors.b600};
   ${(props) => props.theme.fonts.body3_r};
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10;
 `;
