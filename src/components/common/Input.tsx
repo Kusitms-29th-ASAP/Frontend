@@ -37,10 +37,11 @@ const StyledInput = styled.input`
   border: 1px solid ${theme.colors.primary100};
   background: rgba(255, 135, 0, 0.05);
   color: ${theme.colors.b700};
+  ${(props) => props.theme.fonts.body3_m};
   outline: none;
 
   &::placeholder {
     color: ${theme.colors.b400};
-    ${(props) => props.theme.fonts.cpation3_r};
+    ${(props) => props.theme.fonts.caption1_m};
   }
 `;

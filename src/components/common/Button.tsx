@@ -131,7 +131,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     width: 236px;
     height: 44px;
     padding: 14px 12px;
-    ${(props) => props.theme.fonts.cpation1_m};
+    ${(props) => props.theme.fonts.caption1_m};
   }
 
   &.small {
@@ -139,7 +139,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     height: 44px;
     justify-content: center;
     border-radius: 10px;
-    ${(props) => props.theme.fonts.cpation1_m};
+    ${(props) => props.theme.fonts.caption1_m};
   }
 `;
 

@@ -4,20 +4,30 @@
   margin: 0;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  font-family: "Pretendard";
-  width: 360px;
-  height: 800px;
+html {
+  width: 100%;
+  height: 100%;
+  max-width: 480px;
+  min-height: 100%;
+  overflow-y: hidden;
+  margin: 0 auto;
+}
 
-  @media (max-width: 360px) {
-    font-size: 14px;
-  }
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "Pretendard";
+  border: 1px solid lightgray;
+  white-space: pre-line;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
