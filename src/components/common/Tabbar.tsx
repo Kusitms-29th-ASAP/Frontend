@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { theme } from "@/styles/theme";
 
 interface TabProps {
   selected: boolean;
@@ -134,17 +135,17 @@ const Tabbar = () => {
 export default Tabbar;
 
 const Container = styled.div`
-  /* width: 100%; */
-  width: 360px;
+  width: 100%;
   height: 60px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 0 34px;
-  background-color: #ffffff;
-  position: fixed;
+  background-color: ${theme.colors.white};
+  position: sticky;
   bottom: 0;
   left: 0;
+  z-index: 100;
 `;
 
 const Tab = styled.div<TabProps>`
@@ -153,8 +154,8 @@ const Tab = styled.div<TabProps>`
   align-items: center;
   cursor: pointer;
   text-align: center;
-  color: ${({ selected }) =>
-    selected ? "var(--primary-600, #f17d2a)" : "var(--b-400, #94a3b8)"};
+  color: ${({ selected, theme }) =>
+    selected ? theme.colors.primary600 : theme.colors.b400};
   font-size: 10px;
   font-style: normal;
   font-weight: 500;
@@ -167,6 +168,6 @@ const Bar = styled.div<TabProps>`
   width: 24px;
   height: 4px;
   border-radius: 4px;
-  background: var(--primary-600, #f17d2a);
+  background: ${theme.colors.primary600};
   opacity: ${({ selected }) => (selected ? "100%" : "0%")};
 `;
