@@ -34,6 +34,14 @@ const Button = (props: ButtonProps) => {
   } = props;
 
   let buttonClassName = buttonType;
+  if (buttonType === "primary") {
+    buttonClassName += " primary";
+  } else if (buttonType === "primaryLight") {
+    buttonClassName += " primaryLight";
+  } else if (buttonType === "primaryBorder") {
+    buttonClassName += " primaryBorder";
+  }
+
   if (size === "large") {
     buttonClassName += " large";
   } else if (size === "medium") {
