@@ -30,6 +30,12 @@ export const todoData: Todo[] = [
         time: "월요일까지",
         direct: true,
     },
+    {
+        type: "준비물",
+        text: "[직접추가]",
+        time: "월요일까지",
+        direct: true,
+    },
 ];
 
 export const notificationData: string[] = [

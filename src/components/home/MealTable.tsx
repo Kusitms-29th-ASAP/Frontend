@@ -97,11 +97,13 @@ const List = styled.div`
 `;
 
 const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
+  max-width: 480px;
   width: 100%;
   height: 100%;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.6);
   z-index: 10;
 `;
