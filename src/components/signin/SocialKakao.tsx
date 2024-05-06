@@ -26,13 +26,9 @@ const SocialKakao = () => {
 export default SocialKakao;
 
 const SocialLoginBox = styled.div`
+  width: 100%;
+  height: 48px;
   cursor: pointer;
-  margin-bottom: 136px;
-
-  img {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    object-fit: cover;
-  }
+  position: relative;
+  bottom: 140px;
 `;

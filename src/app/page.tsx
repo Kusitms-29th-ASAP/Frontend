@@ -12,12 +12,15 @@ export default function Home() {
 }
 
 const Container = styled.div`
-  padding: 20px;
   background-image: url("/assets/main/main_background.svg");
   background-position: center;
   background-repeat: no-repeat;
+
+  padding: 20px;
   max-width: 480px;
+  width: 100%;
   height: 100vh;
+  position: relative;
 
   display: flex;
   flex-direction: column;
