@@ -1,11 +1,11 @@
 import { theme } from "@/styles/theme";
-import Image from "next/image";
 import styled from "styled-components";
 import { useState } from "react";
 import Button from "../common/Button";
 import Toast from "../common/Toast";
 import CustomInput from "../common/CustomInput";
-import { DesktopDateRangePicker } from "@mui/x-date-pickers-pro";
+import { DatePicker } from "@mui/x-date-pickers-pro";
+import Popup from "../common/Popup";
 
 const AddTodoPopup = ({ onClose }: { onClose: () => void }) => {
   const [showToast, setShowToast] = useState(false);
@@ -27,17 +27,7 @@ const AddTodoPopup = ({ onClose }: { onClose: () => void }) => {
   };
 
   return (
-    <StyledAddTodo>
-      <Title>
-        할 일 직접 추가하기
-        <Image
-          src="/assets/icons/ic_close.svg"
-          alt="close"
-          width={24}
-          height={24}
-          onClick={onClose}
-        />
-      </Title>
+    <Popup onClose={onClose} title="할 일 직접 추가하기" height="425px">
       <CustomInput
         value={todo}
         placeholder="할 일을 입력해주세요"
@@ -61,7 +51,6 @@ const AddTodoPopup = ({ onClose }: { onClose: () => void }) => {
           placeholder="날짜를 선택해주세요"
           onChange={(value: string) => setDeadline(value)}
         />
-        {/* <DesktopDateRangePicker /> */}
       </SubTitle>
       <Button text="등록하기" onClick={handleButtonClick} />
       {showToast && (
@@ -72,14 +61,15 @@ const AddTodoPopup = ({ onClose }: { onClose: () => void }) => {
           onClose={() => setShowToast(false)}
         />
       )}
-    </StyledAddTodo>
+    </Popup>
   );
 };
 
 export default AddTodoPopup;
 
 const StyledAddTodo = styled.div`
-  width: 360px;
+  max-width: 480px;
+  width: 100%;
   height: 425px;
   padding: 20px 20px 28px 20px;
   border-radius: 12px 12px 0px 0px;

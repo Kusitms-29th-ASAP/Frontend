@@ -1,7 +1,7 @@
 import { mealTableData } from "@/data/homeData";
 import { theme } from "@/styles/theme";
-import Image from "next/image";
 import styled from "styled-components";
+import Popup from "../common/Popup";
 
 const MenuCard = ({ date, menu }: { date: number; menu: string[] }) => {
   return (
@@ -16,17 +16,7 @@ const MenuCard = ({ date, menu }: { date: number; menu: string[] }) => {
 
 const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
   return (
-    <StyledMealTable>
-      <Title>
-        4월 급식표
-        <Image
-          src="/assets/icons/ic_close.svg"
-          alt="close"
-          width={24}
-          height={24}
-          onClick={onClose}
-        />
-      </Title>
+    <Popup onClose={onClose} title="4월 급식표" height="716px">
       <Day>
         {["월", "화", "수", "목", "금"].map((day, index) => (
           <div key={index}>{day}</div>
@@ -37,34 +27,11 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
           <MenuCard key={index} date={data.date} menu={data.menu} />
         ))}
       </StyledTable>
-    </StyledMealTable>
+    </Popup>
   );
 };
 
 export default MealTablePopup;
-
-const StyledMealTable = styled.div`
-  width: 480px;
-  height: 716px;
-  padding: 20px 20px 28px 20px;
-  border-radius: 12px 12px 0px 0px;
-  background: ${theme.colors.white};
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-  z-index: 200;
-  color: ${theme.colors.b700};
-`;
-
-const Title = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px 24px 0px 24px;
-  ${(props) => props.theme.fonts.body1_b}
-`;
 
 const Day = styled.div`
   width: 100%;
