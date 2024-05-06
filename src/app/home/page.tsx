@@ -1,5 +1,6 @@
 "use client";
 
+import Tabbar from "@/components/common/Tabbar";
 import Meal from "@/components/home/Meal";
 import Ready from "@/components/home/Ready";
 import { theme } from "@/styles/theme";
@@ -7,14 +8,17 @@ import styled from "styled-components";
 
 const Home = () => {
   return (
-    <HomeLayout>
-      <Background></Background>
-      <Container>
-        <Header>홈</Header>
-        <Ready />
-        <Meal />
-      </Container>
-    </HomeLayout>
+    <>
+      <HomeLayout>
+        <Background></Background>
+        <Container>
+          <Header>홈</Header>
+          <Ready />
+          <Meal />
+        </Container>
+      </HomeLayout>
+      <Tabbar />
+    </>
   );
 };
 
