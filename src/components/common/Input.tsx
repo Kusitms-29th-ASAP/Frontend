@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export interface InputProps {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: () => void;
   placeholder?: string;
   inputType?: "text" | "select";
@@ -15,7 +15,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
   const { value, onChange, onClick, placeholder, inputType = "text" } = props;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.value);
+    onChange(event);
   };
   const handleClick = () => {
     if (onClick) {
@@ -23,7 +23,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
     }
   };
 
-  let inputClassName = inputType;
+  const inputClassName = inputType === "select" ? "select" : "";
 
   return (
     <Container>
