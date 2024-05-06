@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/common/Button";
+import Input from "@/components/common/Input";
 import Tobbar from "@/components/common/Tobbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import Subtitle from "@/components/signin/Subtitle";
@@ -18,6 +19,8 @@ const Process3_1 = () => {
     router.push("/signin/process4");
   };
 
+  const handleSelectClick = () => {};
+
   return (
     <Container>
       <Tobbar text="회원가입" />
@@ -30,6 +33,20 @@ const Process3_1 = () => {
       </Title>
       <ContentBox>
         <Subtitle>자녀의 학년과 반을 입력해주세요.</Subtitle>
+        <InputBox>
+          <Input
+            value=""
+            onChange={() => {}}
+            placeholder="학년"
+            inputType="select"
+          />
+          <Input
+            value=""
+            onChange={() => {}}
+            placeholder="반"
+            inputType="select"
+          />
+        </InputBox>
       </ContentBox>
       <Button text="다음" onClick={handleNextButtonClick} />
     </Container>
@@ -63,5 +80,9 @@ const ContentBox = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+`;
+
+const InputBox = styled.div`
+  display: flex;
+  gap: 12px;
 `;
