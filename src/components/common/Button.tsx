@@ -24,7 +24,7 @@ const Button = (props: ButtonProps) => {
   const {
     text,
     buttonType = "primary",
-    size = "large",
+    size,
     icon,
     iconPosition = "left",
     onClick,
@@ -63,6 +63,7 @@ interface StyledButtonProps {
 const StyledButton = styled.button<StyledButtonProps>`
   display: flex;
   width: 100%;
+  padding: 16px 28px;
   position: relative;
   justify-content: center;
   align-items: center;
@@ -131,7 +132,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     width: 236px;
     height: 44px;
     padding: 14px 12px;
-    ${(props) => props.theme.fonts.cpation1_m};
+    ${(props) => props.theme.fonts.caption1_m};
   }
 
   &.small {
@@ -139,7 +140,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     height: 44px;
     justify-content: center;
     border-radius: 10px;
-    ${(props) => props.theme.fonts.cpation1_m};
+    ${(props) => props.theme.fonts.caption1_m};
   }
 `;
 
