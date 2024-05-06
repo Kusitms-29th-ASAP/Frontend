@@ -25,7 +25,7 @@ const Button = (props: ButtonProps) => {
   const {
     text,
     buttonType = "primary",
-    size = "large",
+    size,
     icon,
     iconPosition = "left",
     onClick,
@@ -74,6 +74,7 @@ interface StyledButtonProps {
 const StyledButton = styled.button<StyledButtonProps>`
   display: flex;
   width: 100%;
+  padding: 16px 28px;
   position: relative;
   justify-content: center;
   align-items: center;

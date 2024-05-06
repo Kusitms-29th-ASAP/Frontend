@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/common/Button";
-import Input from "@/components/common/Input";
+import Input from "@/components/common/CustomInput";
 import Tobbar from "@/components/common/Tobbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import { useState } from "react";

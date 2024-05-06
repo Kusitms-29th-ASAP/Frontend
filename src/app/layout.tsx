@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import "./global.css";
+import Tabbar from "@/components/common/Tabbar";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import Input, { InputProps } from "@/components/common/Input";
+import Input, { InputProps } from "@/components/common/CustomInput";
 
 export default {
   title: "Components/Input",

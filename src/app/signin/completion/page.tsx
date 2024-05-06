@@ -3,8 +3,15 @@
 import Button from "@/components/common/Button";
 import styled from "styled-components";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const Completion = () => {
+  const router = useRouter();
+
+  const handleStartButtonClick = () => {
+    router.push("/home");
+  };
+
   return (
     <Container>
       <Image
@@ -21,7 +28,7 @@ const Completion = () => {
           size="medium"
         />
       </AddChildren>
-      <Button text="스쿨포인트 시작하기" />
+      <Button text="스쿨포인트 시작하기" onClick={handleStartButtonClick} />
     </Container>
   );
 };

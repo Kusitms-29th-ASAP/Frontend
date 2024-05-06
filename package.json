@@ -11,7 +11,13 @@
     "build-storybook": "storybook build s public"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@mui/material": "^5.15.16",
+    "@mui/utils": "^5.15.14",
+    "@mui/x-date-pickers": "^7.3.2",
+    "@mui/x-date-pickers-pro": "^7.3.2",
     "@reduxjs/toolkit": "^2.2.3",
     "@storybook/addon-themes": "^8.0.9",
     "next": "^14.2.2",
@@ -38,6 +44,7 @@
     "@types/react-dom": "^18",
     "@types/react-query": "^1.2.9",
     "@types/react-redux": "^7.1.33",
+    "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
     "eslint-plugin-storybook": "^0.8.0",

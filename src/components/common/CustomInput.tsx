@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 
-export interface InputProps {
+export interface CustomInputProps {
   value: string;
   onChange: (value: string) => void;
   onClick?: () => void;
@@ -11,7 +11,7 @@ export interface InputProps {
   inputType?: "text" | "select";
 }
 
-const Input: React.FC<InputProps> = (props: InputProps) => {
+const CustomInput: React.FC<CustomInputProps> = (props: CustomInputProps) => {
   const { value, onChange, onClick, placeholder, inputType = "text" } = props;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +49,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
   );
 };
 
-export default Input;
+export default CustomInput;
 
 const Container = styled.div`
   display: flex;
@@ -57,7 +57,7 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const StyledInput = styled.input<InputProps>`
+const StyledInput = styled.input<CustomInputProps>`
   width: 100%;
   height: 44px;
   padding: 14px 12px;
@@ -69,6 +69,7 @@ const StyledInput = styled.input<InputProps>`
   border: 1px solid ${theme.colors.primary100};
   background: rgba(255, 135, 0, 0.05);
   color: ${theme.colors.b700};
+  ${(props) => props.theme.fonts.body3_m};
   outline: none;
   ${(props) => props.theme.fonts.caption1_m};
   &::placeholder {
@@ -76,7 +77,6 @@ const StyledInput = styled.input<InputProps>`
     ${(props) => props.theme.fonts.caption1_m};
   }
 
-  /* type */
   &.select {
     cursor: pointer;
     caret-color: transparent;

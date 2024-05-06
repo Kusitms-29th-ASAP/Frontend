@@ -2,7 +2,7 @@
 
 import Button from "@/components/common/Button";
 import Checkbox from "@/components/common/Checkbox";
-import Input from "@/components/common/Input";
+import Input from "@/components/common/CustomInput";
 import Tobbar from "@/components/common/Tobbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import Subtitle from "@/components/signin/Subtitle";
