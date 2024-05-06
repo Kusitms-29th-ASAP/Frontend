@@ -1,74 +1,128 @@
 import { theme } from "@/styles/theme";
 import styled from "styled-components";
+import Image from "next/image";
 
 export type checkboxType = "checkbox" | "checkBtn";
 
 export interface CheckBoxProps {
   value?: string | number;
   label?: string;
+  text?: string;
   checked?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   checkboxType?: string;
+  essential?: boolean;
+  color?: "primary" | "gray" | "black";
 }
 
-const Checkbox: React.FC<CheckBoxProps> = ({
-  value,
-  label,
-  checked,
-  onChange,
-  checkboxType,
-}) => {
+const Checkbox = (props: CheckBoxProps) => {
+  const {
+    value,
+    label,
+    text,
+    checked,
+    onChange,
+    checkboxType = "checkbox",
+    essential,
+    color = "gray",
+  } = props;
+
+  let checkboxClassName = checkboxType;
+  if (color === "primary") {
+    checkboxClassName += " primary";
+  } else if (color === "gray") {
+    checkboxClassName += " gray";
+  } else if (color === "black") {
+    checkboxClassName += " black";
+  }
+
   return (
-    <CheckboxContainer
-      className={checkboxType === "checkBtn" ? "checkBtn" : ""}
-    >
-      <CheckboxInput
-        value={value}
-        type="checkbox"
-        checked={checked}
-        onChange={onChange}
+    <CheckBoxLayout className={checkboxClassName} checked={checked}>
+      <CheckboxContainer essential={essential ? true : false} checked={checked}>
+        <CheckboxInput
+          value={value}
+          type="checkbox"
+          checked={checked}
+          onChange={onChange}
+        />
+        {label}
+        <span>{text}</span>
+      </CheckboxContainer>
+      <Image
+        src="/assets/common/right_arrow.svg"
+        alt="arrow"
+        width={20}
+        height={20}
       />
-      {label}
-    </CheckboxContainer>
+    </CheckBoxLayout>
   );
 };
 
 export default Checkbox;
 
-const CheckboxContainer = styled.label`
+const CheckBoxLayout = styled.div<CheckBoxProps>`
+  width: 100%;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  cursor: pointer;
   user-select: none;
-  margin-right: 0.5rem;
+  padding: 0 12px;
+  cursor: pointer;
+
   &.checkBtn {
-    width: 101px;
-    height: 48px;
-    gap: 10px;
-    white-space: nowrap;
-    color: ${theme.colors.b500};
+    padding: 15px 12px;
     background-color: rgba(255, 135, 0, 0.05);
-    border: 1px solid ${theme.colors.primary300};
     border-radius: 10px;
-    padding: 14px 12px;
-    &:checked {
-      color: ${theme.colors.primary500};
+    img {
+      display: none;
     }
+    border: ${(props) =>
+      props.checked
+        ? `1px solid ${theme.colors.primary300}`
+        : `1px solid transparent`};
+  }
+
+  /* color */
+  &.primary {
+    color: ${theme.colors.b700};
+    ${({ theme }) => theme.fonts.body3_m};
+  }
+  &.gray {
+    color: ${(props) =>
+      props.checked ? `${theme.colors.primary500}` : `${theme.colors.b500}`};
+    ${({ theme }) => theme.fonts.body2_m};
+  }
+  &.black {
+    color: ${theme.colors.b700};
+    ${({ theme }) => theme.fonts.body1_b};
   }
 `;
 
-const CheckboxInput = styled.input`
+const CheckboxContainer = styled.label<CheckBoxProps>`
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  cursor: pointer;
+
+  span {
+    margin-left: 8px;
+    ${({ theme }) => theme.fonts.caption1_m};
+    color: ${(props) =>
+      props.essential ? theme.colors.primary500 : theme.colors.b400};
+  }
+`;
+
+const CheckboxInput = styled.input<CheckBoxProps>`
   appearance: none;
   width: 1.3rem;
   height: 1.3rem;
   border: 2px solid ${theme.colors.primary50};
   background-color: ${theme.colors.primary50};
+
   background-image: url("data:image/svg+xml; base64, PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgcng9IjQiIGZpbGw9IiNGRkUyQzIiLz4NCjxwYXRoIGQ9Ik0xNCA3TDguNSAxMi41TDYgMTAiIHN0cm9rZT0iI0ZGRDA5QyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4NCjwvc3ZnPg==");
   background-size: 100% 100%;
   background-position: 50%;
   border-radius: 0.35rem;
-  margin-right: 0.5rem;
+  margin-right: 16px;
 
   &:hover {
     box-shadow: 0 0 0 max(2px, 0.3em) ${theme.colors.primary100};

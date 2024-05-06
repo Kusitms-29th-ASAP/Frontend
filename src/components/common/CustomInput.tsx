@@ -1,38 +1,66 @@
 import { theme } from "@/styles/theme";
 import React from "react";
 import styled from "styled-components";
+import Image from "next/image";
 
 export interface CustomInputProps {
   value: string;
   onChange: (value: string) => void;
+  onClick?: () => void;
   placeholder?: string;
+  inputType?: "text" | "select";
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({
-  value,
-  onChange,
-  placeholder,
-}) => {
+const CustomInput: React.FC<CustomInputProps> = (props: CustomInputProps) => {
+  const { value, onChange, onClick, placeholder, inputType = "text" } = props;
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
   };
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
+
+  const inputClassName = inputType === "select" ? "select" : "";
 
   return (
-    <StyledInput
-      type="text"
-      value={value}
-      onChange={handleChange}
-      placeholder={placeholder}
-    />
+    <Container>
+      <StyledInput
+        type="text"
+        value={value}
+        onChange={handleChange}
+        onClick={handleClick}
+        placeholder={placeholder}
+        className={inputClassName}
+      />
+      {inputType === "select" && (
+        <ImageContainer>
+          <Image
+            src="/assets/common/down_arrow.svg"
+            alt="arrow"
+            width={20}
+            height={20}
+          />
+        </ImageContainer>
+      )}
+    </Container>
   );
 };
 
 export default CustomInput;
 
-const StyledInput = styled.input`
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+`;
+
+const StyledInput = styled.input<CustomInputProps>`
   width: 100%;
   height: 44px;
-  padding: 10px;
+  padding: 14px 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,9 +71,21 @@ const StyledInput = styled.input`
   color: ${theme.colors.b700};
   ${(props) => props.theme.fonts.body3_m};
   outline: none;
-
+  ${(props) => props.theme.fonts.caption1_m};
   &::placeholder {
     color: ${theme.colors.b400};
     ${(props) => props.theme.fonts.caption1_m};
   }
+
+  &.select {
+    cursor: pointer;
+    caret-color: transparent;
+  }
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: -30px;
+  cursor: pointer;
 `;

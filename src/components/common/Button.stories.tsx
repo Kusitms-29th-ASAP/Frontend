@@ -1,6 +1,5 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import home from "../../public/icon-192x192.png";
 import Image from "next/image";
 import Button, { ButtonProps } from "@/components/common/Button";
 
@@ -33,5 +32,5 @@ export const PrimaryWithIcon = Template.bind({});
 PrimaryWithIcon.args = {
   text: "Primary Button",
   buttonType: "primary",
-  icon: <Image src={home} alt="아이콘" width={24} height={24} />,
+  icon: <Image src={"/icon-192x192.png"} alt="아이콘" width={24} height={24} />,
 };

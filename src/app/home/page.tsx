@@ -1,9 +1,11 @@
+"use client";
+
+import Meal from "@/components/home/Meal";
+import Ready from "@/components/home/Ready";
 import { theme } from "@/styles/theme";
 import styled from "styled-components";
-import Ready from "./Ready";
-import Meal from "./Meal";
 
-const HomePage = () => {
+const Home = () => {
   return (
     <HomeLayout>
       <Background></Background>
@@ -16,7 +18,7 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;
 
 const HomeLayout = styled.div`
   width: 100%;

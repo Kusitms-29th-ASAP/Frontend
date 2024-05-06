@@ -24,3 +24,8 @@ export const Default = Template.bind({});
 Default.args = {
   placeholder: "입력해주세요.",
 };
+
+export const Select = Template.bind({});
+Select.args = {
+  placeholder: "선택해주세요.",
+};
