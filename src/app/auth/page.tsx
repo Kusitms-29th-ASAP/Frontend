@@ -1,5 +1,6 @@
 "use client";
 
+import { usePostKakaoToken } from "@/hooks/auth/usePostKakaoToken";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -11,6 +12,12 @@ const Auth = () => {
   const AUTHORIZATION_CODE = new URL(window.location.href).searchParams.get(
     "code"
   );
+  const ACCESS_TOKEN = localStorage.getItem("access_token");
+
+  const mutation = usePostKakaoToken(
+    "sCVfNuhgV6JRQ3AKSPxo4I_ebe4q6K2kouQKKiUQAAABj1PGCQXE017PSiBv1Q"
+  );
+  mutation.mutate();
 
   const getToken = async () => {
     const res = axios.post(
@@ -27,7 +34,6 @@ const Auth = () => {
         },
       }
     );
-    console.log(res);
     return res;
   };
 
