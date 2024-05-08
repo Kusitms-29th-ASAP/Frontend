@@ -127,7 +127,7 @@ const Todo = () => {
           setShowToast={setShowToast}
         />
       )}
-      {addTodo && <Overlay onClick={handleCloseAddTodo} />}
+      {/* {addTodo && <Overlay onClick={handleCloseAddTodo} />} */}
       {showToast && (
         <Toast
           message="할 일이 추가되었어요!"

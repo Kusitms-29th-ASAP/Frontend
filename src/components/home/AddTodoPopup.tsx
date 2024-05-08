@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import Button from "../common/Button";
 import CustomInput from "../common/CustomInput";
-import { DatePicker } from "@mui/x-date-pickers-pro";
 import Popup from "../common/Popup";
+import Calendar from "../common/Calendar";
 
 const AddTodoPopup = ({
   onClose,
@@ -14,7 +14,7 @@ const AddTodoPopup = ({
   setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [todo, setTodo] = useState("");
-  const [deadline, setDeadline] = useState("");
+  // const [deadline, setDeadline] = useState(null);
   const [category, setCategory] = useState("");
 
   const handleCategoryChange = (value: string) => {
@@ -28,7 +28,7 @@ const AddTodoPopup = ({
 
   return (
     <>
-      <Popup onClose={onClose} title="할 일 직접 추가하기" height="425px">
+      <Popup onClose={onClose} title="할 일 직접 추가하기" height="435px">
         <CustomInput
           value={todo}
           placeholder="할 일을 입력해주세요"
@@ -49,11 +49,7 @@ const AddTodoPopup = ({
         </RadioButtonGroup>
         <SubTitle>
           언제까지 할 일인가요?
-          <CustomInput
-            value={deadline}
-            placeholder="날짜를 선택해주세요"
-            onChange={(value: string) => setDeadline(value)}
-          />
+          <Calendar />
         </SubTitle>
         <Button text="등록하기" onClick={handleButtonClick} />
       </Popup>
