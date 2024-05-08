@@ -39,6 +39,7 @@ const Toast: React.FC<ToastProps> = ({
         alt="close"
         width={20}
         height={20}
+        onClick={onClose}
       />
     </StyledToast>
   );
@@ -63,12 +64,13 @@ const fadeOut = keyframes`
 `;
 
 const StyledToast = styled.div<{ visible: boolean; type: ToastType }>`
-  width: 100%;
+  width: 90%;
+  max-width: 440px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   position: fixed;
-  top: 84px;
+  top: 30px;
   left: 50%;
   transform: translateX(-50%);
   padding: 12px 16px;

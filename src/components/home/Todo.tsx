@@ -5,6 +5,7 @@ import ListBox from "../common/ListBox";
 import { todoData } from "@/data/homeData";
 import { useState } from "react";
 import AddTodoPopup from "./AddTodoPopup";
+import Toast from "../common/Toast";
 
 const Todo = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -64,6 +65,9 @@ const Todo = () => {
     }
   };
 
+  /* Toast 메세지 유무 */
+  const [showToast, setShowToast] = useState(false);
+
   const handleOpenAddTodo = () => {
     setAddTodo(true);
   };
@@ -117,8 +121,21 @@ const Todo = () => {
           할 일 직접 추가하기
         </PlusButton>
       </Plus>
-      {addTodo && <AddTodoPopup onClose={handleCloseAddTodo} />}
+      {addTodo && (
+        <AddTodoPopup
+          onClose={handleCloseAddTodo}
+          setShowToast={setShowToast}
+        />
+      )}
       {addTodo && <Overlay onClick={handleCloseAddTodo} />}
+      {showToast && (
+        <Toast
+          message="할 일이 추가되었어요!"
+          type="basic"
+          duration={2000}
+          onClose={() => setShowToast(false)}
+        />
+      )}
     </TodoContainer>
   );
 };
