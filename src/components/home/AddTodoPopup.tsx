@@ -14,11 +14,16 @@ const AddTodoPopup = ({
   setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [todo, setTodo] = useState("");
-  // const [deadline, setDeadline] = useState(null);
   const [category, setCategory] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const isButtonEnabled = todo !== "" && category !== "" && selectedDate !== "";
 
   const handleCategoryChange = (value: string) => {
     setCategory(value);
+  };
+
+  const handleDateChange = (date: string) => {
+    setSelectedDate(date);
   };
 
   const handleButtonClick = () => {
@@ -49,9 +54,13 @@ const AddTodoPopup = ({
         </RadioButtonGroup>
         <SubTitle>
           언제까지 할 일인가요?
-          <Calendar />
+          <Calendar value={selectedDate} onChange={handleDateChange} />
         </SubTitle>
-        <Button text="등록하기" onClick={handleButtonClick} />
+        <Button
+          text="등록하기"
+          onClick={handleButtonClick}
+          disabled={!isButtonEnabled}
+        />
       </Popup>
     </>
   );
