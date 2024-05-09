@@ -19,3 +19,9 @@ CheckButton.args = {
   label: "Check Button",
   checkboxType: "checkBtn",
 };
+
+export const CheckArrow = Template.bind({});
+CheckArrow.args = {
+  label: "Check Arrow",
+  checkboxType: "checkArrow",
+};

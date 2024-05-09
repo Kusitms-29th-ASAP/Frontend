@@ -3,7 +3,7 @@ import Image from "next/image";
 import { FC, ReactNode } from "react";
 import styled from "styled-components";
 
-interface PopupProps {
+export interface PopupProps {
   onClose: () => void;
   title: string;
   children: ReactNode;

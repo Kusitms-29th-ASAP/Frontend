@@ -2,94 +2,71 @@ import { theme } from "@/styles/theme";
 import styled from "styled-components";
 import { useState } from "react";
 import Button from "../common/Button";
-import Toast from "../common/Toast";
 import CustomInput from "../common/CustomInput";
-import { DatePicker } from "@mui/x-date-pickers-pro";
 import Popup from "../common/Popup";
+import Calendar from "../common/Calendar";
 
-const AddTodoPopup = ({ onClose }: { onClose: () => void }) => {
-  const [showToast, setShowToast] = useState(false);
+const AddTodoPopup = ({
+  onClose,
+  setShowToast,
+}: {
+  onClose: () => void;
+  setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [todo, setTodo] = useState("");
-  const [deadline, setDeadline] = useState("");
   const [category, setCategory] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const isButtonEnabled = todo !== "" && category !== "" && selectedDate !== "";
 
   const handleCategoryChange = (value: string) => {
     setCategory(value);
   };
 
-  const handleButtonClick = () => {
-    // onClose();
-    handleShowToast();
+  const handleDateChange = (date: string) => {
+    setSelectedDate(date);
   };
 
-  const handleShowToast = () => {
+  const handleButtonClick = () => {
+    onClose();
     setShowToast(true);
   };
 
   return (
-    <Popup onClose={onClose} title="할 일 직접 추가하기" height="425px">
-      <CustomInput
-        value={todo}
-        placeholder="할 일을 입력해주세요"
-        onChange={(value: string) => setTodo(value)}
-      />
-      <RadioButtonGroup>
-        {["가정통신문", "숙제", "준비물", "기타"].map((categoryName, index) => (
-          <RadioButton
-            key={index}
-            selected={category === categoryName}
-            onClick={() => handleCategoryChange(categoryName)}
-          >
-            {categoryName}
-          </RadioButton>
-        ))}
-      </RadioButtonGroup>
-      <SubTitle>
-        언제까지 할 일인가요?
+    <>
+      <Popup onClose={onClose} title="할 일 직접 추가하기" height="435px">
         <CustomInput
-          value={deadline}
-          placeholder="날짜를 선택해주세요"
-          onChange={(value: string) => setDeadline(value)}
+          value={todo}
+          placeholder="할 일을 입력해주세요"
+          onChange={(value: string) => setTodo(value)}
         />
-      </SubTitle>
-      <Button text="등록하기" onClick={handleButtonClick} />
-      {showToast && (
-        <Toast
-          message="할 일이 추가되었어요!"
-          type="basic"
-          duration={2000}
-          onClose={() => setShowToast(false)}
+        <RadioButtonGroup>
+          {["가정통신문", "숙제", "준비물", "기타"].map(
+            (categoryName, index) => (
+              <RadioButton
+                key={index}
+                selected={category === categoryName}
+                onClick={() => handleCategoryChange(categoryName)}
+              >
+                {categoryName}
+              </RadioButton>
+            )
+          )}
+        </RadioButtonGroup>
+        <SubTitle>
+          언제까지 할 일인가요?
+          <Calendar value={selectedDate} onChange={handleDateChange} />
+        </SubTitle>
+        <Button
+          text="등록하기"
+          onClick={handleButtonClick}
+          disabled={!isButtonEnabled}
         />
-      )}
-    </Popup>
+      </Popup>
+    </>
   );
 };
 
 export default AddTodoPopup;
-
-const StyledAddTodo = styled.div`
-  max-width: 480px;
-  width: 100%;
-  height: 425px;
-  padding: 20px 20px 28px 20px;
-  border-radius: 12px 12px 0px 0px;
-  background: ${theme.colors.white};
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-  z-index: 200;
-  color: ${theme.colors.b700};
-`;
-
-const Title = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-  ${(props) => props.theme.fonts.body1_b}
-`;
 
 const SubTitle = styled.div`
   display: flex;
