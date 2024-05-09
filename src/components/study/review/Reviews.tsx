@@ -11,6 +11,7 @@ const Reviews = () => {
         {ReviewData.map((review) => (
           <ReviewContent
             key={review.id}
+            id={review.id}
             image={review.image}
             title={review.title}
             tag1={review.tag1}

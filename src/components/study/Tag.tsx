@@ -29,4 +29,7 @@ const TagContainer = styled.div<{ tagType: "primary" | "gray" }>`
     tagType === "primary" ? theme.colors.primary500 : theme.colors.b400};
   background: ${({ theme, tagType }) =>
     tagType === "primary" ? "rgba(255, 135, 0, 0.15)" : theme.colors.b100};
+  border: 1px solid
+    ${({ theme, tagType }) =>
+      tagType === "primary" ? "transparent" : theme.colors.b200};
 `;
