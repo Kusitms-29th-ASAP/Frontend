@@ -39,7 +39,8 @@ const FONT = ({ weight, size }: Font): string => {
   return `
     font-family : "Pretendard";
     font-weight : ${weight};
-    font-size : ${size}px;
+    font-size : ${size}px; 
+    line-height : ${size * 1.5}px;
     `;
 };
 
