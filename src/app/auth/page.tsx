@@ -14,9 +14,7 @@ const Auth = () => {
   );
   const ACCESS_TOKEN = localStorage.getItem("access_token");
 
-  const mutation = usePostKakaoToken(
-    "sCVfNuhgV6JRQ3AKSPxo4I_ebe4q6K2kouQKKiUQAAABj1PGCQXE017PSiBv1Q"
-  );
+  const mutation = usePostKakaoToken(ACCESS_TOKEN!!);
   mutation.mutate();
 
   const getToken = async () => {

@@ -12,8 +12,9 @@ export function usePostKakaoToken(accessToken: string): usePostKakaoToken {
     "accessToken",
     () => postKakaoToken(accessToken),
     {
-      onSuccess: () => {
+      onSuccess: (data) => {
         queryClient.invalidateQueries();
+        console.log("Response data:", data);
       },
     }
   );
