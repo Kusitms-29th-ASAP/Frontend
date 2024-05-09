@@ -18,6 +18,7 @@ const SubjectContent = (props: SubjectContentProps) => {
   return (
     <Container onClick={handleSubjectClick}>
       <ImageBox isSelected={isSelected}>
+        <div></div>
         {isSelected ? (
           <Image
             src={`/assets/study/subject/study${id}_selected.svg`}
@@ -61,6 +62,21 @@ const ImageBox = styled.div<{ isSelected: boolean }>`
   border: 1px solid
     ${({ isSelected, theme }) =>
       isSelected ? "transparent" : theme.colors.b200};
+
+  ${({ isSelected }) =>
+    isSelected &&
+    `
+    flex-direction: column;
+    padding-top: 0;
+
+    div {
+      width: 14px;
+      height: 4px;
+      border-radius: 8px;
+      background: #ff8700;
+      margin-bottom: 3px;
+    }
+  `}
 `;
 
 const Title = styled.div<{ isSelected: boolean }>`
