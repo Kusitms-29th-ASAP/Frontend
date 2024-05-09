@@ -42,4 +42,5 @@ const Number = styled.div`
 const Text = styled.div`
   color: ${theme.colors.b600};
   ${(props) => props.theme.fonts.body3_r};
+  line-height: 150%;
 `;
