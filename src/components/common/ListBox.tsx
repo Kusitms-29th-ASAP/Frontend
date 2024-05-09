@@ -33,7 +33,7 @@ const ListBox = (props: ListBoxProps) => {
 
   return (
     <StyledListBox className={listboxClassName} color={color} style={style}>
-      {(listboxType === "check" || "direct") && <Checkbox />}
+      {(listboxType === "check" || listboxType === "direct") && <Checkbox />}
       <Content>
         <Type className={listboxClassName}>
           {listboxType === "none" && (
