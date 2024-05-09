@@ -17,6 +17,7 @@ const Home = () => {
           <Meal />
         </Container>
       </HomeLayout>
+      <Tabbar />
     </>
   );
 };

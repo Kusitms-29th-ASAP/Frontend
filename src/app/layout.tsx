@@ -9,6 +9,7 @@ import { store } from "@/redux/store";
 import "./global.css";
 import Tabbar from "@/components/common/Tabbar";
 import { usePathname } from "next/navigation";
+import { useMemo } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,12 +20,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  const isLoginPage = pathname === "/";
-  const isSignInPage = pathname.startsWith("/signin");
-
-  const isTabbar = !isLoginPage && !isSignInPage;
-
   return (
     <html>
       <head>
@@ -36,10 +31,7 @@ export default function RootLayout({
       <body>
         <Provider store={store}>
           <QueryClientProvider client={queryClient}>
-            <ThemeProvider theme={theme}>
-              {children}
-              {isTabbar && <Tabbar />}
-            </ThemeProvider>
+            <ThemeProvider theme={theme}>{children}</ThemeProvider>
           </QueryClientProvider>
         </Provider>
       </body>

@@ -39,6 +39,7 @@ const News = (props: any) => {
         </NewsHeader>
         {props.children}
       </Layout>
+      <Tabbar />
     </>
   );
 };
