@@ -1,10 +1,22 @@
-export const ReviewData = [
+interface ReviewData {
+  id: number;
+  image: string;
+  title: string;
+  tag1: string;
+  tag2: string;
+  date?: string;
+  author?: string;
+}
+
+export const ReviewData: ReviewData[] = [
   {
     id: 1,
     image: "/assets/study/review1.svg",
     title: "2단원. 오호 만들기",
     tag1: "과학실험",
     tag2: "창의력",
+    date: "2024년 4월 17일",
+    author: "김동우",
   },
   {
     id: 2,
@@ -12,6 +24,8 @@ export const ReviewData = [
     title: "2단원. 오호 만들기",
     tag1: "과학실험",
     tag2: "창의력",
+    date: "2024년 4월 17일",
+    author: "김동우",
   },
   {
     id: 3,
@@ -19,6 +33,8 @@ export const ReviewData = [
     title: "2단원. 오호 만들기",
     tag1: "과학실험",
     tag2: "창의력",
+    date: "2024년 4월 17일",
+    author: "김동우",
   },
   {
     id: 4,
@@ -26,6 +42,8 @@ export const ReviewData = [
     title: "2단원. 오호 만들기",
     tag1: "과학실험",
     tag2: "창의력",
+    date: "2024년 4월 17일",
+    author: "김동우",
   },
   {
     id: 5,
@@ -33,6 +51,8 @@ export const ReviewData = [
     title: "2단원. 오호 만들기",
     tag1: "과학실험",
     tag2: "창의력",
+    date: "2024년 4월 17일",
+    author: "김동우",
   },
   {
     id: 6,
@@ -40,5 +60,7 @@ export const ReviewData = [
     title: "2단원. 오호 만들기",
     tag1: "과학실험",
     tag2: "창의력",
+    date: "2024년 4월 17일",
+    author: "김동우",
   },
 ];
