@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { theme } from "@/styles/theme";
 
@@ -9,6 +9,7 @@ interface TabProps {
 }
 
 const Tabbar = () => {
+  const pathname = usePathname();
   const [selected, setSelected] = useState("/home");
   const router = useRouter();
 
@@ -20,8 +21,8 @@ const Tabbar = () => {
   return (
     <Container>
       <Tab onClick={() => handleTabClick("/home")} selected={selected === "/"}>
-        <Bar selected={selected === "/home"} />
-        {selected === "/home" ? (
+        <Bar selected={pathname === "/home"} />
+        {pathname === "/home" ? (
           <>
             <Image
               src="/assets/icons/ic_home_select.svg"
@@ -42,10 +43,10 @@ const Tabbar = () => {
       </Tab>
       <Tab
         onClick={() => handleTabClick("/school")}
-        selected={selected === "/school"}
+        selected={pathname === "/school"}
       >
-        <Bar selected={selected === "/school"} />
-        {selected === "/school" ? (
+        <Bar selected={pathname === "/school"} />
+        {pathname === "/school" ? (
           <Image
             src="/assets/icons/ic_edu_select.svg"
             width="24"
@@ -64,10 +65,14 @@ const Tabbar = () => {
       </Tab>
       <Tab
         onClick={() => handleTabClick("/news/school")}
-        selected={selected === "/news/school"}
+        selected={pathname === "/news/school" || pathname === "/news/eduOffice"}
       >
-        <Bar selected={selected === "/news/school"} />
-        {selected === "/news/school" ? (
+        <Bar
+          selected={
+            pathname === "/news/school" || pathname === "/news/eduOffice"
+          }
+        />
+        {pathname === "/news/school" || pathname === "/news/eduOffice" ? (
           <Image
             src="/assets/icons/ic_class_select.svg"
             width="24"
@@ -86,10 +91,10 @@ const Tabbar = () => {
       </Tab>
       <Tab
         onClick={() => handleTabClick("/study")}
-        selected={selected === "/study"}
+        selected={pathname === "/study"}
       >
-        <Bar selected={selected === "/study"} />
-        {selected === "/study" ? (
+        <Bar selected={pathname === "/study"} />
+        {pathname === "/study" ? (
           <Image
             src="/assets/icons/ic_study_select.svg"
             width="24"
@@ -108,10 +113,10 @@ const Tabbar = () => {
       </Tab>
       <Tab
         onClick={() => handleTabClick("/mypage")}
-        selected={selected === "/mypage"}
+        selected={pathname === "/mypage"}
       >
-        <Bar selected={selected === "/mypage"} />
-        {selected === "/mypage" ? (
+        <Bar selected={pathname === "/mypage"} />
+        {pathname === "/mypage" ? (
           <Image
             src="/assets/icons/ic_mypage_select.svg"
             width="24"
