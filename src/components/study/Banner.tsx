@@ -5,8 +5,8 @@ const Banner = () => {
   return (
     <BannerBox>
       <Image
-        src="/assets/learning/banner.svg"
-        alt="learning"
+        src="/assets/study/banner.svg"
+        alt="study"
         layout="fill"
         objectFit="contain"
       />

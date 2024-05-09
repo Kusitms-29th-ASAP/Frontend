@@ -1,11 +1,12 @@
 "use client";
 
+import Tabbar from "@/components/common/Tabbar";
 import Tobbar from "@/components/common/Tobbar";
-import Banner from "@/components/learning/Banner";
-import Review from "@/components/learning/review/Review";
+import Banner from "@/components/study/Banner";
+import Review from "@/components/study/review/Review";
 import styled from "styled-components";
 
-const Learning = () => {
+const Study = () => {
   return (
     <>
       <Container>
@@ -13,11 +14,12 @@ const Learning = () => {
         <Banner />
       </Container>
       <Review />
+      <Tabbar />
     </>
   );
 };
 
-export default Learning;
+export default Study;
 
 const Container = styled.div`
   display: flex;
