@@ -12,8 +12,8 @@ const EduOffice = () => {
     <Layout>
       <Background>
         <SchoolInfo>
-          설정학교
-          <Br>서울미동초등학교</Br>
+          기준 교육청
+          <Br>서울시 교육청</Br>
         </SchoolInfo>
         <BellImage
           src="/assets/images/news_bell.svg"
