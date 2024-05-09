@@ -16,7 +16,6 @@ const Study = () => {
         <Subjects />
       </Container>
       <Reviews />
-      <Tabbar />
     </>
   );
 };

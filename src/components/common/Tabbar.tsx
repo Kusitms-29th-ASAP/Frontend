@@ -9,7 +9,7 @@ interface TabProps {
 }
 
 const Tabbar = () => {
-  const [selected, setSelected] = useState("/");
+  const [selected, setSelected] = useState("/home");
   const router = useRouter();
 
   const handleTabClick = (path: any) => {
@@ -19,9 +19,9 @@ const Tabbar = () => {
 
   return (
     <Container>
-      <Tab onClick={() => handleTabClick("/")} selected={selected === "/"}>
-        <Bar selected={selected === "/"} />
-        {selected === "/" ? (
+      <Tab onClick={() => handleTabClick("/home")} selected={selected === "/"}>
+        <Bar selected={selected === "/home"} />
+        {selected === "/home" ? (
           <>
             <Image
               src="/assets/icons/ic_home_select.svg"
@@ -63,11 +63,11 @@ const Tabbar = () => {
         학교 생활
       </Tab>
       <Tab
-        onClick={() => handleTabClick("/news")}
-        selected={selected === "/news"}
+        onClick={() => handleTabClick("/news/school")}
+        selected={selected === "/news/school"}
       >
-        <Bar selected={selected === "/news"} />
-        {selected === "/news" ? (
+        <Bar selected={selected === "/news/school"} />
+        {selected === "/news/school" ? (
           <Image
             src="/assets/icons/ic_class_select.svg"
             width="24"
