@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Tag from "../Tag";
+import { useRouter } from "next/navigation";
 
 interface ReviewContentProps {
+  id: number;
   image: string;
   title: string;
   tag1: string;
@@ -10,10 +12,15 @@ interface ReviewContentProps {
 }
 
 const ReviewContent = (props: ReviewContentProps) => {
-  const { image, title, tag1, tag2 } = props;
+  const { id, image, title, tag1, tag2 } = props;
+  const router = useRouter();
+
+  const handleReviewClick = () => {
+    router.push(`/study/${id}`);
+  };
 
   return (
-    <Container>
+    <Container onClick={handleReviewClick}>
       <Image src={image} alt="review" width={82} height={60} />
       <ContentBox>
         <Title>{title}</Title>
