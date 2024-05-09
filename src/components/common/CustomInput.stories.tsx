@@ -31,9 +31,3 @@ Select.args = {
   placeholder: "선택해주세요.",
   inputType: "select",
 };
-
-export const DateSelect = Template.bind({});
-DateSelect.args = {
-  placeholder: "날짜를 선택해주세요.",
-  inputType: "dateSelect",
-};
