@@ -1,23 +1,15 @@
 import { theme } from "@/styles/theme";
-import Image from "next/image";
 import styled from "styled-components";
 import ListNumber from "../common/ListNumber";
 import { notificationData } from "@/data/homeData";
+import More from "../common/More";
 
 const Notification = () => {
   return (
     <NotiContainer>
       <Title>
         오늘 알림장도 체크해요!
-        <More>
-          자세히 보기
-          <Image
-            src="/assets/icons/ic_chevron_right.svg"
-            alt="right"
-            width={20}
-            height={20}
-          />
-        </More>
+        <More onClick={() => console.log("페이지 이동")} />
       </Title>
       <NotiList>
         {notificationData.map((data, index) => (
@@ -51,16 +43,6 @@ const Title = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
-`;
-
-const More = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 4px;
-  gap: 8px;
-  color: ${theme.colors.b400};
-  ${(props) => props.theme.fonts.caption1_m};
 `;
 
 const NotiList = styled.div`

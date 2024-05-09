@@ -1,9 +1,9 @@
 import { mealData } from "@/data/homeData";
 import { theme } from "@/styles/theme";
-import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
 import MealTablePopup from "./MealTablePopup";
+import More from "../common/More";
 
 const MealTable = () => {
   let now = new Date();
@@ -24,15 +24,7 @@ const MealTable = () => {
     <MealContainer>
       <Title>
         {dayOfWeek}요일 시간표
-        <More onClick={handleOpenMealTable}>
-          자세히 보기
-          <Image
-            src="/assets/icons/ic_chevron_right.svg"
-            alt="right"
-            width={20}
-            height={20}
-          />
-        </More>
+        <More onClick={handleOpenMealTable} />
       </Title>
       <TableContainer>
         {mealData.map((data, index) => {
@@ -64,16 +56,6 @@ const Title = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`;
-
-const More = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 4px;
-  gap: 8px;
-  color: ${theme.colors.b400};
-  ${(props) => props.theme.fonts.caption1_m};
 `;
 
 const TableContainer = styled.div`
