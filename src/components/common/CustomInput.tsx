@@ -8,7 +8,7 @@ export interface CustomInputProps {
   onChange: (value: string) => void;
   onClick?: () => void;
   placeholder?: string;
-  inputType?: "text" | "select";
+  inputType?: "text" | "select" | "dateSelect";
   readonly?: boolean;
 }
 
@@ -31,7 +31,14 @@ const CustomInput: React.FC<CustomInputProps> = (props: CustomInputProps) => {
     }
   };
 
-  const inputClassName = inputType === "select" ? "select" : "";
+  let inputClassName = inputType;
+  if (inputType === "text") {
+    inputClassName += " text";
+  } else if (inputType === "select") {
+    inputClassName += " select";
+  } else if (inputType === "dateSelect") {
+    inputClassName += " dateSelect";
+  }
 
   return (
     <Container>
@@ -48,6 +55,16 @@ const CustomInput: React.FC<CustomInputProps> = (props: CustomInputProps) => {
         <ImageContainer>
           <Image
             src="/assets/common/down_arrow.svg"
+            alt="arrow"
+            width={20}
+            height={20}
+          />
+        </ImageContainer>
+      )}
+      {inputType === "dateSelect" && (
+        <ImageContainer>
+          <Image
+            src="/assets/icons/ic_calendar.svg"
             alt="arrow"
             width={20}
             height={20}
@@ -86,7 +103,8 @@ const StyledInput = styled.input<CustomInputProps>`
     ${(props) => props.theme.fonts.caption1_m};
   }
 
-  &.select {
+  &.select,
+  &.dateSelect {
     cursor: pointer;
     caret-color: transparent;
   }

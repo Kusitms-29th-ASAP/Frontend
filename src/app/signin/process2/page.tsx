@@ -31,6 +31,10 @@ const SigninProcess2 = () => {
     router.push("/signin/process3");
   };
 
+  const handleDateClick = () => {
+    console.log("handleDateClick");
+  };
+
   return (
     <Container>
       <Tobbar text="회원가입" />
@@ -50,27 +54,34 @@ const SigninProcess2 = () => {
           <Subtitle>자녀의 성별을 입력해주세요.</Subtitle>
           <CheckButtonBox>
             <Checkbox
-              label="남자"
+              label="남성"
               checkboxType="checkBtn"
               checked={sexType === "male"}
               onChange={() => handleSexTypeChange("male")}
             />
             <Checkbox
-              label="여자"
+              label="여성"
               checkboxType="checkBtn"
               checked={sexType === "female"}
               onChange={() => handleSexTypeChange("female")}
             />
           </CheckButtonBox>
-          <SexNonSelected>성별 선택 안 함</SexNonSelected>
+          <Checkbox
+            label="성별 선택 안 함"
+            checkboxType="checkBox"
+            checked={sexType === "sex"}
+            onChange={() => handleSexTypeChange("sex")}
+          />
         </div>
 
         <div>
           <Subtitle>자녀의 생년월일을 선택해주세요.</Subtitle>
           <Input
             value={date}
+            onClick={handleDateClick}
             onChange={handleDateChange}
             placeholder="날짜를 선택해주세요."
+            inputType="dateSelect"
           />
         </div>
       </ContentBox>
@@ -109,7 +120,7 @@ const ContentBox = styled.div`
 
 const CheckButtonBox = styled.div`
   display: flex;
-  margin-top: 12px;
+  margin-bottom: 12px;
   gap: 12px;
 `;
 
