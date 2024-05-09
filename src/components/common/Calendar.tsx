@@ -6,6 +6,8 @@ import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import CustomInput from "./CustomInput";
 import Image from "next/image";
+import { styled as styledComponents } from "styled-components";
+import dayjs from "dayjs";
 
 export interface CalendarProps {
   value: string;
@@ -13,43 +15,41 @@ export interface CalendarProps {
 }
 
 const Calendar = ({ value, onChange }: CalendarProps) => {
-  const [deadline, setDeadline] = useState<string>("");
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState<dayjs.Dayjs | null>(null);
 
-  // const handleDateChange = (newDate: any) => {
-  //   setDate(newDate);
-  //   onChange(newDate ? newDate.format("YYYY년 MM월 DD일") : null);
-  // };
-
-  const handleDateChange = (newDate: any) => {
+  const handleDateChange = (newDate: dayjs.Dayjs | null) => {
     setDate(newDate);
-    setDeadline(newDate ? newDate.format("YYYY년 MM월 DD일") : null);
+    if (newDate) {
+      onChange(newDate.format("YYYY년 MM월 DD일"));
+    } else {
+      setDate(null);
+      onChange("");
+    }
   };
 
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <StyledDemoContainer components={["DatePicker"]}>
-          <CalendarInput
-            value={deadline}
-            placeholder="날짜를 선택해주세요"
-            onChange={(value: any) => setDeadline(value)}
-            // value={value}
-            // placeholder="날짜를 선택해주세요"
-            // onChange={(value: any) => onChange(value)}
-            readonly={true}
-          />
-          <IconImage
-            src="/assets/icons/ic_calendar.svg"
-            alt="calendar"
-            width={20}
-            height={20}
-          />
-          <StyledMobileDatePicker
-            format="YYYY년 MM월 DD일"
-            value={date}
-            onChange={handleDateChange}
-          />
+          <CustomInputContainer>
+            <CalendarInput
+              value={value}
+              placeholder="날짜를 선택해주세요"
+              onChange={() => {}}
+              readonly={true}
+            />
+            <IconImage
+              src="/assets/icons/ic_calendar.svg"
+              alt="calendar"
+              width={20}
+              height={20}
+            />
+            <StyledMobileDatePicker
+              format="YYYY년 MM월 DD일"
+              value={date}
+              onChange={handleDateChange}
+            />
+          </CustomInputContainer>
         </StyledDemoContainer>
       </LocalizationProvider>
     </>
@@ -59,48 +59,33 @@ const Calendar = ({ value, onChange }: CalendarProps) => {
 export default Calendar;
 
 const StyledDemoContainer = styled(DemoContainer)({
+  width: "100%",
   position: "relative",
 });
 
+const CustomInputContainer = styledComponents.div`
+  position: relative;
+  width: 100%;
+`;
+
 const StyledMobileDatePicker = styled(MobileDatePicker)({
-  width: "90%",
+  width: "100%",
   position: "absolute",
-  top: "200px",
-  left: "50%",
-  transform: "translate(-50%, 0)",
-  "& .MuiInputBase-root": {
-    height: "44px",
-    borderColor: "#FFD09C",
-    color: "#334155",
-    borderRadius: "10px",
-    borderWidth: "1px",
-    background: "rgba(255, 135, 0, 0.05)",
-    fontWeight: "500",
-    opacity: "0",
-    "&:hover": {
-      border: "none",
-      outline: "none",
-    },
-  },
-  "& .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-    borderColor: "#FFD09C",
-    color: "#334155",
-    borderRadius: "10px",
-    borderWidth: "1px",
-    background: "rgba(255, 135, 0, 0.05)",
-    fontWeight: "600",
-  },
+  top: "0",
+  left: "0",
+  opacity: "0",
+  "& .MuiInputBase-root": { height: "44px" },
 });
 
 const CalendarInput = styled(CustomInput)({
+  width: "440px",
   position: "absolute",
-  top: "200px",
-  left: "50%",
-  transform: "translate(-50%, 0)",
+  top: "0",
+  left: "0",
 });
 
 const IconImage = styled(Image)({
   position: "absolute",
-  top: "212px",
-  right: "35px",
+  top: "12px",
+  right: "15px",
 });
