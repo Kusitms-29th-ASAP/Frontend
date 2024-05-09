@@ -85,26 +85,26 @@ const Tabbar = () => {
         소식
       </Tab>
       <Tab
-        onClick={() => handleTabClick("/store")}
-        selected={selected === "/store"}
+        onClick={() => handleTabClick("/study")}
+        selected={selected === "/study"}
       >
-        <Bar selected={selected === "/store"} />
-        {selected === "/store" ? (
+        <Bar selected={selected === "/study"} />
+        {selected === "/study" ? (
           <Image
-            src="/assets/icons/ic_store_select.svg"
+            src="/assets/icons/ic_study_select.svg"
             width="24"
             height="24"
-            alt="store"
+            alt="study"
           />
         ) : (
           <Image
-            src="/assets/icons/ic_store.svg"
+            src="/assets/icons/ic_study.svg"
             width="24"
             height="24"
-            alt="store"
+            alt="study"
           />
         )}
-        스토어
+        가정학습
       </Tab>
       <Tab
         onClick={() => handleTabClick("/mypage")}
