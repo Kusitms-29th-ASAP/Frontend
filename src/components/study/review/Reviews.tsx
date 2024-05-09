@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import ReviewContent from "./ReviewContnet";
+import ReviewContent from "./ReviewContent";
 import ReviewTitle from "./ReviewTitle";
-import { Reviews } from "@/data/reviewData";
+import { ReviewData } from "@/data/reviewData";
 
-const Review = () => {
+const Reviews = () => {
   return (
     <Container>
       <ReviewTitle />
       <ReviewContentBox>
-        {Reviews.map((review) => (
+        {ReviewData.map((review) => (
           <ReviewContent
             key={review.id}
             image={review.image}
@@ -22,7 +22,7 @@ const Review = () => {
   );
 };
 
-export default Review;
+export default Reviews;
 
 const Container = styled.div`
   display: flex;

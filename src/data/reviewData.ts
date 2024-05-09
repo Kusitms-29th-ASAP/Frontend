@@ -1,4 +1,4 @@
-export const Reviews = [
+export const ReviewData = [
   {
     id: 1,
     image: "/assets/study/review1.svg",

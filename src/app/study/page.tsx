@@ -3,7 +3,8 @@
 import Tabbar from "@/components/common/Tabbar";
 import Tobbar from "@/components/common/Tobbar";
 import Banner from "@/components/study/Banner";
-import Review from "@/components/study/review/Review";
+import Reviews from "@/components/study/review/Reviews";
+import Subjects from "@/components/study/subject/Subjects";
 import styled from "styled-components";
 
 const Study = () => {
@@ -12,8 +13,9 @@ const Study = () => {
       <Container>
         <Tobbar text="가정학습" />
         <Banner />
+        <Subjects />
       </Container>
-      <Review />
+      <Reviews />
       <Tabbar />
     </>
   );
