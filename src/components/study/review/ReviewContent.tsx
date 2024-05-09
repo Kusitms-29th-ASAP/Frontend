@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
+import Tag from "../Tag";
 
 interface ReviewContentProps {
   image: string;
@@ -17,8 +18,8 @@ const ReviewContent = (props: ReviewContentProps) => {
       <ContentBox>
         <Title>{title}</Title>
         <TagBox>
-          <Tag1>#{tag1}</Tag1>
-          <Tag2>#{tag2}</Tag2>
+          <Tag text={`#${tag1}`} tagType="primary" />
+          <Tag text={`#${tag2}`} tagType="gray" />
         </TagBox>
       </ContentBox>
       <Image
@@ -61,21 +62,4 @@ const ContentBox = styled.div`
 const TagBox = styled.div`
   display: flex;
   gap: 4px;
-`;
-
-const Tag = styled.div`
-  ${({ theme }) => theme.fonts.body3_r};
-  padding: 3px 8px;
-  border-radius: 8px;
-`;
-
-const Tag1 = styled(Tag)`
-  color: ${({ theme }) => theme.colors.primary500};
-  background: rgba(255, 135, 0, 0.15);
-`;
-
-const Tag2 = styled(Tag)`
-  color: ${({ theme }) => theme.colors.b400};
-  background: ${({ theme }) => theme.colors.b100};
-  border: 1px solid var(--b-200, #e2e8f0);
 `;
