@@ -74,7 +74,7 @@ const CheckBoxLayout = styled.div<CheckBoxProps>`
 
   &.checkBtn {
     width: 100%;
-    padding: 15px 12px;
+    padding: 12px 15px;
     background-color: rgba(255, 135, 0, 0.05);
     border-radius: 10px;
     img {
