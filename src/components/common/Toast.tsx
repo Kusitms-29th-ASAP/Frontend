@@ -5,7 +5,7 @@ import styled, { css, keyframes } from "styled-components";
 
 type ToastType = "basic" | "primary";
 
-interface ToastProps {
+export interface ToastProps {
   message: string;
   type?: ToastType;
   duration?: number;

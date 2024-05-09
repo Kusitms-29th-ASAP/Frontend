@@ -7,9 +7,19 @@ import { useState } from "react";
 import CustomInput from "./CustomInput";
 import Image from "next/image";
 
-const Calendar = () => {
+export interface CalendarProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const Calendar = ({ value, onChange }: CalendarProps) => {
   const [deadline, setDeadline] = useState<string>("");
   const [date, setDate] = useState(null);
+
+  // const handleDateChange = (newDate: any) => {
+  //   setDate(newDate);
+  //   onChange(newDate ? newDate.format("YYYY년 MM월 DD일") : null);
+  // };
 
   const handleDateChange = (newDate: any) => {
     setDate(newDate);
@@ -24,6 +34,9 @@ const Calendar = () => {
             value={deadline}
             placeholder="날짜를 선택해주세요"
             onChange={(value: any) => setDeadline(value)}
+            // value={value}
+            // placeholder="날짜를 선택해주세요"
+            // onChange={(value: any) => onChange(value)}
             readonly={true}
           />
           <IconImage
@@ -81,12 +94,13 @@ const StyledMobileDatePicker = styled(MobileDatePicker)({
 
 const CalendarInput = styled(CustomInput)({
   position: "absolute",
-  top: "0",
-  left: "0",
+  top: "200px",
+  left: "50%",
+  transform: "translate(-50%, 0)",
 });
 
 const IconImage = styled(Image)({
   position: "absolute",
-  top: "235px",
+  top: "212px",
   right: "35px",
 });
