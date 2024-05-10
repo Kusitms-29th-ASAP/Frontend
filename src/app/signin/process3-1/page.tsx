@@ -4,7 +4,9 @@ import Button from "@/components/common/Button";
 import Input from "@/components/common/CustomInput";
 import Tobbar from "@/components/common/Tobbar";
 import ProgressBar from "@/components/signin/ProgressBar";
+import SelectionPopup from "@/components/signin/SelectionPopup";
 import Subtitle from "@/components/signin/Subtitle";
+import { GradeData, classNumData } from "@/data/studentData";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
@@ -12,6 +14,12 @@ import styled from "styled-components";
 const Process3_1 = () => {
   const [studentName, setstudentName] = useState("김동우");
   const [schoolParentName, setSchoolParentName] = useState("김부모");
+  const [openGradePopup, setOpenGradePopup] = useState(false);
+  const [openclassNumPopup, setOpenclassNumPopup] = useState(false);
+
+  const [grade, setGrade] = useState("");
+  const [classNum, setClassNum] = useState("");
+
   const name = studentName.substr(1, 3);
   const router = useRouter();
 
@@ -19,7 +27,28 @@ const Process3_1 = () => {
     router.push("/signin/process4");
   };
 
-  const handleSelectClick = () => {};
+  const handleGradeSelectClick = () => {
+    setOpenGradePopup(true);
+  };
+  const handleclassNumSelectClick = () => {
+    setOpenclassNumPopup(true);
+  };
+  const handleGradeSelectClose = () => {
+    setOpenGradePopup(false);
+  };
+  const handleclassNumSelectClose = () => {
+    setOpenclassNumPopup(false);
+  };
+
+  const handleSelectGrade = (selectedGrade: string) => {
+    setGrade(selectedGrade);
+    setOpenGradePopup(false); // 선택 후 팝업 닫기
+  };
+
+  const handleSelectclassNum = (selectedclassNum: string) => {
+    setClassNum(selectedclassNum);
+    setOpenclassNumPopup(false); // 선택 후 팝업 닫기
+  };
 
   return (
     <Container>
@@ -35,18 +64,34 @@ const Process3_1 = () => {
         <Subtitle>자녀의 학년과 반을 입력해주세요.</Subtitle>
         <InputBox>
           <Input
-            value=""
+            value={grade}
+            onClick={handleGradeSelectClick}
             onChange={() => {}}
             placeholder="학년"
             inputType="select"
           />
           <Input
-            value=""
+            value={classNum}
+            onClick={handleclassNumSelectClick}
             onChange={() => {}}
             placeholder="반"
             inputType="select"
           />
         </InputBox>
+        {openGradePopup && (
+          <SelectionPopup
+            onClose={handleGradeSelectClose}
+            onSelect={handleSelectGrade}
+            selectionList={GradeData}
+          />
+        )}
+        {openclassNumPopup && (
+          <SelectionPopup
+            onClose={handleclassNumSelectClose}
+            onSelect={handleSelectclassNum}
+            selectionList={classNumData}
+          />
+        )}
       </ContentBox>
       <Button text="다음" onClick={handleNextButtonClick} />
     </Container>

@@ -31,7 +31,12 @@ const CustomInput: React.FC<CustomInputProps> = (props: CustomInputProps) => {
     }
   };
 
-  const inputClassName = inputType === "select" ? "select" : "";
+  let inputClassName = inputType;
+  if (inputType === "text") {
+    inputClassName += " text";
+  } else if (inputType === "select") {
+    inputClassName += " select";
+  }
 
   return (
     <Container>

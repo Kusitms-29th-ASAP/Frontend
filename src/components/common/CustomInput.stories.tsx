@@ -20,9 +20,10 @@ const Template: StoryFn<CustomInputProps> = (args) => {
   return <CustomInput {...args} value={value} onChange={handleChange} />;
 };
 
-export const Default = Template.bind({});
-Default.args = {
+export const Text = Template.bind({});
+Text.args = {
   placeholder: "입력해주세요.",
+  inputType: "text",
 };
 
 export const Select = Template.bind({});
