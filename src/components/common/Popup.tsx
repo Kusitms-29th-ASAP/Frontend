@@ -24,13 +24,15 @@ const Popup: FC<PopupProps> = ({ onClose, title, children, height }) => {
       >
         <Title>
           {title}
-          <Image
-            src="/assets/icons/ic_close.svg"
-            alt="close"
-            width={24}
-            height={24}
-            onClick={onClose}
-          />
+          <ImageBox>
+            <Image
+              src="/assets/icons/ic_close.svg"
+              alt="close"
+              width={24}
+              height={24}
+              onClick={onClose}
+            />
+          </ImageBox>
         </Title>
         {children}
       </StyledPopup>
@@ -73,4 +75,8 @@ const Title = styled.div`
   align-items: center;
   margin-bottom: 24px;
   ${(props) => props.theme.fonts.body1_b}
+`;
+
+const ImageBox = styled.div`
+  cursor: pointer;
 `;
