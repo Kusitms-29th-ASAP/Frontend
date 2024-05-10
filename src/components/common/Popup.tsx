@@ -2,6 +2,7 @@ import { theme } from "@/styles/theme";
 import Image from "next/image";
 import { FC, ReactNode } from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 export interface PopupProps {
   onClose: () => void;
@@ -13,7 +14,14 @@ export interface PopupProps {
 const Popup: FC<PopupProps> = ({ onClose, title, children, height }) => {
   return (
     <Overlay onClick={onClose}>
-      <StyledPopup height={height}>
+      <StyledPopup
+        height={height}
+        onClick={(e) => e.stopPropagation()}
+        initial={{ y: "100vh", opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: "100vh", opacity: 0 }}
+        transition={{ duration: 0.2, type: "tween" }}
+      >
         <Title>
           {title}
           <Image
@@ -46,7 +54,7 @@ const Overlay = styled.div`
   z-index: 100;
 `;
 
-const StyledPopup = styled.div<{ height: string }>`
+const StyledPopup = styled(motion.div)<{ height: string }>`
   max-width: 480px;
   width: 100%;
   height: ${(props) => props.height};
