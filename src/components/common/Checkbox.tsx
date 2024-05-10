@@ -63,14 +63,8 @@ const Checkbox = (props: CheckBoxProps) => {
 export default Checkbox;
 
 const CheckBoxLayout = styled.div<CheckBoxProps>`
-  width: 100%;
-
-  &.checkbox {
-    ${({ theme }) => theme.fonts.body3_m};
-    color: ${theme.colors.b500};
-  }
-
   &.checkArrow {
+    width: 100%;
     display: flex;
     align-items: center;
     user-select: none;
@@ -79,7 +73,8 @@ const CheckBoxLayout = styled.div<CheckBoxProps>`
   }
 
   &.checkBtn {
-    padding: 12px 15px;
+    width: 100%;
+    padding: 15px 12px;
     background-color: rgba(255, 135, 0, 0.05);
     border-radius: 10px;
     img {
