@@ -2,7 +2,7 @@
 
 import Button from "@/components/common/Button";
 import styled from "styled-components";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useRouter } from "next/navigation";
 
 const Completion = () => {

@@ -127,7 +127,7 @@ const Todo = () => {
           setShowToast={setShowToast}
         />
       )}
-      {/* {addTodo && <Overlay onClick={handleCloseAddTodo} />} */}
+      {addTodo && <Overlay onClick={handleCloseAddTodo} />}
       {showToast && (
         <Toast
           message="할 일이 추가되었어요!"
@@ -152,7 +152,6 @@ const TodoContainer = styled.div`
   ${(props) => props.theme.fonts.body2_b};
   color: ${theme.colors.b700};
   z-index: 10;
-  line-height: 150%;
   letter-spacing: -0.28px;
   position: relative;
 `;

@@ -8,9 +8,10 @@ export default {
 
 const Template: StoryFn<ListBoxProps> = (args) => <ListBox {...args} />;
 
-export const Default = Template.bind({});
-Default.args = {
+export const DefaultOrange = Template.bind({});
+DefaultOrange.args = {
   listboxType: "none",
+  color: "orange",
   time: "기간",
   text: "ListBox",
 };
@@ -26,6 +27,7 @@ DefaultMint.args = {
 export const CheckOrange = Template.bind({});
 CheckOrange.args = {
   listboxType: "check",
+  color: "orange",
   time: "기간",
   text: "ListBox",
   type: "타입",
