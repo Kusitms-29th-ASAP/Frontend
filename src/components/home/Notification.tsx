@@ -32,7 +32,6 @@ const NotiContainer = styled.div`
   box-shadow: 0px 0px 64px 0px rgba(30, 41, 59, 0.1);
   ${(props) => props.theme.fonts.body2_b};
   color: ${theme.colors.b700};
-  line-height: 150%;
   letter-spacing: -0.28px;
 `;
 

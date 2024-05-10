@@ -11,5 +11,5 @@ const Template: StoryFn<MoreProps> = (args) => <More {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   text: "자세히 보기",
-  onClick: () => console.log("더보기"),
+  onClick: () => {},
 };

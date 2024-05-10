@@ -53,7 +53,6 @@ const Container = styled.div`
   ${(props) => props.theme.fonts.body2_b};
   color: ${theme.colors.b700};
   z-index: 10;
-  line-height: 150%;
   letter-spacing: -0.28px;
   position: relative;
 `;

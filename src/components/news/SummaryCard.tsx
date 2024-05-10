@@ -109,19 +109,16 @@ const Look = styled.div`
   color: ${theme.colors.b400};
   text-align: right;
   ${(props) => props.theme.fonts.caption2_b};
-  line-height: 138%;
 `;
 
 const Title = styled.div`
   color: ${theme.colors.b700};
   ${(props) => props.theme.fonts.body2_b};
-  line-height: 150%;
 `;
 
 const Date = styled.div`
   color: ${theme.colors.b400};
   ${(props) => props.theme.fonts.body3_m};
-  line-height: 150%;
 `;
 
 const Sentence = styled.div`

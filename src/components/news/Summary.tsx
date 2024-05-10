@@ -44,6 +44,5 @@ const Content = styled.div`
 const Title = styled.div`
   color: ${theme.colors.b700};
   ${(props) => props.theme.fonts.heading2_b};
-  line-height: 134%; /* 26.8px */
   letter-spacing: -0.4px;
 `;

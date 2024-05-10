@@ -81,7 +81,6 @@ const StyledListBox = styled.div`
   border-radius: 8px;
   border: 1px solid ${theme.colors.primary100};
   background: ${theme.colors.b50};
-  line-height: 150%; /* 21px */
   letter-spacing: -0.28px;
   position: relative;
   display: flex;

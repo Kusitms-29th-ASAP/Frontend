@@ -54,7 +54,6 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  line-height: 150%;
 `;
 
 const Menu = styled.div`

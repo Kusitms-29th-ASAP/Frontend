@@ -67,6 +67,5 @@ const Date = styled.div`
 `;
 
 const MenuItem = styled.div`
-  line-height: 138%;
   ${(props) => props.theme.fonts.caption1_r}
 `;

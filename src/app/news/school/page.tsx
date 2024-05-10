@@ -62,13 +62,11 @@ const SchoolInfo = styled.div`
   align-items: flex-start;
   color: ${theme.colors.b400};
   ${(props) => props.theme.fonts.body3_m};
-  line-height: 150%;
 `;
 
 const Br = styled.div`
   color: ${theme.colors.b700};
   ${(props) => props.theme.fonts.heading2_b};
-  line-height: 134%;
 `;
 
 const BellImage = styled(Image)`
