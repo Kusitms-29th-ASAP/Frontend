@@ -22,6 +22,7 @@
     "@mui/x-date-pickers-pro": "^7.3.2",
     "@reduxjs/toolkit": "^2.2.3",
     "@storybook/addon-themes": "^8.0.9",
+    "axios": "^1.6.8",
     "dayjs": "^1.11.11",
     "framer-motion": "^11.1.9",
     "next": "^14.2.2",

@@ -3,6 +3,7 @@
 import Button from "@/components/common/Button";
 import Checkbox from "@/components/common/Checkbox";
 import Tobbar from "@/components/common/Tobbar";
+import { useDeleteUser } from "@/hooks/auth/useDeleteUser";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
@@ -27,10 +28,17 @@ const Terms = () => {
     router.push("/signin/process1");
   };
 
+  // const userDeleteMutation = useDeleteUser();
+  const handleLogoutClick = () => {
+    // userDeleteMutation.mutate();
+  };
+
   return (
     <Container>
       <Tobbar text="회원가입" />
       <ContentBox>{CONTENT}</ContentBox>
+
+      {/* <button onClick={handleLogoutClick}>로그아웃</button> */}
 
       <AgreeBox>
         <Checkbox
