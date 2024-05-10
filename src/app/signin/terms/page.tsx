@@ -38,7 +38,7 @@ const Terms = () => {
       <Tobbar text="회원가입" />
       <ContentBox>{CONTENT}</ContentBox>
 
-      <button onClick={handleLogoutClick}>로그아웃</button>
+      {/* <button onClick={handleLogoutClick}>로그아웃</button> */}
 
       <AgreeBox>
         <Checkbox
