@@ -2,7 +2,7 @@ import { theme } from "@/styles/theme";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
-interface CardProps {
+export interface CardProps {
   sub: ReactNode;
   main: ReactNode;
 }

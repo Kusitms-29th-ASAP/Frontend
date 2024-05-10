@@ -2,12 +2,12 @@ import { theme } from "@/styles/theme";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
-export interface ListBoxProps {
+export interface ListNumberProps {
   index: ReactNode;
   text: ReactNode;
 }
 
-const ListNumber = (props: ListBoxProps) => {
+const ListNumber = (props: ListNumberProps) => {
   const { index, text } = props;
   return (
     <StyledListNumber>

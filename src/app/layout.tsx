@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import "./global.css";
 import Tabbar from "@/components/common/Tabbar";
+import { usePathname } from "next/navigation";
+import { useMemo } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
