@@ -12,23 +12,39 @@ export interface PopupProps {
 
 const Popup: FC<PopupProps> = ({ onClose, title, children, height }) => {
   return (
-    <StyledPopup height={height}>
-      <Title>
-        {title}
-        <Image
-          src="/assets/icons/ic_close.svg"
-          alt="close"
-          width={24}
-          height={24}
-          onClick={onClose}
-        />
-      </Title>
-      {children}
-    </StyledPopup>
+    <Overlay onClick={onClose}>
+      <StyledPopup height={height}>
+        <Title>
+          {title}
+          <Image
+            src="/assets/icons/ic_close.svg"
+            alt="close"
+            width={24}
+            height={24}
+            onClick={onClose}
+          />
+        </Title>
+        {children}
+      </StyledPopup>
+    </Overlay>
   );
 };
 
 export default Popup;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 100;
+`;
 
 const StyledPopup = styled.div<{ height: string }>`
   max-width: 480px;
@@ -38,11 +54,7 @@ const StyledPopup = styled.div<{ height: string }>`
   padding: 20px 20px 28px 20px;
   border-radius: 12px 12px 0px 0px;
   background: ${theme.colors.white};
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-  z-index: 200;
+  position: relative;
   color: ${theme.colors.b700};
 `;
 
