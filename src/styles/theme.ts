@@ -14,6 +14,7 @@ const colors = {
   sub_mint: "#05CEC2",
 
   b50: "#F8FAFC",
+  b80: "#F5F9FC",
   b100: "#F1F5F9",
   b200: "#E2E8F0",
   b300: "#CBD5E1",
@@ -38,7 +39,8 @@ const FONT = ({ weight, size }: Font): string => {
   return `
     font-family : "Pretendard";
     font-weight : ${weight};
-    font-size : ${size}px;
+    font-size : ${size}px; 
+    line-height : ${size * 1.5}px;
     `;
 };
 

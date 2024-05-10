@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/common/Button";
+import Calendar from "@/components/common/Calendar";
 import Checkbox from "@/components/common/Checkbox";
 import Input from "@/components/common/CustomInput";
 import Tobbar from "@/components/common/Tobbar";
@@ -50,28 +51,29 @@ const SigninProcess2 = () => {
           <Subtitle>자녀의 성별을 입력해주세요.</Subtitle>
           <CheckButtonBox>
             <Checkbox
-              label="남자"
+              label="남성"
               checkboxType="checkBtn"
               checked={sexType === "male"}
               onChange={() => handleSexTypeChange("male")}
             />
             <Checkbox
-              label="여자"
+              label="여성"
               checkboxType="checkBtn"
               checked={sexType === "female"}
               onChange={() => handleSexTypeChange("female")}
             />
           </CheckButtonBox>
-          <SexNonSelected>성별 선택 안 함</SexNonSelected>
+          <Checkbox
+            label="성별 선택 안 함"
+            checkboxType="checkBox"
+            checked={sexType === "sex"}
+            onChange={() => handleSexTypeChange("sex")}
+          />
         </div>
 
         <div>
           <Subtitle>자녀의 생년월일을 선택해주세요.</Subtitle>
-          <Input
-            value={date}
-            onChange={handleDateChange}
-            placeholder="날짜를 선택해주세요."
-          />
+          <Calendar value={date} onChange={handleDateChange} />
         </div>
       </ContentBox>
       <Button
@@ -109,7 +111,7 @@ const ContentBox = styled.div`
 
 const CheckButtonBox = styled.div`
   display: flex;
-  margin-top: 12px;
+  margin-bottom: 12px;
   gap: 12px;
 `;
 

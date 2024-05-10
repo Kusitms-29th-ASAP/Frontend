@@ -2,7 +2,7 @@ import { theme } from "@/styles/theme";
 import styled from "styled-components";
 import Image from "next/image";
 
-export type checkboxType = "checkbox" | "checkBtn";
+export type checkboxType = "checkbox" | "checkBtn" | "checkArrow";
 
 export interface CheckBoxProps {
   value?: string | number;
@@ -48,12 +48,14 @@ const Checkbox = (props: CheckBoxProps) => {
         {label}
         <span>{text}</span>
       </CheckboxContainer>
-      <Image
-        src="/assets/common/right_arrow.svg"
-        alt="arrow"
-        width={20}
-        height={20}
-      />
+      {checkboxType === "checkArrow" && (
+        <Image
+          src="/assets/common/right_arrow.svg"
+          alt="arrow"
+          width={20}
+          height={20}
+        />
+      )}
     </CheckBoxLayout>
   );
 };
@@ -62,14 +64,22 @@ export default Checkbox;
 
 const CheckBoxLayout = styled.div<CheckBoxProps>`
   width: 100%;
-  display: flex;
-  align-items: center;
-  user-select: none;
-  padding: 0 12px;
-  cursor: pointer;
+
+  &.checkbox {
+    ${({ theme }) => theme.fonts.body3_m};
+    color: ${theme.colors.b500};
+  }
+
+  &.checkArrow {
+    display: flex;
+    align-items: center;
+    user-select: none;
+    padding: 0 12px;
+    cursor: pointer;
+  }
 
   &.checkBtn {
-    padding: 15px 12px;
+    padding: 12px 15px;
     background-color: rgba(255, 135, 0, 0.05);
     border-radius: 10px;
     img {

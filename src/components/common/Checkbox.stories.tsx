@@ -9,9 +9,16 @@ export default {
 
 const Template: StoryFn<CheckBoxProps> = (args) => <Checkbox {...args} />;
 
-export const Default = Template.bind({});
-Default.args = {
+export const CheckBox = Template.bind({});
+CheckBox.args = {
   label: "Default Checkbox",
+  checkboxType: "checkbox",
+};
+
+export const CheckArrow = Template.bind({});
+CheckArrow.args = {
+  label: "Check Arrow",
+  checkboxType: "checkArrow",
 };
 
 export const CheckButton = Template.bind({});

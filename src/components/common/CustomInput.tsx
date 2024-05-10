@@ -9,12 +9,20 @@ export interface CustomInputProps {
   onClick?: () => void;
   placeholder?: string;
   inputType?: "text" | "select";
+  readonly?: boolean;
 }
 
 const CustomInput: React.FC<CustomInputProps> = (props: CustomInputProps) => {
-  const { value, onChange, onClick, placeholder, inputType = "text" } = props;
+  const {
+    value,
+    onChange,
+    onClick,
+    placeholder,
+    inputType = "text",
+    readonly = false,
+  } = props;
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: any) => {
     onChange(event.target.value);
   };
   const handleClick = () => {
@@ -23,7 +31,12 @@ const CustomInput: React.FC<CustomInputProps> = (props: CustomInputProps) => {
     }
   };
 
-  const inputClassName = inputType === "select" ? "select" : "";
+  let inputClassName = inputType;
+  if (inputType === "text") {
+    inputClassName += " text";
+  } else if (inputType === "select") {
+    inputClassName += " select";
+  }
 
   return (
     <Container>
@@ -34,6 +47,7 @@ const CustomInput: React.FC<CustomInputProps> = (props: CustomInputProps) => {
         onClick={handleClick}
         placeholder={placeholder}
         className={inputClassName}
+        readOnly={readonly}
       />
       {inputType === "select" && (
         <ImageContainer>

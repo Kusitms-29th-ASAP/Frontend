@@ -51,6 +51,7 @@ const Terms = () => {
         />
         <Checkbox
           label="서비스 이용약관"
+          checkboxType="checkArrow"
           essential={true}
           text="필수"
           checked={isServiceAgreed}
@@ -59,6 +60,7 @@ const Terms = () => {
         />
         <Checkbox
           label="개인정보 수집 및 이용동의"
+          checkboxType="checkArrow"
           essential={true}
           text="필수"
           checked={isPrivacyAgreed}
@@ -67,6 +69,7 @@ const Terms = () => {
         />
         <Checkbox
           label="마케팅 수신 동의"
+          checkboxType="checkArrow"
           text="선택"
           checked={isMarketingAgreed}
           onChange={(e) => setIsMarketingAgreed(e.target.checked)}
