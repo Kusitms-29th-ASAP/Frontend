@@ -1,6 +1,7 @@
 import Popup from "../common/Popup";
 import Button from "../common/Button";
 import styled from "styled-components";
+import { GradeData } from "@/data/studentData";
 
 interface SelectionPopupProps {
   onClose: () => void;
@@ -10,10 +11,17 @@ interface SelectionPopupProps {
 
 const SelectionPopup = (props: SelectionPopupProps) => {
   const { onClose, onSelect, selectionList } = props;
+  let title = "";
+
+  if (selectionList == GradeData) {
+    title = "학년 선택";
+  } else {
+    title = "학급 선택";
+  }
 
   return (
     <>
-      <Popup onClose={onClose} title="학년 선택" height="394px">
+      <Popup onClose={onClose} title={title} height="394px">
         <ButtonBox>
           {selectionList.map((value, index) => (
             <Button

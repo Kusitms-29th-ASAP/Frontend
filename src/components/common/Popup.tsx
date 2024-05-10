@@ -34,7 +34,7 @@ const Popup: FC<PopupProps> = ({ onClose, title, children, height }) => {
             />
           </ImageBox>
         </Title>
-        {children}
+        <ContentBox>{children}</ContentBox>
       </StyledPopup>
     </Overlay>
   );
@@ -61,11 +61,10 @@ const StyledPopup = styled(motion.div)<{ height: string }>`
   width: 100%;
   height: ${(props) => props.height};
   overflow-y: scroll;
-  padding: 20px 20px 28px 20px;
-  border-radius: 12px 12px 0px 0px;
   background: ${theme.colors.white};
   position: relative;
   color: ${theme.colors.b700};
+  border-radius: 12px 12px 0px 0px;
 `;
 
 const Title = styled.div`
@@ -73,10 +72,23 @@ const Title = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 4px;
   ${(props) => props.theme.fonts.body1_b}
+  padding: 20px;
+  border-radius: 12px 12px 0px 0px;
+  position: sticky;
+  top: 0;
+  background: ${theme.colors.white};
+  z-index: 1;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
 `;
 
 const ImageBox = styled.div`
   cursor: pointer;
+`;
+
+const ContentBox = styled.div`
+  padding: 0 20px 28px 20px;
+  overflow-y: scroll;
+  z-index: 0;
 `;
