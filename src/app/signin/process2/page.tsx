@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/common/Button";
+import Calendar from "@/components/common/Calendar";
 import Checkbox from "@/components/common/Checkbox";
 import Input from "@/components/common/CustomInput";
 import Tobbar from "@/components/common/Tobbar";
@@ -29,10 +30,6 @@ const SigninProcess2 = () => {
   };
   const handleNextButtonClick = () => {
     router.push("/signin/process3");
-  };
-
-  const handleDateClick = () => {
-    console.log("handleDateClick");
   };
 
   return (
@@ -76,13 +73,7 @@ const SigninProcess2 = () => {
 
         <div>
           <Subtitle>자녀의 생년월일을 선택해주세요.</Subtitle>
-          <Input
-            value={date}
-            onClick={handleDateClick}
-            onChange={handleDateChange}
-            placeholder="날짜를 선택해주세요."
-            inputType="dateSelect"
-          />
+          <Calendar value={date} onChange={handleDateChange} />
         </div>
       </ContentBox>
       <Button
