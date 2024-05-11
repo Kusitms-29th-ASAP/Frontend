@@ -94,6 +94,7 @@ const StyledCard = styled.div`
   align-items: flex-start;
   border-radius: 10px;
   background: ${theme.colors.white};
+  cursor: pointer;
 
   &.simple {
     padding: 16px;
