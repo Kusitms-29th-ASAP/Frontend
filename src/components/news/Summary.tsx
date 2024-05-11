@@ -16,7 +16,9 @@ const Summary = ({ dummyData }: { dummyData: SummaryCardProps[] }) => {
             title={data.title}
             date={data.date}
             look={data.look}
+            keyword={data.keyword}
             sentence={data.sentence}
+            summaryId={data.summaryId}
           />
         ))}
       </Content>
