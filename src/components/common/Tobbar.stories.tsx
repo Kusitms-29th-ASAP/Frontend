@@ -8,3 +8,5 @@ export default {
 } satisfies Meta<typeof Tobbar>;
 
 export const Default = () => <Tobbar text="상단바" />;
+
+export const WithIcon = () => <Tobbar text="상단바" icon={true} />;
