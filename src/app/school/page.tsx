@@ -4,6 +4,7 @@ import Tabbar from "@/components/common/Tabbar";
 import Tobbar from "@/components/common/Tobbar";
 import HomeGiudeRemind from "@/components/school/home/HomeGiudeRemind";
 import NotificationCheck from "@/components/school/home/NotificationCheck";
+import OurClassAlbum from "@/components/school/home/OurClassAlbum";
 import ParentReference from "@/components/school/home/ParentReference";
 import TimeTable from "@/components/school/home/TimeTable";
 import WeeklyStudyGuide from "@/components/school/home/WeeklyStudyGuide";
@@ -22,6 +23,7 @@ const School = () => {
         <NotificationCheck />
         <ParentReference />
       </Background>
+      <OurClassAlbum />
       <Tabbar />
     </>
   );
