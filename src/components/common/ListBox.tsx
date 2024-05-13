@@ -8,6 +8,7 @@ export type listboxType = "check" | "none" | "direct";
 export type colorType = "orange" | "mint";
 
 export interface ListBoxProps {
+  type: string;
   text: string;
   time: string;
   dday?: number;
@@ -17,6 +18,7 @@ export interface ListBoxProps {
 }
 const ListBox = (props: ListBoxProps) => {
   const {
+    type,
     text,
     time,
     dday = 0,
@@ -70,6 +72,7 @@ const ListBox = (props: ListBoxProps) => {
               </span>
             </>
           )}
+          {type}
           {listboxType === "direct" && (
             <Span
               style={{
