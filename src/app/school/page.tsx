@@ -1,7 +1,7 @@
 "use client";
 
 import Tabbar from "@/components/common/Tabbar";
-import Tobbar from "@/components/common/Tobbar";
+import Topbar from "@/components/common/Topbar";
 import HomeGiudeRemind from "@/components/school/home/HomeGiudeRemind";
 import NotificationCheck from "@/components/school/home/NotificationCheck";
 import OurClassAlbum from "@/components/school/home/OurClassAlbum";
@@ -14,7 +14,7 @@ const School = () => {
   return (
     <>
       <Container>
-        <Tobbar text="학교생활" />
+        <Topbar text="학교생활" />
       </Container>
       <Background>
         <WeeklyStudyGuide />

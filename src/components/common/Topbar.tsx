@@ -4,12 +4,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
-export interface TobbarProps {
+export interface TopbarProps {
   text: string;
   icon?: boolean;
 }
 
-const Tobbar = (props: TobbarProps) => {
+const Topbar = (props: TopbarProps) => {
   const { text, icon = false } = props;
   const router = useRouter();
 
@@ -33,7 +33,7 @@ const Tobbar = (props: TobbarProps) => {
   );
 };
 
-export default Tobbar;
+export default Topbar;
 
 const Container = styled.div`
   display: flex;

@@ -2,7 +2,7 @@
 
 import Button from "@/components/common/Button";
 import Input from "@/components/common/CustomInput";
-import Tobbar from "@/components/common/Tobbar";
+import Topbar from "@/components/common/Topbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import { useState } from "react";
 import styled from "styled-components";
@@ -26,7 +26,7 @@ const SigninProcess1 = () => {
 
   return (
     <Container>
-      <Tobbar text="회원가입" />
+      <Topbar text="회원가입" />
       <ProgressBar rate={20} />
       <Title>{TITLE}</Title>
       <Context>{CONTEXT}</Context>
