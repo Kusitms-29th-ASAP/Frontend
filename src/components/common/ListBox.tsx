@@ -1,17 +1,19 @@
 import { theme } from "@/styles/theme";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
 import Checkbox from "./Checkbox";
 import Image from "next/image";
 
 export type listboxType = "check" | "none" | "direct";
+export type colorType = "orange" | "mint";
 
 export interface ListBoxProps {
   type: ReactNode;
   text: ReactNode;
   time: ReactNode;
+  dday?: number;
   listboxType?: listboxType;
-  color?: "orange" | "mint";
+  color?: colorType;
   style?: React.CSSProperties & { fontSize?: string };
 }
 const ListBox = (props: ListBoxProps) => {
@@ -19,10 +21,34 @@ const ListBox = (props: ListBoxProps) => {
     type,
     text,
     time,
+    dday = 0,
     listboxType = "none",
     color = "orange",
     style,
   } = props;
+
+  const [futureDate, setFutureDate] = useState("");
+  const [futureWeekday, setFutureWeekday] = useState("");
+
+  useEffect(() => {
+    const now = new Date();
+    const future = new Date(now.setDate(now.getDate() + dday));
+    const futureDateString = future.toLocaleDateString("ko-KR", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    setFutureDate(futureDateString);
+    setFutureWeekday(
+      future
+        .toLocaleDateString("ko-KR", { weekday: "short" })
+        .replace("요일", "")
+    );
+  }, [dday]);
+
+  const month = futureDate.split(" ")[1];
+  const day = futureDate.split(" ")[2];
 
   let listboxClassName = listboxType;
   if (color === "orange") {
@@ -37,9 +63,14 @@ const ListBox = (props: ListBoxProps) => {
       <Content>
         <Type className={listboxClassName}>
           {listboxType === "none" && (
-            <span style={{ fontSize: "14px", fontWeight: "700" }}>
-              D-2{`    `}
-            </span>
+            <>
+              <span style={{ fontSize: "14px", fontWeight: "700" }}>
+                D-{dday}
+              </span>
+              <span style={{ fontSize: "12px", fontWeight: "500" }}>
+                {month} {day} ({futureWeekday}) 까지
+              </span>
+            </>
           )}
           {type}
           {listboxType === "direct" && (
