@@ -5,7 +5,7 @@ import Checkbox from "@/components/common/Checkbox";
 import Tobbar from "@/components/common/Tobbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import Subtitle from "@/components/signin/Subtitle";
-import { AllergyCategories } from "@/data/Allergy";
+import { AllergyCategories } from "@/data/allergyData";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
