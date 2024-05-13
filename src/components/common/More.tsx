@@ -29,7 +29,6 @@ const StyledMore = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 4px;
   gap: 8px;
   color: ${theme.colors.b400};
   ${(props) => props.theme.fonts.caption1_m};
