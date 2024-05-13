@@ -2,7 +2,7 @@
 
 import HomeGuide from "@/components/news/HomeGuide";
 import Summary from "@/components/news/Summary";
-import { summaryData, todoHomeData } from "@/data/newsData";
+import { summaryData } from "@/data/newsData";
 import { theme } from "@/styles/theme";
 import Image from "next/image";
 import styled from "styled-components";
@@ -16,7 +16,7 @@ const School = () => {
           <Br>서울미동초등학교</Br>
         </SchoolInfo>
         <BellImage
-          src="/assets/images/news_bell.svg"
+          src="/assets/news/bell.svg"
           width={102}
           height={102}
           alt="bell"
