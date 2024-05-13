@@ -32,6 +32,7 @@ const TitleBox = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-bottom: 6px;
 `;
 
 const Title = styled.div`

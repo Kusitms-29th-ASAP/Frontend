@@ -1,5 +1,5 @@
 import { theme } from "@/styles/theme";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Checkbox from "./Checkbox";
 import Image from "next/image";
@@ -8,9 +8,9 @@ export type listboxType = "check" | "none" | "direct";
 export type colorType = "orange" | "mint";
 
 export interface ListBoxProps {
-  type: ReactNode;
-  text: ReactNode;
-  time: ReactNode;
+  type: string;
+  text: string;
+  time: string;
   dday?: number;
   listboxType?: listboxType;
   color?: colorType;
