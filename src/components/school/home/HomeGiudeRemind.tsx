@@ -14,14 +14,14 @@ const HomeGiudeRemind = () => {
       </TitleBox>
       <ListBox
         color="orange"
-        type={undefined}
+        type="none"
         text="방과후학교 가정통신문 회신"
         time="회신 필요"
         dday={2}
       />
       <ListBox
         color="mint"
-        type={undefined}
+        type="none"
         text="방과후학교 프로그램 신청서"
         time="제출 완료"
         dday={5}

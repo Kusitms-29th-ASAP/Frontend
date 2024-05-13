@@ -3,6 +3,7 @@
 import Tabbar from "@/components/common/Tabbar";
 import Tobbar from "@/components/common/Tobbar";
 import HomeGiudeRemind from "@/components/school/home/HomeGiudeRemind";
+import NotificationCheck from "@/components/school/home/NotificationCheck";
 import TimeTable from "@/components/school/home/TimeTable";
 import WeeklyStudyGuide from "@/components/school/home/WeeklyStudyGuide";
 import styled from "styled-components";
@@ -17,6 +18,7 @@ const School = () => {
         <WeeklyStudyGuide />
         <TimeTable />
         <HomeGiudeRemind />
+        <NotificationCheck />
       </Background>
       <Tabbar />
     </>
