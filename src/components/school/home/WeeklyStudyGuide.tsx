@@ -15,8 +15,8 @@ const WeeklyStudyGuide = () => {
       <Image
         src="/assets/school/weekly_study.svg"
         alt="주간 학습 안내"
-        width={104}
-        height={112}
+        width={220}
+        height={200}
       />
     </Container>
   );
@@ -32,8 +32,8 @@ const Container = styled.div`
 
   img {
     position: absolute;
-    top: 66px;
-    right: 0;
+    top: -53px;
+    right: -50px;
   }
 `;
 

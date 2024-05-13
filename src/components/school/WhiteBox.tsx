@@ -18,6 +18,7 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 10px;
   padding: 18px 20px;
+  z-index: 1;
 
   display: flex;
   flex-direction: column;
