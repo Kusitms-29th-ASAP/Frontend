@@ -1,11 +1,11 @@
 "use client";
 
 import Topbar from "@/components/common/Topbar";
-import ReplyCompleted from "@/components/school/homeGiude/ReplyCompleted";
-import ReplyRequired from "@/components/school/homeGiude/ReplyRequired";
+import ReplyCompleted from "@/components/school/homeGuide/ReplyCompleted";
+import ReplyRequired from "@/components/school/homeGuide/ReplyRequired";
 import styled from "styled-components";
 
-const HomeGiude = () => {
+const HomeGuide = () => {
   return (
     <>
       <Container>
@@ -17,7 +17,7 @@ const HomeGiude = () => {
   );
 };
 
-export default HomeGiude;
+export default HomeGuide;
 
 const Container = styled.div`
   padding: 16px 20px;

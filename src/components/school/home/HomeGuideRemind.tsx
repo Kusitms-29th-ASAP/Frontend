@@ -2,15 +2,21 @@ import styled from "styled-components";
 import WhiteBox from "../WhiteBox";
 import More from "@/components/common/More";
 import ListBox from "@/components/common/ListBox";
+import { useRouter } from "next/navigation";
 
-const HomeGiudeRemind = () => {
+const HomeGuideRemind = () => {
+  const router = useRouter();
+  const handleDetailClick = () => {
+    router.push("/school/homeGuide");
+  };
+
   return (
     <WhiteBox>
       <TitleBox>
         <Title>
           <span>가정통신문 제출</span> 잊지마세요!
         </Title>
-        <More onClick={() => {}} />
+        <More onClick={handleDetailClick} />
       </TitleBox>
       <ListBox
         color="orange"
@@ -30,7 +36,7 @@ const HomeGiudeRemind = () => {
   );
 };
 
-export default HomeGiudeRemind;
+export default HomeGuideRemind;
 
 const TitleBox = styled.div`
   display: flex;
