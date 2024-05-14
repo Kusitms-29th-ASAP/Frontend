@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import Tobbar from "@/components/common/Tobbar";
+import Topbar from "@/components/common/Topbar";
 import Header from "@/components/study/detail/Header";
 import Content from "@/components/study/detail/Content";
 
@@ -9,7 +9,7 @@ const StudyDetail = () => {
   return (
     <>
       <Container>
-        <Tobbar text="가정학습" />
+        <Topbar text="가정학습" />
         <Header />
       </Container>
       <Content />

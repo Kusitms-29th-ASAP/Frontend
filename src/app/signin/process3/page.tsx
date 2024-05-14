@@ -2,7 +2,7 @@
 
 import Button from "@/components/common/Button";
 import Input from "@/components/common/CustomInput";
-import Tobbar from "@/components/common/Tobbar";
+import Topbar from "@/components/common/Topbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import Subtitle from "@/components/signin/Subtitle";
 import { useRouter } from "next/navigation";
@@ -32,7 +32,7 @@ const SigninProcess3 = () => {
 
   return (
     <Container>
-      <Tobbar text="회원가입" />
+      <Topbar text="회원가입" />
       <ProgressBar rate={60} />
       <Context>
         반가워요! {name} 학생 학부모이신 {schoolParentName}님!

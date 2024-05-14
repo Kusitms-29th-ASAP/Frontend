@@ -2,7 +2,7 @@
 
 import Button from "@/components/common/Button";
 import Checkbox from "@/components/common/Checkbox";
-import Tobbar from "@/components/common/Tobbar";
+import Topbar from "@/components/common/Topbar";
 import { useDeleteUser } from "@/hooks/auth/useDeleteUser";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -35,7 +35,7 @@ const Terms = () => {
 
   return (
     <Container>
-      <Tobbar text="회원가입" />
+      <Topbar text="회원가입" />
       <ContentBox>{CONTENT}</ContentBox>
 
       {/* <button onClick={handleLogoutClick}>로그아웃</button> */}

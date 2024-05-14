@@ -4,7 +4,7 @@ import Button from "@/components/common/Button";
 import Calendar from "@/components/common/Calendar";
 import Checkbox from "@/components/common/Checkbox";
 import Input from "@/components/common/CustomInput";
-import Tobbar from "@/components/common/Tobbar";
+import Topbar from "@/components/common/Topbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import Subtitle from "@/components/signin/Subtitle";
 import { useRouter } from "next/navigation";
@@ -34,7 +34,7 @@ const SigninProcess2 = () => {
 
   return (
     <Container>
-      <Tobbar text="회원가입" />
+      <Topbar text="회원가입" />
       <ProgressBar rate={40} />
       <Title>{CONTEXT}</Title>
       <ContentBox>

@@ -4,12 +4,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
-export interface TobbarProps {
+export interface TopbarProps {
   text: string;
+  icon?: boolean;
 }
 
-const Tobbar = (props: TobbarProps) => {
-  const { text } = props;
+const Topbar = (props: TopbarProps) => {
+  const { text, icon = false } = props;
   const router = useRouter();
 
   const handleBackButtonClick = () => {
@@ -17,19 +18,22 @@ const Tobbar = (props: TobbarProps) => {
   };
 
   return (
-    <Container onClick={handleBackButtonClick}>
-      <Image
-        src="/assets/common/left_arrow.svg"
-        width="16"
-        height="16"
-        alt="back"
-      />
+    <Container>
+      {icon && (
+        <Image
+          src="/assets/common/left_arrow.svg"
+          width="16"
+          height="16"
+          alt="back"
+          onClick={handleBackButtonClick}
+        />
+      )}
       {text}
     </Container>
   );
 };
 
-export default Tobbar;
+export default Topbar;
 
 const Container = styled.div`
   display: flex;

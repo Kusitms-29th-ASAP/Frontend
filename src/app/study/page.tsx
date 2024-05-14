@@ -1,7 +1,7 @@
 "use client";
 
 import Tabbar from "@/components/common/Tabbar";
-import Tobbar from "@/components/common/Tobbar";
+import Topbar from "@/components/common/Topbar";
 import Banner from "@/components/study/Banner";
 import Reviews from "@/components/study/review/Reviews";
 import Subjects from "@/components/study/subject/Subjects";
@@ -11,7 +11,7 @@ const Study = () => {
   return (
     <>
       <Container>
-        <Tobbar text="가정학습" />
+        <Topbar text="가정학습" />
         <Banner />
         <Subjects />
       </Container>

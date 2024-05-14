@@ -1,14 +1,14 @@
 import { theme } from "@/styles/theme";
-import { ReactNode } from "react";
 import styled from "styled-components";
 
 export interface ListNumberProps {
-  index: ReactNode;
-  text: ReactNode;
+  index: number;
+  text: string;
 }
 
 const ListNumber = (props: ListNumberProps) => {
   const { index, text } = props;
+  
   return (
     <StyledListNumber>
       <Number>{index}</Number>

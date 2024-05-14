@@ -2,10 +2,10 @@
 
 import Button from "@/components/common/Button";
 import Checkbox from "@/components/common/Checkbox";
-import Tobbar from "@/components/common/Tobbar";
+import Topbar from "@/components/common/Topbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import Subtitle from "@/components/signin/Subtitle";
-import { AllergyCategories } from "@/data/Allergy";
+import { AllergyCategories } from "@/data/allergyData";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
@@ -30,7 +30,7 @@ const SigninProcess4 = () => {
 
   return (
     <Container>
-      <Tobbar text="회원가입" />
+      <Topbar text="회원가입" />
       <ProgressBar rate={90} />
       <Context>{CONTEXT1}</Context>
       <Title>{TITLE}</Title>
