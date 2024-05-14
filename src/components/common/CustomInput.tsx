@@ -4,39 +4,38 @@ import styled from "styled-components";
 import Image from "next/image";
 
 export interface CustomInputProps {
+  inputType?: "text" | "select";
   value: string;
   onChange: (value: string) => void;
   onClick?: () => void;
   placeholder?: string;
-  inputType?: "text" | "select";
   readonly?: boolean;
 }
 
-const CustomInput: React.FC<CustomInputProps> = (props: CustomInputProps) => {
+const CustomInput = (props: CustomInputProps) => {
   const {
+    inputType = "text",
     value,
     onChange,
     onClick,
     placeholder,
-    inputType = "text",
     readonly = false,
   } = props;
+
+  let inputClassName = inputType;
+  if (inputType) {
+    inputClassName += " " + inputType;
+  }
 
   const handleChange = (event: any) => {
     onChange(event.target.value);
   };
+
   const handleClick = () => {
     if (onClick) {
       onClick();
     }
   };
-
-  let inputClassName = inputType;
-  if (inputType === "text") {
-    inputClassName += " text";
-  } else if (inputType === "select") {
-    inputClassName += " select";
-  }
 
   return (
     <Container>

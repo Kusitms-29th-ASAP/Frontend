@@ -30,7 +30,7 @@ const HomeGuide = () => {
               key={index}
               listboxType="none"
               color={data.time === "제출 완료" ? "mint" : "orange"}
-              type={data.type}
+              dday={3}
               text={data.text}
               time={data.time}
             />
