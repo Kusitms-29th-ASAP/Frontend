@@ -80,7 +80,7 @@ const StyledInput = styled.input<CustomInputProps>`
   gap: 10px;
   border-radius: 10px;
   border: 1px solid ${theme.colors.primary100};
-  background: rgba(255, 135, 0, 0.05);
+  background: ${(props) => (props.value ? "rgba(255, 135, 0, 0.05)" : "white")};
   color: ${theme.colors.b700};
   ${(props) => props.theme.fonts.body3_m};
   outline: none;
