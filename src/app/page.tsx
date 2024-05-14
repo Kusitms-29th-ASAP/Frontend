@@ -7,11 +7,12 @@ import Image from "next/image";
 export default function Home() {
   return (
     <Container>
-      <Image
-        loading="lazy"
+      <StyledImage
         src="/assets/main/main_background.svg"
-        layout="fill"
+        width={480}
+        height={800}
         alt="background"
+        over-fit="cover"
       />
       <SocialKakao />
     </Container>
@@ -22,10 +23,14 @@ const Container = styled.div`
   max-width: 480px;
   width: 100%;
   height: 100vh;
-  position: relative;
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
+`;
+
+const StyledImage = styled(Image)`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
