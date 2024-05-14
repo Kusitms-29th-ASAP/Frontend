@@ -18,6 +18,7 @@ const SocialKakao = () => {
         alt="kakao"
         layout="fill"
         objectFit="contain"
+        loading="lazy"
       />
     </SocialLoginBox>
   );
@@ -26,9 +27,11 @@ const SocialKakao = () => {
 export default SocialKakao;
 
 const SocialLoginBox = styled.div`
+  max-width: 480px;
   width: 100%;
   height: 48px;
+  padding: 0 20px;
   cursor: pointer;
-  position: relative;
+  position: absolute;
   bottom: 140px;
 `;
