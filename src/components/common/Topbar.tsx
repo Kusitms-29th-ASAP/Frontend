@@ -1,5 +1,6 @@
 "use client";
 
+import { theme } from "@/styles/theme";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
@@ -7,14 +8,19 @@ import styled from "styled-components";
 export interface TopbarProps {
   text: string;
   icon?: boolean;
+  link?: string;
 }
 
 const Topbar = (props: TopbarProps) => {
-  const { text, icon = false } = props;
+  const { text, icon = false, link } = props;
   const router = useRouter();
 
   const handleBackButtonClick = () => {
-    router.back();
+    if (link) {
+      router.push(link);
+    } else {
+      router.back();
+    }
   };
 
   return (
@@ -40,6 +46,7 @@ const Container = styled.div`
   align-items: center;
   padding: 1.2rem 0;
   gap: 0.8rem;
+  background: ${theme.colors.white};
 
   img {
     cursor: pointer;

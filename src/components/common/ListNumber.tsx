@@ -4,15 +4,16 @@ import styled from "styled-components";
 export interface ListNumberProps {
   index: number;
   text: string;
+  color?: string;
 }
 
 const ListNumber = (props: ListNumberProps) => {
-  const { index, text } = props;
-  
+  const { index, text, color } = props;
+
   return (
     <StyledListNumber>
       <Number>{index}</Number>
-      <Text>{text}</Text>
+      <Text color={color}>{text}</Text>
     </StyledListNumber>
   );
 };
@@ -39,7 +40,8 @@ const Number = styled.div`
   ${(props) => props.theme.fonts.caption1_b}
 `;
 
-const Text = styled.div`
-  color: ${theme.colors.b600};
+const Text = styled.div<{ color?: string }>`
+  color: ${(props) => props.color || theme.colors.b600};
   ${(props) => props.theme.fonts.body3_r};
+  white-space: pre-wrap;
 `;

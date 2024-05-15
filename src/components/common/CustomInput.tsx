@@ -10,6 +10,7 @@ export interface CustomInputProps {
   onClick?: () => void;
   placeholder?: string;
   readonly?: boolean;
+  disabled?: boolean;
 }
 
 const CustomInput = (props: CustomInputProps) => {
@@ -20,6 +21,7 @@ const CustomInput = (props: CustomInputProps) => {
     onClick,
     placeholder,
     readonly = false,
+    disabled = false,
   } = props;
 
   let inputClassName = inputType;
@@ -47,6 +49,7 @@ const CustomInput = (props: CustomInputProps) => {
         placeholder={placeholder}
         className={inputClassName}
         readOnly={readonly}
+        disabled={disabled}
       />
       {inputType === "select" && (
         <ImageContainer>
@@ -85,6 +88,7 @@ const StyledInput = styled.input<CustomInputProps>`
   ${(props) => props.theme.fonts.body3_m};
   outline: none;
   ${(props) => props.theme.fonts.caption1_m};
+
   &::placeholder {
     color: ${theme.colors.b400};
     ${(props) => props.theme.fonts.caption1_m};
@@ -93,6 +97,12 @@ const StyledInput = styled.input<CustomInputProps>`
   &.select {
     cursor: pointer;
     caret-color: transparent;
+  }
+
+  &:disabled {
+    border: none;
+    color: ${theme.colors.b400};
+    background: ${theme.colors.b100};
   }
 `;
 
