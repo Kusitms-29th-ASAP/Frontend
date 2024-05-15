@@ -10,6 +10,6 @@ const Template: StoryFn<ListNumberProps> = (args) => <ListNumber {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  index: "1",
+  index: 1,
   text: "ListNumber",
 };
