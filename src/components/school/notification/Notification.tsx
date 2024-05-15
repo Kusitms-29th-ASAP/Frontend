@@ -1,6 +1,6 @@
 import ListNumberBox from "./ListNumberBox";
 import TopContent from "./TopContent";
-import WhiteBox from "./WhiteBox";
+import WhiteBox from "../WhiteBox";
 
 interface NotificationProps {
   day: Date;

@@ -1,5 +1,5 @@
 import ListNumber from "@/components/common/ListNumber";
-import WhiteBox from "./WhiteBox";
+import WhiteBox from "../WhiteBox";
 import styled from "styled-components";
 
 const NotificationDetailData = [
