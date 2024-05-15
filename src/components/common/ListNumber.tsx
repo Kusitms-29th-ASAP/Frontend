@@ -5,13 +5,14 @@ export interface ListNumberProps {
   index: number;
   text: string;
   color?: string;
+  onClick?: () => void;
 }
 
 const ListNumber = (props: ListNumberProps) => {
-  const { index, text, color } = props;
+  const { index, text, color, onClick } = props;
 
   return (
-    <StyledListNumber>
+    <StyledListNumber onClick={onClick}>
       <Number>{index}</Number>
       <Text color={color}>{text}</Text>
     </StyledListNumber>
@@ -26,6 +27,7 @@ const StyledListNumber = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
+  cursor: ${(props) => (props.onClick ? "pointer" : "default")};
 `;
 
 const Number = styled.div`

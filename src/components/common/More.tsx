@@ -52,6 +52,7 @@ const StyledMore = styled.div`
     div {
       width: 100%;
     }
+    ${(props) => props.theme.fonts.body3_b};
     color: ${theme.colors.b600};
   }
 `;

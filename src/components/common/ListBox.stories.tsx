@@ -24,6 +24,26 @@ DefaultMint.args = {
   text: "ListBox",
 };
 
+export const ContentOrange = Template.bind({});
+ContentOrange.args = {
+  listboxType: "content",
+  color: "orange",
+  time: "기간",
+  text: "ListBox",
+  content1: "content1",
+  content2: "content2",
+};
+
+export const ContentMint = Template.bind({});
+ContentMint.args = {
+  listboxType: "content",
+  color: "mint",
+  time: "기간",
+  text: "ListBox",
+  content1: "content1",
+  content2: "content2",
+};
+
 export const CheckOrange = Template.bind({});
 CheckOrange.args = {
   listboxType: "check",
