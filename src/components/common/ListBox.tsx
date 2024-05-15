@@ -4,14 +4,19 @@ import styled from "styled-components";
 import Checkbox from "./Checkbox";
 import Image from "next/image";
 
+export type listboxType = "check" | "none" | "direct" | "content";
+export type colorType = "orange" | "mint";
+
 export interface ListBoxProps {
-  type?: string;
-  text: string;
   time: string;
+  type?: string;
+  text?: string;
   dday?: number;
-  listboxType?: "check" | "none" | "direct";
-  color?: "orange" | "mint";
+  listboxType?: listboxType;
+  color?: colorType;
   style?: React.CSSProperties & { fontSize?: string };
+  content1?: string;
+  content2?: string;
   value?: string;
   checked?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -25,6 +30,8 @@ const ListBox = (props: ListBoxProps) => {
     listboxType = "none",
     color = "orange",
     style,
+    content1,
+    content2,
     value,
     checked,
     onChange,
@@ -77,21 +84,17 @@ const ListBox = (props: ListBoxProps) => {
               </span>
             </>
           )}
+          {listboxType === "content" && <Content1>{content1}</Content1>}
           {type}
-          {listboxType === "direct" && (
-            <Span
-              style={{
-                fontSize: "11px",
-                fontWeight: "400",
-                color: theme.colors.sub_mint,
-              }}
-            >
-              {time}
-            </Span>
-          )}
+          {listboxType === "direct" && <DirectSpan>{time}</DirectSpan>}
         </Type>
-        <Text>{text}</Text>
+        {listboxType === "content" ? (
+          <Content2>{content2}</Content2>
+        ) : (
+          <Text>{text}</Text>
+        )}
       </Content>
+
       {listboxType === "direct" ? (
         <Delete>
           <Span>삭제</Span>
@@ -113,23 +116,24 @@ export default ListBox;
 
 const StyledListBox = styled.div`
   width: 100%;
-  height: 48px;
   border-radius: 8px;
   border: 1px solid ${theme.colors.primary100};
-  background: ${theme.colors.b50};
+  background: ${theme.colors.white};
   letter-spacing: -0.28px;
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 6px 12px;
-  &.none {
-    height: 65px;
-    background: ${theme.colors.white};
-  }
+  padding: 12px 0px 12px 12px;
 
   &.mint {
     border: 1px solid ${theme.colors.b300};
+  }
+  &.content {
+    border: none;
+    &.mint {
+      border: none;
+    }
   }
 `;
 
@@ -140,8 +144,23 @@ const Content = styled.div`
   gap: 0px;
 `;
 
+const Content1 = styled.div`
+  ${(props) => props.theme.fonts.body3_m};
+  color: ${theme.colors.b700};
+`;
+
+const Content2 = styled.div`
+  ${(props) => props.theme.fonts.caption1_m};
+  color: ${theme.colors.b400};
+`;
+
+const DirectSpan = styled.span`
+  font-size: 11px;
+  font-weight: 400;
+  color: ${theme.colors.sub_mint};
+`;
+
 const Type = styled.div`
-  height: 15px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -150,7 +169,6 @@ const Type = styled.div`
   white-space: pre-wrap;
   ${(props) => props.theme.fonts.caption2_r};
   &.none {
-    height: 21px;
     ${(props) => props.theme.fonts.caption1_m};
   }
   &.none.orange {
@@ -188,7 +206,7 @@ const Time = styled.div`
   display: inline-flex;
   width: 61px;
   height: 100%;
-  padding: 16.5px 10px 16.5px 12px;
+  padding: 16.5px 12px 16.5px 12px;
   justify-content: center;
   align-items: center;
   position: absolute;

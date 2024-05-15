@@ -4,13 +4,14 @@ import styled from "styled-components";
 export interface ListNumberProps {
   index: number;
   text: string;
+  onClick?: () => void;
 }
 
 const ListNumber = (props: ListNumberProps) => {
-  const { index, text } = props;
-  
+  const { index, text, onClick } = props;
+
   return (
-    <StyledListNumber>
+    <StyledListNumber onClick={onClick}>
       <Number>{index}</Number>
       <Text>{text}</Text>
     </StyledListNumber>
@@ -25,6 +26,7 @@ const StyledListNumber = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
+  cursor: ${(props) => (props.onClick ? "pointer" : "default")};
 `;
 
 const Number = styled.div`
