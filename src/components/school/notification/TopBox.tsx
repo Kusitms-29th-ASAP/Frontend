@@ -10,7 +10,7 @@ const TopBox = (props: TopBoxProps) => {
   return (
     <Container>
       {isToday && <New>NEW</New>}
-      <Days>{isToday ? "오늘" : "어제"}의 알림장</Days>
+      <Days>{isToday ? "오늘의" : "지난"} 알림장</Days>
     </Container>
   );
 };

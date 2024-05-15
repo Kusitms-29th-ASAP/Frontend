@@ -1,5 +1,5 @@
 import More from "@/components/common/More";
-import WhiteBox from "../WhiteBox";
+import WhiteBox from "../notification/WhiteBox";
 import styled from "styled-components";
 import ListNumber from "@/components/common/ListNumber";
 import { useRouter } from "next/navigation";

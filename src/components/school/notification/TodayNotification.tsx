@@ -1,11 +1,8 @@
 "use client";
 
 import styled from "styled-components";
-import WhiteBox from "../WhiteBox";
 import { useState } from "react";
-import ListNumberBox from "./ListNumberBox";
-import TitleBox from "./TitleBox";
-import TopBox from "./TopBox";
+import Notificaiton from "./Notification";
 
 const TodayNotificationData = [
   "개인정보 동의서 수요일까지 제출",
@@ -19,11 +16,12 @@ const TodayNotification = () => {
   return (
     <Container>
       <TodayTitle>오늘의 알림장</TodayTitle>
-      <WhiteBox>
-        <TopBox isToday={true} />
-        <TitleBox day={today} teacher={teacher} />
-        <ListNumberBox data={TodayNotificationData} />
-      </WhiteBox>
+      <Notificaiton
+        day={today}
+        teacher={teacher}
+        notifications={TodayNotificationData}
+        isToday={true}
+      />
     </Container>
   );
 };

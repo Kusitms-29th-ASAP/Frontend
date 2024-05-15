@@ -1,4 +1,4 @@
-import WhiteBox from "../WhiteBox";
+import WhiteBox from "../notification/WhiteBox";
 
 const TimeTable = () => {
   return (

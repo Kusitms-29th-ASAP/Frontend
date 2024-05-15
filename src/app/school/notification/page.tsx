@@ -2,6 +2,7 @@
 
 import Tabbar from "@/components/common/Tabbar";
 import Topbar from "@/components/common/Topbar";
+import LastNotification from "@/components/school/notification/LastNotifications";
 import TodayNotification from "@/components/school/notification/TodayNotification";
 import styled from "styled-components";
 
@@ -12,6 +13,7 @@ const Notification = () => {
         <Topbar text="학급알림장" icon={true} />
       </Container>
       <TodayNotification />
+      <LastNotification />
       <Tabbar />
     </>
   );

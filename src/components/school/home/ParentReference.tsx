@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import WhiteBox from "../WhiteBox";
+import WhiteBox from "../notification/WhiteBox";
 import More from "@/components/common/More";
 
 const ParentReference = () => {
