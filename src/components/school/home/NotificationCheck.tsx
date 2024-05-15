@@ -15,6 +15,9 @@ const NotificationCheck = () => {
   const handleNotificationCheck = () => {
     router.push("/school/notification");
   };
+  const handleNotificationDetailCheck = (id: number) => {
+    router.push(`/school/notification/${id}`);
+  };
 
   return (
     <WhiteBox>
@@ -24,7 +27,12 @@ const NotificationCheck = () => {
       </TitleBox>
       <List>
         {CheckList.map((item, index) => (
-          <ListNumber key={index} index={index + 1} text={item} />
+          <ListNumber
+            key={index}
+            index={index + 1}
+            text={item}
+            onClick={() => handleNotificationDetailCheck(index + 1)}
+          />
         ))}
       </List>
     </WhiteBox>
