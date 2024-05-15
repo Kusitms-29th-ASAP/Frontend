@@ -29,8 +29,6 @@ const TimeContainer = styled.div`
   gap: 6px;
   ${(props) => props.theme.fonts.body2_b};
   color: ${theme.colors.b600};
-  line-height: 150%;
-  letter-spacing: -0.28px;
 `;
 
 const TableContainer = styled.div`

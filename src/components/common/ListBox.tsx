@@ -17,6 +17,9 @@ export interface ListBoxProps {
   style?: React.CSSProperties & { fontSize?: string };
   content1?: string;
   content2?: string;
+  value?: string;
+  checked?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 const ListBox = (props: ListBoxProps) => {
   const {
@@ -29,6 +32,9 @@ const ListBox = (props: ListBoxProps) => {
     style,
     content1,
     content2,
+    value,
+    checked,
+    onChange,
   } = props;
 
   const [futureDate, setFutureDate] = useState("");
@@ -63,8 +69,9 @@ const ListBox = (props: ListBoxProps) => {
 
   return (
     <StyledListBox className={listboxClassName} color={color} style={style}>
-      {(listboxType === "check" || listboxType === "direct") && <Checkbox />}
-
+      {(listboxType === "check" || listboxType === "direct") && (
+        <Checkbox value={value} checked={checked} onChange={onChange} />
+      )}
       <Content>
         <Type className={listboxClassName}>
           {listboxType === "none" && (
@@ -192,6 +199,7 @@ const Delete = styled.div`
   right: 0;
   color: ${theme.colors.b400};
   ${(props) => props.theme.fonts.caption3_r};
+  cursor: pointer;
 `;
 
 const Time = styled.div`
