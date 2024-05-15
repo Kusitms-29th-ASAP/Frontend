@@ -1,6 +1,5 @@
 import ListNumberBox from "./ListNumberBox";
-import TitleBox from "./TitleBox";
-import TopBox from "./TopBox";
+import TopContent from "./TopContent";
 import WhiteBox from "./WhiteBox";
 
 interface NotificationProps {
@@ -15,8 +14,7 @@ const Notificaiton = (props: NotificationProps) => {
 
   return (
     <WhiteBox>
-      <TopBox isToday={isToday} />
-      <TitleBox day={day} teacher={teacher} />
+      <TopContent isToday={isToday} day={day} teacher={teacher} />
       <ListNumberBox data={notifications} />
     </WhiteBox>
   );
