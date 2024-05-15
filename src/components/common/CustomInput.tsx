@@ -4,39 +4,38 @@ import styled from "styled-components";
 import Image from "next/image";
 
 export interface CustomInputProps {
+  inputType?: "text" | "select";
   value: string;
   onChange: (value: string) => void;
   onClick?: () => void;
   placeholder?: string;
-  inputType?: "text" | "select";
   readonly?: boolean;
 }
 
-const CustomInput: React.FC<CustomInputProps> = (props: CustomInputProps) => {
+const CustomInput = (props: CustomInputProps) => {
   const {
+    inputType = "text",
     value,
     onChange,
     onClick,
     placeholder,
-    inputType = "text",
     readonly = false,
   } = props;
+
+  let inputClassName = inputType;
+  if (inputType) {
+    inputClassName += " " + inputType;
+  }
 
   const handleChange = (event: any) => {
     onChange(event.target.value);
   };
+
   const handleClick = () => {
     if (onClick) {
       onClick();
     }
   };
-
-  let inputClassName = inputType;
-  if (inputType === "text") {
-    inputClassName += " text";
-  } else if (inputType === "select") {
-    inputClassName += " select";
-  }
 
   return (
     <Container>
@@ -81,7 +80,7 @@ const StyledInput = styled.input<CustomInputProps>`
   gap: 10px;
   border-radius: 10px;
   border: 1px solid ${theme.colors.primary100};
-  background: rgba(255, 135, 0, 0.05);
+  background: ${(props) => (props.value ? "rgba(255, 135, 0, 0.05)" : "white")};
   color: ${theme.colors.b700};
   ${(props) => props.theme.fonts.body3_m};
   outline: none;

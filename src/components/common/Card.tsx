@@ -3,8 +3,8 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 
 export interface CardProps {
-  sub: ReactNode;
-  main: ReactNode;
+  sub: string;
+  main: string;
 }
 const Card = ({ sub, main }: CardProps) => {
   return (
@@ -29,6 +29,7 @@ const StyledCard = styled.div`
   background: ${theme.colors.primary500};
   color: ${theme.colors.white};
   ${(props) => props.theme.fonts.body3_b};
+
   &:disabled {
     background: ${theme.colors.b100};
     color: ${theme.colors.b300};

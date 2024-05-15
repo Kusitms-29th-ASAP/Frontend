@@ -13,11 +13,11 @@ const SocialKakao = () => {
 
   return (
     <SocialLoginBox onClick={handleLogin}>
-      <Image
+      <StyledImage
         src="/assets/main/kakao_social.svg"
+        width={440}
+        height={48}
         alt="kakao"
-        layout="fill"
-        objectFit="contain"
       />
     </SocialLoginBox>
   );
@@ -29,6 +29,17 @@ const SocialLoginBox = styled.div`
   width: 100%;
   height: 48px;
   cursor: pointer;
-  position: relative;
+  position: absolute;
   bottom: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledImage = styled(Image)`
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+  object-fit: contain;
 `;

@@ -2,20 +2,12 @@ import { theme } from "@/styles/theme";
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 
-export type buttonType = "primary" | "primaryLight" | "primaryBorder";
-
-type ButtonTypes = React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
->;
-
-export interface ButtonProps extends ButtonTypes {
-  text: ReactNode;
-  buttonType?: buttonType;
+export interface ButtonProps {
+  buttonType?: "primary" | "primaryLight" | "primaryBorder";
+  text: string;
   size?: "large" | "medium" | "small";
   icon?: ReactNode;
   iconPosition?: "left" | "right";
-  children?: React.ReactNode;
   onClick?: (e: React.MouseEvent) => void;
   style?: React.CSSProperties & { fontSize?: string };
   disabled?: boolean;
@@ -34,20 +26,8 @@ const Button = (props: ButtonProps) => {
   } = props;
 
   let buttonClassName = buttonType;
-  if (buttonType === "primary") {
-    buttonClassName += " primary";
-  } else if (buttonType === "primaryLight") {
-    buttonClassName += " primaryLight";
-  } else if (buttonType === "primaryBorder") {
-    buttonClassName += " primaryBorder";
-  }
-
-  if (size === "large") {
-    buttonClassName += " large";
-  } else if (size === "medium") {
-    buttonClassName += " medium";
-  } else if (size === "small") {
-    buttonClassName += " small";
+  if (size) {
+    buttonClassName += " " + size;
   }
 
   return (
@@ -58,9 +38,8 @@ const Button = (props: ButtonProps) => {
       onClick={onClick}
       disabled={disabled}
     >
-      <IconLeft>{icon && iconPosition === "left" && icon}</IconLeft>
+      {icon && iconPosition && <Icon $iconPosition={iconPosition}>{icon}</Icon>}
       {text}
-      <IconRight>{icon && iconPosition === "right" && icon}</IconRight>
     </StyledButton>
   );
 };
@@ -78,9 +57,8 @@ const StyledButton = styled.button<StyledButtonProps>`
   position: relative;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 5px;
   ${(props) => props.theme.fonts.body3_m};
   white-space: nowrap;
   cursor: pointer;
@@ -88,6 +66,11 @@ const StyledButton = styled.button<StyledButtonProps>`
   transition:
     color 200ms,
     background-color 200ms;
+
+  &:disabled {
+    color: ${theme.colors.b400};
+    background: ${theme.colors.b200};
+  }
 
   /* buttonType */
   &.primary {
@@ -98,10 +81,6 @@ const StyledButton = styled.button<StyledButtonProps>`
     }
     &:active {
       background: ${theme.colors.primary800};
-    }
-    &:disabled {
-      color: ${theme.colors.b400};
-      background: ${theme.colors.b200};
     }
   }
   &.primaryLight {
@@ -153,16 +132,9 @@ const StyledButton = styled.button<StyledButtonProps>`
   }
 `;
 
-const IconLeft = styled.div`
+const Icon = styled.div<{ $iconPosition: string }>`
   position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-`;
-
-const IconRight = styled.div`
-  position: absolute;
-  right: 12px;
+  ${({ $iconPosition }) => `${$iconPosition}: 12px;`}
   top: 50%;
   transform: translateY(-50%);
 `;

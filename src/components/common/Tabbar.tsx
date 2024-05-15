@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { theme } from "@/styles/theme";
+import { tabs } from "@/data/commonData";
 
 interface TabProps {
   selected: boolean;
@@ -10,7 +11,7 @@ interface TabProps {
 
 const Tabbar = () => {
   const pathname = usePathname();
-  const [selected, setSelected] = useState("/home");
+  const [selected, setSelected] = useState(pathname);
   const router = useRouter();
 
   const handleTabClick = (path: any) => {
@@ -20,119 +21,22 @@ const Tabbar = () => {
 
   return (
     <Container>
-      <Tab onClick={() => handleTabClick("/home")} selected={selected === "/"}>
-        <Bar selected={pathname === "/home"} />
-        {pathname === "/home" ? (
-          <>
-            <Image
-              src="/assets/icons/ic_home_select.svg"
-              width="24"
-              height="24"
-              alt="home"
-            />
-          </>
-        ) : (
+      {tabs.map((tab, index) => (
+        <Tab
+          key={index}
+          onClick={() => handleTabClick(tab.path)}
+          selected={pathname === tab.path}
+        >
+          <Bar selected={pathname === tab.path} />
           <Image
-            src="/assets/icons/ic_home.svg"
+            src={`/assets/icons/${selected === tab.path ? tab.icon + "_select" : tab.icon}.svg`}
             width="24"
             height="24"
-            alt="home"
+            alt={tab.label}
           />
-        )}
-        홈
-      </Tab>
-      <Tab
-        onClick={() => handleTabClick("/school")}
-        selected={pathname === "/school"}
-      >
-        <Bar selected={pathname === "/school"} />
-        {pathname === "/school" ? (
-          <Image
-            src="/assets/icons/ic_edu_select.svg"
-            width="24"
-            height="24"
-            alt="edu"
-          />
-        ) : (
-          <Image
-            src="/assets/icons/ic_edu.svg"
-            width="24"
-            height="24"
-            alt="edu"
-          />
-        )}
-        학교 생활
-      </Tab>
-      <Tab
-        onClick={() => handleTabClick("/news/school")}
-        selected={pathname === "/news/school" || pathname === "/news/eduOffice"}
-      >
-        <Bar
-          selected={
-            pathname === "/news/school" || pathname === "/news/eduOffice"
-          }
-        />
-        {pathname === "/news/school" || pathname === "/news/eduOffice" ? (
-          <Image
-            src="/assets/icons/ic_class_select.svg"
-            width="24"
-            height="24"
-            alt="class"
-          />
-        ) : (
-          <Image
-            src="/assets/icons/ic_class.svg"
-            width="24"
-            height="24"
-            alt="class"
-          />
-        )}
-        소식
-      </Tab>
-      <Tab
-        onClick={() => handleTabClick("/study")}
-        selected={pathname === "/study"}
-      >
-        <Bar selected={pathname === "/study"} />
-        {pathname === "/study" ? (
-          <Image
-            src="/assets/icons/ic_study_select.svg"
-            width="24"
-            height="24"
-            alt="study"
-          />
-        ) : (
-          <Image
-            src="/assets/icons/ic_study.svg"
-            width="24"
-            height="24"
-            alt="study"
-          />
-        )}
-        가정학습
-      </Tab>
-      <Tab
-        onClick={() => handleTabClick("/mypage")}
-        selected={pathname === "/mypage"}
-      >
-        <Bar selected={pathname === "/mypage"} />
-        {pathname === "/mypage" ? (
-          <Image
-            src="/assets/icons/ic_mypage_select.svg"
-            width="24"
-            height="24"
-            alt="mypage"
-          />
-        ) : (
-          <Image
-            src="/assets/icons/ic_mypage.svg"
-            width="24"
-            height="24"
-            alt="mypage"
-          />
-        )}
-        마이페이지
-      </Tab>
+          {tab.label}
+        </Tab>
+      ))}
     </Container>
   );
 };

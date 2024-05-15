@@ -4,17 +4,17 @@ import styled from "styled-components";
 import Checkbox from "./Checkbox";
 import Image from "next/image";
 
-export type listboxType = "check" | "none" | "direct";
-export type colorType = "orange" | "mint";
-
 export interface ListBoxProps {
-  type: string;
+  type?: string;
   text: string;
   time: string;
   dday?: number;
-  listboxType?: listboxType;
-  color?: colorType;
+  listboxType?: "check" | "none" | "direct";
+  color?: "orange" | "mint";
   style?: React.CSSProperties & { fontSize?: string };
+  value?: string;
+  checked?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 const ListBox = (props: ListBoxProps) => {
   const {
@@ -25,6 +25,9 @@ const ListBox = (props: ListBoxProps) => {
     listboxType = "none",
     color = "orange",
     style,
+    value,
+    checked,
+    onChange,
   } = props;
 
   const [futureDate, setFutureDate] = useState("");
@@ -59,7 +62,9 @@ const ListBox = (props: ListBoxProps) => {
 
   return (
     <StyledListBox className={listboxClassName} color={color} style={style}>
-      {(listboxType === "check" || listboxType === "direct") && <Checkbox />}
+      {(listboxType === "check" || listboxType === "direct") && (
+        <Checkbox value={value} checked={checked} onChange={onChange} />
+      )}
       <Content>
         <Type className={listboxClassName}>
           {listboxType === "none" && (
@@ -176,6 +181,7 @@ const Delete = styled.div`
   right: 0;
   color: ${theme.colors.b400};
   ${(props) => props.theme.fonts.caption3_r};
+  cursor: pointer;
 `;
 
 const Time = styled.div`

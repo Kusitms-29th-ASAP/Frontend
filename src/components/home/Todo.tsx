@@ -86,6 +86,7 @@ const Todo = () => {
           width={20}
           height={20}
           onClick={handleBackDay}
+          style={{ cursor: "pointer" }}
         />
         {todayMonth}월 {todayDate}일 {dayOfWeek}요일
         {getDateString(currentDate)}
@@ -95,7 +96,10 @@ const Todo = () => {
           width={20}
           height={20}
           onClick={handleForwardDay}
-          style={{ opacity: isToday(currentDate) ? 0.5 : 1 }}
+          style={{
+            opacity: isToday(currentDate) ? 0.5 : 1,
+            cursor: isToday(currentDate) ? "" : "pointer",
+          }}
         />
       </DateLine>
       <TodoLists>
@@ -202,6 +206,7 @@ const PlusButton = styled.button`
     border-radius: 8px;
     background: rgba(255, 135, 0, 0.1);
   }
+  cursor: pointer;
 `;
 
 const Overlay = styled.div`
