@@ -1,10 +1,13 @@
 "use client";
 
-import React from "react";
 import styled from "styled-components";
 
 const layout = (props: any) => {
-  return <Container>{props.children}</Container>;
+  return (
+    <>
+      <Container>{props.children}</Container>
+    </>
+  );
 };
 
 export default layout;
