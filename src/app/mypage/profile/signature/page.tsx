@@ -87,7 +87,7 @@ const Signature = () => {
             ref={sigPad}
             penColor="black"
             canvasProps={{
-              width: 440,
+              width: "100%",
               height: 168,
               className: "sigCanvas",
             }}
