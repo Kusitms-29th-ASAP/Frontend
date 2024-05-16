@@ -7,7 +7,7 @@ import HomeGuideRemind from "@/components/school/home/HomeGuideRemind";
 import NotificationCheck from "@/components/school/home/NotificationCheck";
 import OurClassAlbum from "@/components/school/home/OurClassAlbum";
 import ParentReference from "@/components/school/home/ParentReference";
-import TimeTable from "@/components/school/home/TimeTable";
+import TimeTable from "@/components/school/home/TimeTable/TimeTable";
 import styled from "styled-components";
 
 const School = () => {
