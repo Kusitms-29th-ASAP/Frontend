@@ -9,12 +9,14 @@ export interface CardProps {
   main: string;
   type?: CardType;
   color?: CardColor;
+  onClick?: () => void;
 }
 const Card = ({
   sub,
   main,
   color = "orange",
   type = "timetable",
+  onClick,
 }: CardProps) => {
   let cardClassName = color;
   if (type === "timetable") {
@@ -24,9 +26,9 @@ const Card = ({
   }
 
   return (
-    <StyledCard className={cardClassName}>
-      <Sub>{sub}</Sub>
-      <Main>{main}</Main>
+    <StyledCard className={cardClassName} onClick={onClick}>
+      <Sub className={cardClassName}>{sub}</Sub>
+      <Main className={cardClassName}>{main}</Main>
     </StyledCard>
   );
 };
@@ -41,10 +43,6 @@ const StyledCard = styled.div`
   text-align: center;
   white-space: nowrap;
 
-  &.white {
-    background: ${theme.colors.white};
-    color: ${theme.colors.primary500};
-  }
   &.orange {
     background: ${theme.colors.primary500};
     color: ${theme.colors.white};
@@ -54,6 +52,9 @@ const StyledCard = styled.div`
       color: ${theme.colors.b300};
     }
   }
+  &.white {
+    background: ${theme.colors.white};
+  }
 
   &.timetable {
     gap: 2px;
@@ -62,6 +63,7 @@ const StyledCard = styled.div`
   &.date {
     gap: 4px;
     justify-content: center;
+    cursor: pointer;
   }
 `;
 
@@ -72,8 +74,16 @@ const Sub = styled.div`
   &.date {
     ${(props) => props.theme.fonts.body3_r};
   }
+
+  &.white {
+    color: ${theme.colors.b400};
+  }
 `;
 
 const Main = styled.div`
   ${(props) => props.theme.fonts.body3_b};
+
+  &.white {
+    color: ${theme.colors.b600};
+  }
 `;

@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
+import Card from "../../common/Card";
 
 export interface DateSelectProps {
   type: "week";
-  setWeekStart: React.Dispatch<React.SetStateAction<number>>;
-  setWeekEnd: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const DateSelect = (props: DateSelectProps) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const { type, setWeekStart, setWeekEnd } = props;
+  const [selectedDay, setSelectedDay] = useState<number | null>(null);
+  const Week = ["월", "화", "수", "목", "금"];
+  const { type } = props;
 
   /* 주의 시작일과 마지막일 계산 (월요일 ~ 금요일) */
   const getWeekStartAndEnd = (date: Date) => {
@@ -21,9 +22,6 @@ const DateSelect = (props: DateSelectProps) => {
     );
     const endDate = new Date(startDate);
     endDate.setDate(startDate.getDate() + 4); // 월요일부터 4일 뒤는 금요일
-
-    setWeekStart(startDate.getDay());
-    setWeekEnd(endDate.getDay());
 
     return { startDate, endDate };
   };
@@ -81,6 +79,10 @@ const DateSelect = (props: DateSelectProps) => {
     }
   };
 
+  const handleCardClick = (index: number) => {
+    setSelectedDay(index);
+  };
+
   /* 오늘 날짜인지 확인 */
   const isThisWeek = (date: Date) => {
     const today = new Date();
@@ -88,39 +90,73 @@ const DateSelect = (props: DateSelectProps) => {
     return date >= startDate && date <= endDate;
   };
 
+  const formatDateForCard = (date: Date, dayOffset: number) => {
+    const dateForDay = new Date(date);
+    dateForDay.setDate(date.getDate() + dayOffset);
+    return `${dateForDay.getDate()}`;
+  };
+
   return (
-    <DateLine>
-      <Image
-        src="/assets/icons/ic_chevron_left.svg"
-        alt="left"
-        width={20}
-        height={20}
-        onClick={handleBackWeek}
-        style={{ cursor: "pointer" }}
-      />
-      {getWeekString()}
-      <Image
-        src="/assets/icons/ic_chevron_right.svg"
-        alt="right"
-        width={20}
-        height={20}
-        onClick={handleForwardWeek}
-        style={{
-          opacity: isThisWeek(currentDate) ? 0.5 : 1,
-          cursor: isThisWeek(currentDate) ? "" : "pointer",
-        }}
-      />
-    </DateLine>
+    <Container>
+      <DateLine>
+        <Image
+          src="/assets/icons/ic_chevron_left.svg"
+          alt="left"
+          width={20}
+          height={20}
+          onClick={handleBackWeek}
+          style={{ cursor: "pointer" }}
+        />
+        {getWeekString()}
+        <Image
+          src="/assets/icons/ic_chevron_right.svg"
+          alt="right"
+          width={20}
+          height={20}
+          onClick={handleForwardWeek}
+          style={{
+            opacity: isThisWeek(currentDate) ? 0.5 : 1,
+            cursor: isThisWeek(currentDate) ? "" : "pointer",
+          }}
+        />
+      </DateLine>
+      <CardList>
+        {Week.map((day, index) => (
+          <Card
+            key={index}
+            type="date"
+            sub={day}
+            main={formatDateForCard(startDate, index)}
+            color={selectedDay === index ? "orange" : "white"}
+            onClick={() => handleCardClick(index)}
+          />
+        ))}
+      </CardList>
+    </Container>
   );
 };
 
 export default DateSelect;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+`;
 
 const DateLine = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   gap: 8px;
+`;
+
+const CardList = styled.div`
+  display: flex;
+  gap: 18px;
+  div {
+    width: 100%;
+  }
 `;
 
 const DateText = styled.div`
