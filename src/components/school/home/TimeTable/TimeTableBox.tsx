@@ -39,6 +39,7 @@ const Container = styled.div`
   display: flex;
   gap: 9px;
   align-items: start;
+  width: 100%;
 `;
 
 const TimeListBox = styled.div`
@@ -51,11 +52,12 @@ const SubjectCol = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 100%;
+  flex: 1 1 0%;
 `;
 
 const SubjectListBox = styled.div`
   display: flex;
   width: 100%;
   gap: 8px;
+  flex: 1 1 auto;
 `;

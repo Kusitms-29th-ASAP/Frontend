@@ -14,7 +14,7 @@ export default SubjectBox;
 
 const Container = styled.div`
   display: flex;
-  padding: 6px 12px;
+  padding: 6px;
   justify-content: center;
   align-items: center;
   height: 30px;

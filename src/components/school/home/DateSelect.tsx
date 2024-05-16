@@ -105,12 +105,7 @@ const DateLine = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-`;
 
-const CardList = styled.div`
-  display: flex;
-  gap: 18px;
-  div {
-    width: 100%;
-  }
+  ${({ theme }) => theme.fonts.body3_m};
+  color: ${({ theme }) => theme.colors.b600};
 `;
