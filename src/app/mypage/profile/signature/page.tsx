@@ -78,6 +78,7 @@ const Signature = () => {
           onClick={() => {
             router.push("/mypage/profile");
           }}
+          style={{ cursor: "pointer" }}
         />
       </Row>
       <Div>
@@ -171,6 +172,7 @@ const Clear = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
+  cursor: pointer;
 `;
 
 const Box = styled.div`

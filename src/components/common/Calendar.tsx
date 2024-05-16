@@ -12,9 +12,11 @@ import dayjs from "dayjs";
 export interface CalendarProps {
   value: string;
   onChange: (value: string) => void;
+  color?: "black";
+  disabled?: boolean;
 }
 
-const Calendar = ({ value, onChange }: CalendarProps) => {
+const Calendar = ({ value, onChange, color, disabled }: CalendarProps) => {
   const [date, setDate] = useState<dayjs.Dayjs | null>(null);
 
   const handleDateChange = (newDate: dayjs.Dayjs | null) => {
@@ -37,6 +39,8 @@ const Calendar = ({ value, onChange }: CalendarProps) => {
               placeholder="날짜를 선택해주세요"
               onChange={() => {}}
               readonly={true}
+              color="black"
+              disabled={disabled}
             />
             <IconImage
               src="/assets/icons/ic_calendar.svg"
@@ -44,11 +48,13 @@ const Calendar = ({ value, onChange }: CalendarProps) => {
               width={20}
               height={20}
             />
-            <StyledMobileDatePicker
-              format="YYYY년 MM월 DD일"
-              value={date}
-              onChange={handleDateChange}
-            />
+            {!disabled && (
+              <StyledMobileDatePicker
+                format="YYYY년 MM월 DD일"
+                value={date}
+                onChange={handleDateChange}
+              />
+            )}
           </CustomInputContainer>
         </StyledDemoContainer>
       </LocalizationProvider>
