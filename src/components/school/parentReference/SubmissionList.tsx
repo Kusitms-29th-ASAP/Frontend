@@ -1,11 +1,24 @@
 import ListBox from "@/components/common/ListBox";
-import { AbsentSubmissionListData } from "@/data/submissionData";
 import styled from "styled-components";
 
-const SubmissionList = () => {
+type submission = {
+  id: number;
+  date: string;
+  content1: string;
+  content2: string;
+  time: string;
+};
+
+interface SubmissionListProps {
+  submissionList: submission[];
+}
+
+const SubmissionList = (props: SubmissionListProps) => {
+  const { submissionList } = props;
+
   return (
     <Container>
-      {AbsentSubmissionListData.map((data) => (
+      {submissionList.map((data) => (
         <ListBox
           key={data.id}
           listboxType="content"

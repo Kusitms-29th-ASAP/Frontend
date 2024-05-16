@@ -3,6 +3,7 @@
 import CustomInput from "@/components/common/CustomInput";
 import Topbar from "@/components/common/Topbar";
 import SubmissionList from "@/components/school/parentReference/SubmissionList";
+import { AbsentSubmissionListData } from "@/data/submissionData";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -19,7 +20,7 @@ const AbsentReasonSubmission = () => {
         </Title>
         <CustomInput inputType="select" value={selected} onChange={() => {}} />
       </Container>
-      <SubmissionList />
+      <SubmissionList submissionList={AbsentSubmissionListData} />
     </>
   );
 };
