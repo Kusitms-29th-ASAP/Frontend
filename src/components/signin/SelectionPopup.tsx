@@ -25,7 +25,7 @@ const SelectionPopup = (props: SelectionPopupProps) => {
         <ButtonBox>
           {selectionList.map((value, index) => (
             <Button
-              buttonType="primaryBorder"
+              type="primaryBorder"
               text={value}
               onClick={() => {
                 onSelect(value);

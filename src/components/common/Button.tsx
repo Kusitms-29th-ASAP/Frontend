@@ -2,12 +2,16 @@ import { theme } from "@/styles/theme";
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 
+export type ButtonType = "primary" | "primaryLight" | "primaryBorder";
+export type ButtonSize = "large" | "medium" | "small";
+export type IconPosition = "left" | "right";
+
 export interface ButtonProps {
-  buttonType?: "primary" | "primaryLight" | "primaryBorder";
+  type?: ButtonType;
   text: string;
-  size?: "large" | "medium" | "small";
+  size?: ButtonSize;
   icon?: ReactNode;
-  iconPosition?: "left" | "right";
+  iconPosition?: IconPosition;
   onClick?: (e: React.MouseEvent) => void;
   style?: React.CSSProperties & { fontSize?: string };
   disabled?: boolean;
@@ -16,7 +20,7 @@ export interface ButtonProps {
 const Button = (props: ButtonProps) => {
   const {
     text,
-    buttonType = "primary",
+    type = "primary",
     size,
     icon,
     iconPosition = "left",
@@ -25,7 +29,7 @@ const Button = (props: ButtonProps) => {
     disabled,
   } = props;
 
-  let buttonClassName = buttonType;
+  let buttonClassName = type;
   if (size) {
     buttonClassName += " " + size;
   }
@@ -72,7 +76,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     background: ${theme.colors.b200};
   }
 
-  /* buttonType */
+  /* type */
   &.primary {
     color: ${theme.colors.white};
     background: ${theme.colors.primary500};

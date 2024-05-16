@@ -5,6 +5,7 @@ import Topbar from "@/components/common/Topbar";
 import SchoolHomeTop from "@/components/school/SchoolHomeTop";
 import WeeklyNotification from "@/components/school/weeklyStudy/WeeklyNotification";
 import styled from "styled-components";
+import WeeklyStudyList from "@/components/school/weeklyStudy/WeeklyStudyList";
 
 const WeeklyStudy = () => {
   return (
@@ -14,6 +15,7 @@ const WeeklyStudy = () => {
       </Container>
       <Background>
         <SchoolHomeTop title={"우리반 일정"} />
+        <WeeklyStudyList />
         <WeeklyNotification />
       </Background>
       <Tabbar />

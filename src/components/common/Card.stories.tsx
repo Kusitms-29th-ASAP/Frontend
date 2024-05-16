@@ -8,8 +8,26 @@ export default {
 
 const Template: StoryFn<CardProps> = (args) => <Card {...args} />;
 
-export const Default = Template.bind({});
-Default.args = {
+export const CardTimetable = Template.bind({});
+CardTimetable.args = {
+  sub: "1교시",
   main: "과목",
-  sub: "교시",
+  color: "orange",
+  type: "timetable",
+};
+
+export const CardWhiteDate = Template.bind({});
+CardWhiteDate.args = {
+  sub: "월",
+  main: "18",
+  color: "white",
+  type: "date",
+};
+
+export const CardOrangeDate = Template.bind({});
+CardOrangeDate.args = {
+  sub: "월",
+  main: "18",
+  color: "orange",
+  type: "date",
 };
