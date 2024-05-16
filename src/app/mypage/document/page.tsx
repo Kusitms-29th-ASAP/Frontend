@@ -29,12 +29,10 @@ const Document = () => {
   const handleListBoxClick = (data: Docs) => {
     setSelectedData(data);
     setOpenPopup(true);
-    console.log(selectedData);
   };
 
   const handleClosePopup = () => {
     setOpenPopup(false);
-    console.log("zz", openPopup);
   };
 
   return (
