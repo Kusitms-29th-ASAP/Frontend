@@ -31,3 +31,11 @@ Select.args = {
   placeholder: "선택해주세요.",
   inputType: "select",
 };
+
+export const DisableBlack = Template.bind({});
+Select.args = {
+  placeholder: "Input Disable",
+  inputType: "text",
+  color: "black",
+  disabled: true,
+};
