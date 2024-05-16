@@ -2,13 +2,13 @@ import { theme } from "@/styles/theme";
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 
-export type ButtonType = "primary" | "primaryLight" | "primaryBorder";
+export type ButtonType = "primary" | "primaryLight" | "primaryBorder" | "gray";
 export type ButtonSize = "large" | "medium" | "small";
 export type IconPosition = "left" | "right";
 
 export interface ButtonProps {
-  type?: ButtonType;
   text: string;
+  type?: ButtonType;
   size?: ButtonSize;
   icon?: ReactNode;
   iconPosition?: IconPosition;
@@ -123,6 +123,20 @@ const StyledButton = styled.button<StyledButtonProps>`
     &:disabled {
       color: ${theme.colors.b400};
       background: ${theme.colors.b200};
+    }
+  }
+  &.gray {
+    color: ${theme.colors.b400};
+    background: ${theme.colors.b200};
+    &:hover {
+      background: ${theme.colors.b300};
+    }
+    &:active {
+      background: ${theme.colors.b300};
+    }
+    &:disabled {
+      color: ${theme.colors.b200};
+      background: ${theme.colors.b300};
     }
   }
 

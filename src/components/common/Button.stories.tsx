@@ -16,6 +16,12 @@ Primary.args = {
   type: "primary",
 };
 
+export const Gray = Template.bind({});
+Gray.args = {
+  text: "Gray Button",
+  type: "gray",
+};
+
 export const PrimaryLight = Template.bind({});
 PrimaryLight.args = {
   text: "Primary Light Button",
