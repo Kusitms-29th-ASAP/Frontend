@@ -11,7 +11,7 @@ const subjectsData = [
 ];
 
 const TimeTableBox = () => {
-  const TimeData = [0, 1, 2, 3, 4, 5];
+  const TimeData = [1, 2, 3, 4, 5];
 
   return (
     <Container>

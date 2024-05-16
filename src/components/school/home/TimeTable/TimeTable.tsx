@@ -14,16 +14,24 @@ const TimeTable = () => {
 
   return (
     <WhiteBox>
-      <TopBox>
-        <DateSelect type={"week"} />
-        <More text="일정 자세히 보기" onClick={handleDetailClick} />
-      </TopBox>
-      <TimeTableBox />
+      <Container>
+        <TopBox>
+          <DateSelect type={"week"} />
+          <More text="일정 자세히 보기" onClick={handleDetailClick} />
+        </TopBox>
+        <TimeTableBox />
+      </Container>
     </WhiteBox>
   );
 };
 
 export default TimeTable;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+`;
 
 const TopBox = styled.div`
   display: flex;
