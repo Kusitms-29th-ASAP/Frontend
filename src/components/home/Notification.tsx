@@ -9,7 +9,7 @@ const Notification = () => {
     <NotiContainer>
       <Title>
         오늘 알림장도 체크해요!
-        <More onClick={() => console.log("페이지 이동")} />
+        <More onClick={() => {}} />
       </Title>
       <NotiList>
         {notificationData.map((data, index) => (

@@ -11,5 +11,5 @@ const Template: StoryFn<CalendarProps> = (args) => <Calendar {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   value: "",
-  onChange: (value: string) => console.log(value),
+  onChange: () => {},
 };
