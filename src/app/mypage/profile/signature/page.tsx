@@ -8,14 +8,63 @@ import ListNumber from "@/components/common/ListNumber";
 import { signData } from "@/data/mypageData";
 import Subtitle from "@/components/signin/Subtitle";
 import Button from "@/components/common/Button";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CheckBox } from "@/components/common/Checkbox.stories";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import SignatureCanvas from "react-signature-canvas";
+import Axios from "@/apis/axios";
 
 const Signature = () => {
   const router = useRouter();
+  const [isSignatureEmpty, setIsSignatureEmpty] = useState(true);
+  const sigPad = useRef<SignatureCanvas | null>(null);
   const [agree, setAgree] = useState(false);
+
+  const handleBeginDrawing = () => {
+    setIsSignatureEmpty(false);
+    console.log(isSignatureEmpty);
+  };
+
+  /* dataURL을 File로 반환하는 함수 */
+  const convertDataUrlToFile = () => {
+    const dataURL = sigPad.current?.toDataURL("image/png");
+    const decodedURL = dataURL?.replace(/^data:image\/\sw+;base64,/, "");
+    if (decodedURL) {
+      const buf = Buffer.from(decodedURL, "base64");
+      const blob = new Blob([buf], { type: "image/png" });
+      return new File([blob], `sign.png`, { type: "image/png" });
+    }
+  };
+
+  const clear = () => {
+    sigPad.current?.clear();
+    setIsSignatureEmpty(true);
+    console.log(isSignatureEmpty);
+  };
+
+  const save = async () => {
+    if (sigPad.current?.isEmpty()) {
+      alert("서명을 입력해주세요.");
+      return;
+    }
+
+    /* signature 파일 */
+    const signImage = convertDataUrlToFile();
+    console.log("이미지", signImage);
+
+    router.push("/mypage/profile");
+
+    /* signature 파일 post */
+    Axios.post(`엔드포인트`, signImage)
+      .then((response) => {
+        router.push("/mypage/profile");
+        console.log("Signature Post Success:", response.data);
+      })
+      .catch(() => {
+        console.error("Signature Post Error");
+      });
+  };
 
   return (
     <>
@@ -29,9 +78,36 @@ const Signature = () => {
           onClick={() => {
             router.push("/mypage/profile");
           }}
+          style={{ cursor: "pointer" }}
         />
       </Row>
-      <SignBox />
+      <Div>
+        <SignBox>
+          <Hidden>
+            <SignatureCanvas
+              ref={sigPad}
+              penColor="black"
+              canvasProps={{
+                width: 480,
+                height: 168,
+                className: "sigCanvas",
+              }}
+              onBegin={handleBeginDrawing}
+            />
+          </Hidden>
+        </SignBox>
+        {!isSignatureEmpty && (
+          <Clear onClick={clear}>
+            <Image
+              src="/assets/icons/ic_clear.svg"
+              width={20}
+              height={20}
+              alt="clear"
+            />
+            서명 지우기
+          </Clear>
+        )}
+      </Div>
       <Content>
         <div>
           <Subtitle>
@@ -58,7 +134,7 @@ const Signature = () => {
         <Button
           text="서명 등록하기"
           onClick={() => {
-            router.push("/mypage/profile");
+            save();
           }}
           disabled={!agree}
         />
@@ -79,6 +155,31 @@ const Row = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+const Div = styled.div`
+  width: 100%;
+  height: 200px;
+  position: relative;
+  margin-bottom: 22.5px;
+`;
+
+const Hidden = styled.div`
+  width: 100%;
+  overflow-x: hidden;
+`;
+
+const Clear = styled.div`
+  width: 83px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: ${theme.colors.b400};
+  ${(props) => props.theme.fonts.caption1_m};
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
 `;
 
 const Box = styled.div`

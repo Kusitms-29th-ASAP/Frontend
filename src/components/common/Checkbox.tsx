@@ -131,6 +131,7 @@ const CheckboxInput = styled.input`
   background-repeat: no-repeat;
   border-radius: 0.35rem;
   margin-right: 16px;
+  cursor: pointer;
 
   &.grayCheckbox {
     margin-right: 0px;

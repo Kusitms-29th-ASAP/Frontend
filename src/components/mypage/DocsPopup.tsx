@@ -2,6 +2,7 @@ import styled from "styled-components";
 import CustomInput from "../common/CustomInput";
 import Popup from "../common/Popup";
 import Subtitle from "../signin/Subtitle";
+import Calendar from "../common/Calendar";
 
 interface DocsProps {
   onClose: () => void;
@@ -67,7 +68,7 @@ const DocsPopup = (props: DocsProps) => {
         </div>
         <div>
           <Subtitle>작성 일자</Subtitle>
-          <CustomInput
+          <Calendar
             value={data.date}
             color="black"
             disabled={true}
