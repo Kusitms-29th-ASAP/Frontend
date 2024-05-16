@@ -5,6 +5,11 @@ import Topbar from "@/components/common/Topbar";
 export default {
   component: Topbar,
   title: "Components/Topbar",
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+    },
+  },
 } satisfies Meta<typeof Topbar>;
 
 export const Default = () => <Topbar text="상단바" />;

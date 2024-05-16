@@ -4,6 +4,11 @@ import SummaryCard, { SummaryCardProps } from "./SummaryCard";
 export default {
   title: "News/SummaryCard",
   component: SummaryCard,
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+    },
+  },
 } as Meta;
 
 const Template: StoryFn<SummaryCardProps> = (args) => <SummaryCard {...args} />;
