@@ -3,6 +3,7 @@
 import Tabbar from "@/components/common/Tabbar";
 import Topbar from "@/components/common/Topbar";
 import SchoolHomeTop from "@/components/school/SchoolHomeTop";
+import WeeklyNotification from "@/components/school/weeklyStudy/WeeklyNotification";
 import styled from "styled-components";
 
 const WeeklyStudy = () => {
@@ -13,6 +14,7 @@ const WeeklyStudy = () => {
       </Container>
       <Background>
         <SchoolHomeTop title={"우리반 일정"} />
+        <WeeklyNotification />
       </Background>
       <Tabbar />
     </>
