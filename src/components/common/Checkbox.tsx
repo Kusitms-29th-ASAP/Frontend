@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 
 export interface CheckBoxProps {
-  checkboxType?: "checkbox" | "checkBtn" | "checkArrow";
+  checkboxType?: "checkbox" | "grayCheckbox" | "checkBtn" | "checkArrow";
   value?: string;
   label?: string;
   text?: string;
@@ -32,15 +32,19 @@ const Checkbox = (props: CheckBoxProps) => {
 
   return (
     <CheckBoxLayout className={checkboxClassName} $check={checked || false}>
-      <CheckboxContainer essential={essential ? true : false}>
+      <CheckboxContainer
+        essential={essential ? true : false}
+        checked={checked || false}
+      >
         <CheckboxInput
+          className={checkboxClassName}
           value={value}
           type="checkbox"
           checked={checked}
           onChange={onChange}
         />
         {label}
-        <span>{text}</span>
+        <span className={checkboxClassName}>{text}</span>
       </CheckboxContainer>
       {checkboxType === "checkArrow" && (
         <Image
@@ -69,7 +73,6 @@ const CheckBoxLayout = styled.div<{ $check: boolean }>`
   &.checkBtn {
     width: 100%;
     padding: 15px 12px;
-    background-color: rgba(255, 135, 0, 0.05);
     border-radius: 10px;
     img {
       display: none;
@@ -96,7 +99,10 @@ const CheckBoxLayout = styled.div<{ $check: boolean }>`
   }
 `;
 
-const CheckboxContainer = styled.label<{ essential: boolean }>`
+const CheckboxContainer = styled.label<{
+  essential: boolean;
+  checked: boolean;
+}>`
   display: flex;
   align-items: center;
   flex-grow: 1;
@@ -107,22 +113,41 @@ const CheckboxContainer = styled.label<{ essential: boolean }>`
     ${({ theme }) => theme.fonts.caption1_m};
     color: ${(props) =>
       props.essential ? theme.colors.primary500 : theme.colors.b400};
+
+    &.grayCheckbox {
+      color: ${(props) =>
+        props.checked ? theme.colors.primary500 : theme.colors.b500};
+    }
   }
 `;
 
 const CheckboxInput = styled.input`
   appearance: none;
-  width: 1.3rem;
-  height: 1.3rem;
-  border: 2px solid ${theme.colors.primary50};
-  background-color: ${theme.colors.primary50};
-
+  width: 20px;
+  height: 20px;
   background-image: url("data:image/svg+xml; base64, PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgcng9IjQiIGZpbGw9IiNGRkUyQzIiLz4NCjxwYXRoIGQ9Ik0xNCA3TDguNSAxMi41TDYgMTAiIHN0cm9rZT0iI0ZGRDA5QyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4NCjwvc3ZnPg==");
   background-size: 100% 100%;
   background-position: 50%;
   background-repeat: no-repeat;
   border-radius: 0.35rem;
   margin-right: 16px;
+  cursor: pointer;
+
+  &.grayCheckbox {
+    margin-right: 0px;
+    background: ${theme.colors.b200};
+    background-image: url("/assets/icons/ic_checkbox_gray.svg");
+
+    &:hover {
+      box-shadow: 0 0 0 max(2px, 0.3em) ${theme.colors.b100};
+    }
+
+    &:checked {
+      &:hover {
+        box-shadow: 0 0 0 max(2px, 0.3em) ${theme.colors.primary100};
+      }
+    }
+  }
 
   &:hover {
     box-shadow: 0 0 0 max(2px, 0.3em) ${theme.colors.primary100};

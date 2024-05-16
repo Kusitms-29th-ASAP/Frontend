@@ -1,5 +1,5 @@
 import { theme } from "@/styles/theme";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 
@@ -8,8 +8,11 @@ export interface CustomInputProps {
   value: string;
   onChange: (value: string) => void;
   onClick?: () => void;
+  color?: "black";
   placeholder?: string;
   readonly?: boolean;
+  disabled?: boolean;
+  clicked?: boolean;
 }
 
 const CustomInput = (props: CustomInputProps) => {
@@ -18,13 +21,20 @@ const CustomInput = (props: CustomInputProps) => {
     value,
     onChange,
     onClick,
+    color,
     placeholder,
     readonly = false,
+    disabled = false,
+    clicked,
   } = props;
 
   let inputClassName = inputType;
   if (inputType) {
     inputClassName += " " + inputType;
+  }
+
+  if (color) {
+    inputClassName += " " + color;
   }
 
   const handleChange = (event: any) => {
@@ -38,15 +48,18 @@ const CustomInput = (props: CustomInputProps) => {
   };
 
   return (
-    <Container>
+    <Container onClick={handleClick}>
       <StyledInput
         type="text"
         value={value}
         onChange={handleChange}
-        onClick={handleClick}
         placeholder={placeholder}
+        color={color}
         className={inputClassName}
         readOnly={readonly}
+        disabled={disabled}
+        onClick={onClick}
+        clicked={clicked}
       />
       {inputType === "select" && (
         <ImageContainer>
@@ -85,6 +98,7 @@ const StyledInput = styled.input<CustomInputProps>`
   ${(props) => props.theme.fonts.body3_m};
   outline: none;
   ${(props) => props.theme.fonts.caption1_m};
+
   &::placeholder {
     color: ${theme.colors.b400};
     ${(props) => props.theme.fonts.caption1_m};
@@ -93,6 +107,25 @@ const StyledInput = styled.input<CustomInputProps>`
   &.select {
     cursor: pointer;
     caret-color: transparent;
+  }
+
+  &:disabled {
+    border: none;
+    color: ${theme.colors.b400};
+    background: ${theme.colors.b100};
+  }
+
+  ${(props) =>
+    props.clicked &&
+    `
+    border: 1px solid ${theme.colors.primary500};
+    background: rgba(255, 135, 0, 0.10);
+  `}
+
+  &.black {
+    &:disabled {
+      color: ${theme.colors.b700};
+    }
   }
 `;
 

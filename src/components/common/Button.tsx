@@ -86,6 +86,10 @@ const StyledButton = styled.button<StyledButtonProps>`
     &:active {
       background: ${theme.colors.primary800};
     }
+    &:disabled {
+      color: ${theme.colors.b400};
+      background: ${theme.colors.b200};
+    }
   }
   &.primaryLight {
     color: ${theme.colors.primary500};
@@ -95,6 +99,10 @@ const StyledButton = styled.button<StyledButtonProps>`
     }
     &:active {
       background: rgba(255, 135, 0, 0.3);
+    }
+    &:disabled {
+      color: ${theme.colors.b400};
+      background: ${theme.colors.b200};
     }
   }
   &.primaryBorder {
@@ -111,6 +119,10 @@ const StyledButton = styled.button<StyledButtonProps>`
     }
     &:active {
       background: ${theme.colors.primary50};
+    }
+    &:disabled {
+      color: ${theme.colors.b400};
+      background: ${theme.colors.b200};
     }
   }
 
