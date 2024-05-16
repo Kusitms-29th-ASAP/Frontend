@@ -1,13 +1,18 @@
 import styled from "styled-components";
 import Image from "next/image";
 
-const WeeklyStudyGuide = () => {
+interface SchoolHomeTopProps {
+  title: string;
+}
+
+const SchoolHomeTop = (props: SchoolHomeTopProps) => {
+  const { title } = props;
   const [schoolName, grade, classNum] = ["신용산", 3, 1];
 
   return (
     <Container>
       <TitleBox>
-        <Title>주간 학습 안내</Title>
+        <Title>{title}</Title>
         <SubTitle>
           {schoolName}초등학교 | {grade}학년 {classNum}반
         </SubTitle>
@@ -22,7 +27,7 @@ const WeeklyStudyGuide = () => {
   );
 };
 
-export default WeeklyStudyGuide;
+export default SchoolHomeTop;
 
 const Container = styled.div`
   display: flex;

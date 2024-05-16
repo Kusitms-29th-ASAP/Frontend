@@ -2,12 +2,12 @@
 
 import Tabbar from "@/components/common/Tabbar";
 import Topbar from "@/components/common/Topbar";
+import SchoolHomeTop from "@/components/school/SchoolHomeTop";
 import HomeGuideRemind from "@/components/school/home/HomeGuideRemind";
 import NotificationCheck from "@/components/school/home/NotificationCheck";
 import OurClassAlbum from "@/components/school/home/OurClassAlbum";
 import ParentReference from "@/components/school/home/ParentReference";
 import TimeTable from "@/components/school/home/TimeTable";
-import WeeklyStudyGuide from "@/components/school/home/WeeklyStudyGuide";
 import styled from "styled-components";
 
 const School = () => {
@@ -17,7 +17,7 @@ const School = () => {
         <Topbar text="학교생활" />
       </Container>
       <Background>
-        <WeeklyStudyGuide />
+        <SchoolHomeTop title={"주간 학습 안내"} />
         <TimeTable />
         <HomeGuideRemind />
         <NotificationCheck />
