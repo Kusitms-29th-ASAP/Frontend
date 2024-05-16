@@ -83,16 +83,18 @@ const Signature = () => {
       </Row>
       <Div>
         <SignBox>
-          <SignatureCanvas
-            ref={sigPad}
-            penColor="black"
-            canvasProps={{
-              width: "100%",
-              height: 168,
-              className: "sigCanvas",
-            }}
-            onBegin={handleBeginDrawing}
-          />
+          <Hidden>
+            <SignatureCanvas
+              ref={sigPad}
+              penColor="black"
+              canvasProps={{
+                width: 480,
+                height: 168,
+                className: "sigCanvas",
+              }}
+              onBegin={handleBeginDrawing}
+            />
+          </Hidden>
         </SignBox>
         {!isSignatureEmpty && (
           <Clear onClick={clear}>
@@ -160,6 +162,11 @@ const Div = styled.div`
   height: 200px;
   position: relative;
   margin-bottom: 22.5px;
+`;
+
+const Hidden = styled.div`
+  width: 100%;
+  overflow-x: hidden;
 `;
 
 const Clear = styled.div`
