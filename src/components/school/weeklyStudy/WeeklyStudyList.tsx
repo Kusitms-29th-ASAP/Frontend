@@ -9,7 +9,7 @@ const WeeklyStudyList = () => {
     <WhiteBox>
       <Container>
         <DateSelect type="week" />
-        <div>
+        <TodayStudyList>
           {TodayStudyData.map((data) => (
             <TodayStudyBox
               key={data.id}
@@ -17,7 +17,7 @@ const WeeklyStudyList = () => {
               studies={data.studies}
             />
           ))}
-        </div>
+        </TodayStudyList>
       </Container>
     </WhiteBox>
   );
@@ -29,4 +29,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+`;
+
+const TodayStudyList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
