@@ -7,7 +7,12 @@ interface TimeBoxProps {
 const TimeBox = (props: TimeBoxProps) => {
   const { time } = props;
 
-  return <Container>{time}</Container>;
+  let timeClassName = "";
+  if (time === 0) {
+    timeClassName = "zero";
+  }
+
+  return <Container className={timeClassName}>{time}</Container>;
 };
 
 export default TimeBox;
@@ -26,4 +31,9 @@ const Container = styled.div`
 
   color: ${({ theme }) => theme.colors.b500};
   background: ${({ theme }) => theme.colors.b200};
+
+  &.zero {
+    background: ${({ theme }) => theme.colors.b100};
+    color: ${({ theme }) => theme.colors.b100};
+  }
 `;
