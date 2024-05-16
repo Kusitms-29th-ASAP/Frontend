@@ -4,15 +4,29 @@ import Tabbar from "@/components/common/Tabbar";
 import Meal from "@/components/home/Meal";
 import Ready from "@/components/home/Ready";
 import { theme } from "@/styles/theme";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
 const Home = () => {
+  const router = useRouter();
+
   return (
     <>
       <HomeLayout>
         <Background></Background>
         <Container>
-          <Header>홈</Header>
+          <Header>
+            홈
+            <Image
+              src="/assets/icons/ic_noti.svg"
+              width={24}
+              height={24}
+              alt="noti"
+              onClick={() => router.push("/home/notification")}
+              style={{ cursor: "pointer" }}
+            />
+          </Header>
           <Ready />
           <Meal />
         </Container>
