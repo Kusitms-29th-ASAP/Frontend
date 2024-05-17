@@ -13,4 +13,5 @@ Default.args = {
   title: "Popup Title",
   height: "200px",
   children: "Context",
+  noPadding: false,
 };
