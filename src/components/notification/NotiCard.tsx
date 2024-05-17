@@ -1,17 +1,28 @@
 import { theme } from "@/styles/theme";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
 interface NotiProps {
   category: string;
+  id: string;
   date: string;
   text: string;
 }
 
 const NotiCard = (props: NotiProps) => {
-  const { category, date, text } = props;
+  const router = useRouter();
+  const { category, id, date, text } = props;
+
+  const handleMovePage = () => {
+    if (id === "notification") {
+      router.push("/news/school");
+    } else if (id === "study") {
+      router.push("/study");
+    }
+  };
 
   return (
-    <Card>
+    <Card onClick={handleMovePage}>
       <Div>
         <Top>
           <Br>{category}</Br>
