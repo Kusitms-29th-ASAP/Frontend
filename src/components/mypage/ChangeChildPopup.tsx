@@ -4,18 +4,38 @@ import ChildProfile from "./ChildProfile";
 import Button from "../common/Button";
 import { ChildrenList } from "@/data/mypageData";
 import { theme } from "@/styles/theme";
+import { useState } from "react";
+
+interface Child {
+  name: string;
+  school: string;
+  grade: number;
+  class: number;
+  birth: string;
+  allergy: string[];
+}
 
 interface ChangeChildProps {
   onClose: () => void;
-  data: ChildrenList[];
+  data: Child[];
+  currentChild: Child;
+  onChildSelect: (selectedChild: Child) => void;
 }
 
 const ChangeChildPopup = (props: ChangeChildProps) => {
-  const { onClose, data } = props;
+  const { onClose, data, currentChild, onChildSelect } = props;
+  const [selectedChild, setSelectedChild] = useState<Child | null>(null);
 
-  const handleSelectChild = () => {
+  const handleSelectChild = (child: Child) => {
     /* 자녀 정보 요청, 변경 */
-    onClose();
+    setSelectedChild(child);
+  };
+
+  const handleConfirm = () => {
+    if (selectedChild && selectedChild.name !== currentChild.name) {
+      onChildSelect(selectedChild);
+      onClose();
+    }
   };
 
   return (
@@ -32,12 +52,18 @@ const ChangeChildPopup = (props: ChangeChildProps) => {
             name={data.name}
             school={data.school}
             grade={data.grade}
-            classInfo={data.classInfo}
+            classInfo={data.class}
+            onClick={() => handleSelectChild(data)}
+            selected={selectedChild?.name === data.name}
           />
         ))}
       </Gap>
       <Bottom>
-        <Button text="선택완료" onClick={handleSelectChild} />
+        <Button
+          text="선택완료"
+          onClick={handleConfirm}
+          disabled={!selectedChild || selectedChild.name === currentChild.name}
+        />
       </Bottom>
     </Popup>
   );

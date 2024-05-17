@@ -15,6 +15,9 @@ import KeywordItem from "@/components/mypage/Keyword";
 
 interface Child {
   name: string;
+  school: string;
+  grade: number;
+  class: number;
   birth: string;
   allergy: string[];
 }
@@ -22,6 +25,9 @@ interface Child {
 export const Children = () => {
   const [child, setChild] = useState<Child>({
     name: "김동우",
+    school: "신용산초등학교",
+    grade: 3,
+    class: 7,
     birth: "2014년 4월 5일",
     allergy: ["난류"],
   });
@@ -29,6 +35,8 @@ export const Children = () => {
   const [modify, setModify] = useState(false);
   const [changePopup, setChangePopup] = useState(false);
   const [allergyPopup, setAllergyPopup] = useState(false);
+
+  const gradeImageSrc = `/assets/images/grade${child.grade}.svg`;
 
   /* onChange 함수 */
   const handleNameChange = (value: string) => {
@@ -68,6 +76,13 @@ export const Children = () => {
     setAllergyPopup(false);
   };
 
+  /* 자녀 프로필 업데이트 함수 */
+  const handleChildUpdate = (selectedChild: Child) => {
+    setChild(selectedChild);
+    setChangePopup(false);
+    setModify(true);
+  };
+
   return (
     <>
       <Top>
@@ -77,21 +92,21 @@ export const Children = () => {
         </ModifyButton>
       </Top>
       <Profile>
-        <Image
-          src="/assets/images/profile_background.svg"
-          layout="fill"
-          objectFit="cover"
-          alt="background"
+        <RoundImage
+          src="/assets/images/round_graphic_big.svg"
+          width={185}
+          height={85}
+          alt="round"
         />
         <GradeImage
-          src="/assets/images/grade3.svg"
+          src={gradeImageSrc}
           width={124}
           height={124}
           alt="character"
         />
         <Info>
-          <Br>김동우</Br>
-          신용산초등학교 | 3학년 7반
+          <Br>{child.name}</Br>
+          {child.school} | {child.grade}학년 {child.class}반
         </Info>
       </Profile>
       <Change onClick={() => setChangePopup(true)}>
@@ -152,6 +167,8 @@ export const Children = () => {
         <ChangeChildPopup
           onClose={handleChangePopup}
           data={[...childrenListData]}
+          currentChild={child}
+          onChildSelect={handleChildUpdate}
         />
       )}
     </>
@@ -187,6 +204,13 @@ const Profile = styled.div`
   overflow: hidden;
   position: relative !important;
   margin-top: 12px;
+  background: ${theme.colors.primary500};
+`;
+
+const RoundImage = styled(Image)`
+  position: absolute;
+  top: 0px;
+  right: 0;
 `;
 
 const GradeImage = styled(Image)`
