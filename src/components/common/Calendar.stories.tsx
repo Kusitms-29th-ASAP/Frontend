@@ -12,4 +12,5 @@ export const Default = Template.bind({});
 Default.args = {
   value: "",
   onChange: () => {},
+  disabled: false,
 };

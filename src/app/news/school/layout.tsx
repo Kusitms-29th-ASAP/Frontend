@@ -2,16 +2,16 @@
 
 import Tabbar from "@/components/common/Tabbar";
 import { theme } from "@/styles/theme";
-import Link from "next/link";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import styled from "styled-components";
 
-interface SubTabProps {
-  selected: boolean;
-}
-
 const News = (props: any) => {
-  const [selectedTab, setSelectedTab] = useState("school");
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleTabClick = (path: any) => {
+    router.push(path);
+  };
 
   return (
     <>
@@ -19,22 +19,18 @@ const News = (props: any) => {
         <NewsHeader>
           <Menu>소식</Menu>
           <SubTab>
-            <Link href="/news/[category]" as="/news/school">
-              <TabItem
-                onClick={() => setSelectedTab("school")}
-                selected={selectedTab === "school"}
-              >
-                학교
-              </TabItem>
-            </Link>
-            <Link href="/news/[category]" as="/news/eduOffice">
-              <TabItem
-                onClick={() => setSelectedTab("eduOffice")}
-                selected={selectedTab === "eduOffice"}
-              >
-                교육청
-              </TabItem>
-            </Link>
+            <TabItem
+              onClick={() => handleTabClick("/news/school")}
+              selected={pathname === "/news/school"}
+            >
+              학교
+            </TabItem>
+            <TabItem
+              onClick={() => handleTabClick("/news/eduOffice")}
+              selected={pathname === "/news/eduOffice"}
+            >
+              교육청
+            </TabItem>
           </SubTab>
         </NewsHeader>
         {props.children}
@@ -81,7 +77,7 @@ const SubTab = styled.div`
   ${(props) => props.theme.fonts.body2_r};
 `;
 
-const TabItem = styled.div<SubTabProps>`
+const TabItem = styled.div<{ selected: boolean }>`
   position: relative;
   cursor: pointer;
   color: ${({ theme, selected }) =>

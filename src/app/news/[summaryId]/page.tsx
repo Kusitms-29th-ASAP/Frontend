@@ -3,7 +3,7 @@
 import { summaryData, summaryEduData } from "@/data/newsData";
 import SummaryCard from "@/components/news/SummaryCard";
 import { useParams, useRouter } from "next/navigation";
-import Tobbar from "@/components/common/Tobbar";
+import Topbar from "@/components/common/Topbar";
 import styled from "styled-components";
 import { theme } from "@/styles/theme";
 import Image from "next/image";
@@ -26,7 +26,7 @@ const SummaryDetail = () => {
         <div>
           <Padding>
             <Top>
-              <Tobbar text="가정통신문" />
+              <Topbar text="가정통신문" />
               <SendBtn onClick={handleSend}>
                 가정통신문 회신하기
                 <Image

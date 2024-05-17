@@ -5,6 +5,11 @@ import Tabbar from "@/components/common/Tabbar";
 export default {
   component: Tabbar,
   title: "Components/Tabbar",
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+    },
+  },
   decorators: [
     (Story: StoryFn) => (
       <div style={{ padding: "20px" }}>

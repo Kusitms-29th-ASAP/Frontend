@@ -5,14 +5,15 @@ import Image from "next/image";
 
 export interface CustomInputProps {
   inputType?: "text" | "select";
-  value: string;
-  onChange: (value: string) => void;
+  value: any;
+  onChange: (value: any) => void;
   onClick?: () => void;
   color?: "black";
   placeholder?: string;
   readonly?: boolean;
   disabled?: boolean;
   clicked?: boolean;
+  hidden?: boolean;
 }
 
 const CustomInput = (props: CustomInputProps) => {
@@ -26,6 +27,7 @@ const CustomInput = (props: CustomInputProps) => {
     readonly = false,
     disabled = false,
     clicked,
+    hidden = false,
   } = props;
 
   let inputClassName = inputType;
@@ -60,6 +62,7 @@ const CustomInput = (props: CustomInputProps) => {
         disabled={disabled}
         onClick={onClick}
         clicked={clicked}
+        hidden={hidden}
       />
       {inputType === "select" && (
         <ImageContainer>
@@ -94,7 +97,8 @@ const StyledInput = styled.input<CustomInputProps>`
   border-radius: 10px;
   border: 1px solid ${theme.colors.primary100};
   background: ${(props) => (props.value ? "rgba(255, 135, 0, 0.05)" : "white")};
-  color: ${theme.colors.b700};
+  color: ${(props) =>
+    props.hidden ? "rgba(255, 135, 0, 0.01)" : theme.colors.b700};
   ${(props) => props.theme.fonts.body3_m};
   outline: none;
   ${(props) => props.theme.fonts.caption1_m};
@@ -121,6 +125,11 @@ const StyledInput = styled.input<CustomInputProps>`
     border: 1px solid ${theme.colors.primary500};
     background: rgba(255, 135, 0, 0.10);
   `}
+
+  &:focus {
+    border: 1px solid ${theme.colors.primary500};
+    background: rgba(255, 135, 0, 0.1);
+  }
 
   &.black {
     &:disabled {

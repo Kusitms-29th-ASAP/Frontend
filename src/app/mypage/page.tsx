@@ -51,6 +51,7 @@ const Mypage = () => {
                 onClick={() => {
                   router.push("/mypage/children");
                 }}
+                style={{ cursor: "pointer" }}
               />
             </Line>
             <ChildInfo>
@@ -68,6 +69,7 @@ const Mypage = () => {
               onClick={() => {
                 router.push("/mypage/document");
               }}
+              style={{ cursor: "pointer" }}
             />
           </Line>
         </ColContainCard>

@@ -15,6 +15,12 @@ CheckBox.args = {
   checkboxType: "checkbox",
 };
 
+export const GrayCheckBox = Template.bind({});
+GrayCheckBox.args = {
+  label: "Gray Checkbox (no label)",
+  checkboxType: "grayCheckbox",
+};
+
 export const CheckArrow = Template.bind({});
 CheckArrow.args = {
   label: "Check Arrow",
