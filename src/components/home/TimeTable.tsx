@@ -15,10 +15,10 @@ const TimeTable = () => {
       .then((response) => {
         const timeToday = response.data;
         setTimeToday(timeToday);
-        console.log("Today Time Table Get Success:", response.data);
+        // console.log("Today Time Table Get Success:", response.data);
       })
       .catch(() => {
-        console.error("Today Time Table Get Error");
+        // console.error("Today Time Table Get Error");
       });
   }, []);
 

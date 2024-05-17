@@ -32,10 +32,10 @@ const MealTable = () => {
       .then((response) => {
         const mealToday: Meal = response.data;
         setMealToday(mealToday);
-        console.log("Today Meal Table Get Success:", response.data);
+        // console.log("Today Meal Table Get Success:", response.data);
       })
       .catch(() => {
-        console.error("Today Meal Table Get Error");
+        // console.error("Today Meal Table Get Error");
       });
   }, []);
 

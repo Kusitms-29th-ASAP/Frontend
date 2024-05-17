@@ -41,10 +41,10 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
       .then((response) => {
         const mealTableData: MealTable[] = response.data.menus;
         setMealTable(mealTableData);
-        console.log("Monthly Meal Table Get Success:", response.data);
+        // console.log("Monthly Meal Table Get Success:", response.data);
       })
       .catch(() => {
-        console.error("Monthly Meal Table Get Error");
+        // console.error("Monthly Meal Table Get Error");
       });
   }, []);
 
