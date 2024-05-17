@@ -2,12 +2,16 @@ import { theme } from "@/styles/theme";
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 
+export type ButtonType = "primary" | "primaryLight" | "primaryBorder" | "gray";
+export type ButtonSize = "large" | "medium" | "small";
+export type IconPosition = "left" | "right";
+
 export interface ButtonProps {
-  buttonType?: "primary" | "primaryLight" | "primaryBorder";
   text: string;
-  size?: "large" | "medium" | "small";
+  type?: ButtonType;
+  size?: ButtonSize;
   icon?: ReactNode;
-  iconPosition?: "left" | "right";
+  iconPosition?: IconPosition;
   onClick?: (e: React.MouseEvent) => void;
   style?: React.CSSProperties & { fontSize?: string };
   disabled?: boolean;
@@ -16,7 +20,7 @@ export interface ButtonProps {
 const Button = (props: ButtonProps) => {
   const {
     text,
-    buttonType = "primary",
+    type = "primary",
     size,
     icon,
     iconPosition = "left",
@@ -25,7 +29,7 @@ const Button = (props: ButtonProps) => {
     disabled,
   } = props;
 
-  let buttonClassName = buttonType;
+  let buttonClassName = type;
   if (size) {
     buttonClassName += " " + size;
   }
@@ -67,7 +71,12 @@ const StyledButton = styled.button<StyledButtonProps>`
     color 200ms,
     background-color 200ms;
 
-  /* buttonType */
+  &:disabled {
+    color: ${theme.colors.b400};
+    background: ${theme.colors.b200};
+  }
+
+  /* type */
   &.primary {
     color: ${theme.colors.white};
     background: ${theme.colors.primary500};
@@ -114,6 +123,20 @@ const StyledButton = styled.button<StyledButtonProps>`
     &:disabled {
       color: ${theme.colors.b400};
       background: ${theme.colors.b200};
+    }
+  }
+  &.gray {
+    color: ${theme.colors.b400};
+    background: ${theme.colors.b200};
+    &:hover {
+      background: ${theme.colors.b300};
+    }
+    &:active {
+      background: ${theme.colors.b300};
+    }
+    &:disabled {
+      color: ${theme.colors.b200};
+      background: ${theme.colors.b300};
     }
   }
 
