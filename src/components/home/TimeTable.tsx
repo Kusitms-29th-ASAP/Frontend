@@ -20,18 +20,18 @@ const TimeTable = () => {
       .catch(() => {
         console.error("Today Time Table Get Error");
       });
-  });
+  }, []);
 
   return (
     <TimeContainer>
-      {dayOfWeek}요일 시간표
+      오늘의 시간표
       <TableContainer>
         {timeToday.length > 0 ? (
           timeToday.map((data, index) => (
             <Card time={data.time} subject={data.subject} key={index} />
           ))
         ) : (
-          <div>No data available</div>
+          <NoData>시간표 정보가 없어요 :(</NoData>
         )}
       </TableContainer>
     </TimeContainer>
@@ -54,4 +54,8 @@ const TableContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 5px;
+`;
+
+const NoData = styled.div`
+  ${(props) => props.theme.fonts.body3_m};
 `;
