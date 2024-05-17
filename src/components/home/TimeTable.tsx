@@ -4,16 +4,20 @@ import Card, { CardProps } from "../common/Card";
 import Axios from "@/apis/axios";
 import { useEffect, useState } from "react";
 
+interface Timetable {
+  time: number;
+  subject: string;
+}
+
 const TimeTable = () => {
-  const [timeToday, setTimeToday] = useState<CardProps[]>([]);
+  const [timeToday, setTimeToday] = useState<Timetable[]>([]);
   let now = new Date();
   const week = ["일", "월", "화", "수", "목", "금", "토"];
-  let dayOfWeek = week[now.getDay()];
 
   useEffect(() => {
     Axios.get(`/api/v1/timetables/today`)
       .then((response) => {
-        const timeToday = response.data;
+        const timeToday: Timetable[] = response.data.timetables;
         setTimeToday(timeToday);
         // console.log("Today Time Table Get Success:", response.data);
       })
@@ -28,7 +32,13 @@ const TimeTable = () => {
       <TableContainer>
         {timeToday.length > 0 ? (
           timeToday.map((data, index) => (
-            <Card time={data.time} subject={data.subject} key={index} />
+            <Card
+              key={index}
+              sub={`${data.time.toString()}교시`}
+              main={data.subject}
+              color="orange"
+              type="timetable"
+            />
           ))
         ) : (
           <NoData>시간표 정보가 없어요 :(</NoData>
