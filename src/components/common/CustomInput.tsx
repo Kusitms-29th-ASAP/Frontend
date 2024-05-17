@@ -98,7 +98,7 @@ const StyledInput = styled.input<CustomInputProps>`
   border: 1px solid ${theme.colors.primary100};
   background: ${(props) => (props.value ? "rgba(255, 135, 0, 0.05)" : "white")};
   color: ${(props) =>
-    props.hidden ? "rgba(255, 135, 0, 0.05)" : theme.colors.b700};
+    props.hidden ? "rgba(255, 135, 0, 0.01)" : theme.colors.b700};
   ${(props) => props.theme.fonts.body3_m};
   outline: none;
   ${(props) => props.theme.fonts.caption1_m};

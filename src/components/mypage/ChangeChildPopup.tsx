@@ -19,7 +19,12 @@ const ChangeChildPopup = (props: ChangeChildProps) => {
   };
 
   return (
-    <Popup title="자녀 변경하기" height="425px" onClose={onClose}>
+    <Popup
+      title="자녀 변경하기"
+      height="425px"
+      onClose={onClose}
+      noPadding={true}
+    >
       <Gap>
         {data.map((data, index) => (
           <ChildProfile
@@ -42,8 +47,11 @@ export default ChangeChildPopup;
 
 const Gap = styled.div`
   display: flex;
+  padding: 0 20px;
   flex-direction: column;
   gap: 8px;
+  margin-bottom: 23px;
+  overflow-y: auto;
   position: relative !important;
 `;
 
@@ -55,7 +63,6 @@ const Bottom = styled.div`
   justify-content: center;
   align-items: center;
   background: ${theme.colors.white};
-  box-shadow: 0px 3px 44px 0px rgba(30, 41, 59, 0.15);
   position: sticky;
   bottom: 0;
   left: 0;
