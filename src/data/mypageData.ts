@@ -56,3 +56,31 @@ export const docsData : Docs[] = [
         guardian: "윤소민",
       },
 ];
+
+export interface ChildrenList {
+  name: string;
+  school: string;
+  grade: number;
+  classInfo: number;
+}
+
+export const childrenListData : ChildrenList[] = [
+  {
+    name: "김동우",
+    school: "신용산초등학교",
+    grade: 3,
+    classInfo: 7,
+  },
+  {
+    name: "김규리",
+    school: "신용산초등학교",
+    grade: 1,
+    classInfo: 7,
+  },
+  {
+    name: "오민지",
+    school: "강남초등학교",
+    grade: 6,
+    classInfo: 5,
+  },
+];
