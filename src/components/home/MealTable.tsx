@@ -1,11 +1,13 @@
 import { mealData } from "@/data/homeData";
 import { theme } from "@/styles/theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import MealTablePopup from "./MealTablePopup";
 import More from "../common/More";
+import Axios from "@/apis/axios";
 
 const MealTable = () => {
+  const [mealToday, setMealToday] = useState();
   let now = new Date();
   const week = ["일", "월", "화", "수", "목", "금", "토"];
   let dayOfWeek = week[now.getDay()];
@@ -20,6 +22,18 @@ const MealTable = () => {
     setMealTable(false);
   };
 
+  useEffect(() => {
+    Axios.get(`/api/v1/menus/today`)
+      .then((response) => {
+        const mealToday = response.data;
+        setMealToday(mealToday);
+        console.log("Today Meal Table Get Success:", response.data);
+      })
+      .catch(() => {
+        console.error("Today Meal Table Get Error");
+      });
+  });
+
   return (
     <MealContainer>
       <Title>
@@ -27,9 +41,13 @@ const MealTable = () => {
         <More onClick={handleOpenMealTable} />
       </Title>
       <TableContainer>
-        {mealData.map((data, index) => {
-          return <List key={index}>{data}</List>;
-        })}
+        {/* {mealToday.map((data, index) => {
+          return (
+            <List key={index} warning={data.warning}>
+              {data.food}
+            </List>
+          );
+        })} */}
       </TableContainer>
       {mealTable && <MealTablePopup onClose={handleCloseMealTable} />}
       {mealTable && <Overlay onClick={handleCloseMealTable} />}
