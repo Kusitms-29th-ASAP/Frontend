@@ -1,16 +1,16 @@
 import { theme } from "@/styles/theme";
-import { ReactNode } from "react";
 import styled from "styled-components";
 
 export interface CardProps {
-  sub: string;
-  main: string;
+  time: number;
+  subject: string;
 }
-const Card = ({ sub, main }: CardProps) => {
+
+const Card = ({ time, subject }: CardProps) => {
   return (
     <StyledCard>
-      <Sub>{sub}</Sub>
-      {main}
+      <Sub>{time}교시</Sub>
+      {subject}
     </StyledCard>
   );
 };
