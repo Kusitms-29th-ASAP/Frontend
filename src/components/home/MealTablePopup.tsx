@@ -1,20 +1,53 @@
-import { mealTableData } from "@/data/homeData";
 import { theme } from "@/styles/theme";
 import styled from "styled-components";
 import Popup from "../common/Popup";
+import { useEffect, useState } from "react";
+import Axios from "@/apis/axios";
 
-const MenuCard = ({ date, menu }: { date: number; menu: string[] }) => {
+interface MealTable {
+  date: string;
+  foods: { food: string; warning: boolean }[];
+}
+
+const MenuCard = ({
+  date,
+  foods,
+}: {
+  date: string;
+  foods: { food: string; warning: boolean }[];
+}) => {
+  let day = date.slice(-2);
+  if (day[0] === "0") {
+    day = day[1];
+  }
+
   return (
     <Card>
-      <Date>{date}일</Date>
-      {menu.map((item: string, index: number) => (
-        <MenuItem key={index}>{item}</MenuItem>
+      <Date>{day}일</Date>
+      {foods.map((item, index) => (
+        <MenuItem key={index} $warning={item.warning}>
+          {item.food}
+        </MenuItem>
       ))}
     </Card>
   );
 };
 
 const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
+  const [mealTable, setMealTable] = useState<MealTable[]>([]);
+
+  useEffect(() => {
+    Axios.get(`/api/v1/menus/month`)
+      .then((response) => {
+        const mealTableData: MealTable[] = response.data.menus;
+        setMealTable(mealTableData);
+        console.log("Monthly Meal Table Get Success:", response.data);
+      })
+      .catch(() => {
+        console.error("Monthly Meal Table Get Error");
+      });
+  }, []);
+
   return (
     <Popup onClose={onClose} title="4월 급식표" height="716px">
       <Day>
@@ -23,8 +56,8 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
         ))}
       </Day>
       <StyledTable>
-        {mealTableData.map((data, index) => (
-          <MenuCard key={index} date={data.date} menu={data.menu} />
+        {mealTable.map((data, index) => (
+          <MenuCard key={index} date={data.date} foods={data.foods} />
         ))}
       </StyledTable>
     </Popup>
@@ -51,6 +84,7 @@ const StyledTable = styled.div`
 `;
 
 const Card = styled.div`
+  height: 160px;
   display: flex;
   flex-direction: column;
   padding: 4px 4px 20px 4px;
@@ -58,6 +92,7 @@ const Card = styled.div`
   border: 1px solid ${theme.colors.b200};
   background: ${theme.colors.b50};
   text-align: left;
+  overflow: scroll;
 `;
 
 const Date = styled.div`
@@ -66,6 +101,7 @@ const Date = styled.div`
   text-align: center;
 `;
 
-const MenuItem = styled.div`
-  ${(props) => props.theme.fonts.caption1_r}
+const MenuItem = styled.div<{ $warning: boolean }>`
+  color: ${({ $warning, theme }) => $warning && theme.colors.primary500};
+  ${(props) => props.theme.fonts.caption1_r};
 `;
