@@ -22,11 +22,7 @@ const Completion = () => {
       />
       <AddChildren>
         <div>혹시, 자녀 추가 등록이 필요하신가요?</div>
-        <Button
-          text="자녀 추가하러 가기"
-          buttonType="primaryLight"
-          size="medium"
-        />
+        <Button text="자녀 추가하러 가기" type="primaryLight" size="medium" />
       </AddChildren>
       <Button text="스쿨포인트 시작하기" onClick={handleStartButtonClick} />
     </Container>

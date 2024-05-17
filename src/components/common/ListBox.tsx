@@ -173,7 +173,7 @@ const Type = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  color: ${theme.colors.b400};
+  color: ${theme.colors.b600};
   white-space: pre-wrap;
   ${(props) => props.theme.fonts.caption2_r};
   &.none {
