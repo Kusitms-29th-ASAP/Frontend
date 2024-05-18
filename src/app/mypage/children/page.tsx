@@ -22,7 +22,7 @@ interface Child {
   allergy: string[];
 }
 
-export const MyPage = () => {
+const MyPage = () => {
   const [child, setChild] = useState<Child>({
     name: "김동우",
     school: "신용산초등학교",
