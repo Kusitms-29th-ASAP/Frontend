@@ -29,8 +29,6 @@ const SocialLoginBox = styled.div`
   width: 100%;
   height: 48px;
   cursor: pointer;
-  position: absolute;
-  bottom: 140px;
   display: flex;
   flex-direction: column;
   justify-content: center;
