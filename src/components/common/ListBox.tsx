@@ -8,7 +8,7 @@ export type listboxType = "check" | "none" | "direct" | "content";
 export type colorType = "orange" | "mint";
 
 export interface ListBoxProps {
-  time: string;
+  time?: string;
   type?: string;
   text?: string;
   dday?: number;
