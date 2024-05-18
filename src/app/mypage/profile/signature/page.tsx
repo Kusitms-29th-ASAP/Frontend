@@ -3,7 +3,6 @@
 import styled from "styled-components";
 import { theme } from "@/styles/theme";
 import Topbar from "@/components/common/Topbar";
-import { SignBox } from "../page";
 import ListNumber from "@/components/common/ListNumber";
 import { signData } from "@/data/mypageData";
 import Subtitle from "@/components/signin/Subtitle";
@@ -201,4 +200,19 @@ const Box = styled.div`
 
 const Primary = styled.div`
   color: ${theme.colors.primary500};
+`;
+
+const SignBox = styled.div`
+  width: 100%;
+  height: 168px;
+  margin-top: 12px;
+  margin-bottom: 32px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid ${theme.colors.b200};
+  background: ${theme.colors.b100};
+  color: ${theme.colors.b400};
+  ${(props) => props.theme.fonts.body3_m};
 `;
