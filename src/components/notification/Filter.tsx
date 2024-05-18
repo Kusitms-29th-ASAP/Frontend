@@ -1,14 +1,33 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 
 interface filterProps {
   id: string;
   category: string;
   selected: string;
+  onChange: (id: string) => void;
 }
 
 const Filter = (props: filterProps) => {
-  const { id, category, selected } = props;
-  return <Box $selected={id === selected}>{category}</Box>;
+  const { id, category, selected, onChange } = props;
+
+  const handleClick = () => {
+    onChange(id);
+  };
+
+  return (
+    <label>
+      <input
+        type="radio"
+        name="category"
+        value={id}
+        checked={selected === id}
+        onChange={handleClick}
+        hidden
+      />
+      <Box $selected={selected === id}>{category}</Box>
+    </label>
+  );
 };
 
 export default Filter;

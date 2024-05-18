@@ -72,8 +72,11 @@ const CheckBoxLayout = styled.div<{ $check: boolean }>`
 
   &.checkBtn {
     width: 100%;
-    padding: 15px 12px;
+    padding: 15px 6px;
     border-radius: 10px;
+    background: rgba(255, 135, 0, 0.05);
+    white-space: nowrap;
+
     img {
       display: none;
     }

@@ -1,7 +1,7 @@
 import { theme } from "@/styles/theme";
 import Image from "next/image";
 import { FC, ReactNode } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { motion } from "framer-motion";
 
 export interface PopupProps {
@@ -9,9 +9,16 @@ export interface PopupProps {
   title: string;
   children: ReactNode;
   height: string;
+  noPadding?: boolean;
 }
 
-const Popup: FC<PopupProps> = ({ onClose, title, children, height }) => {
+const Popup: FC<PopupProps> = ({
+  onClose,
+  title,
+  children,
+  height,
+  noPadding,
+}) => {
   return (
     <Overlay onClick={onClose}>
       <StyledPopup
@@ -34,7 +41,7 @@ const Popup: FC<PopupProps> = ({ onClose, title, children, height }) => {
             />
           </ImageBox>
         </Title>
-        <ContentBox>{children}</ContentBox>
+        <ContentBox noPadding={noPadding}>{children}</ContentBox>
       </StyledPopup>
     </Overlay>
   );
@@ -86,8 +93,13 @@ const ImageBox = styled.div`
   cursor: pointer;
 `;
 
-const ContentBox = styled.div`
-  padding: 0 20px 28px 20px;
-  overflow-y: scroll;
+const ContentBox = styled.div<{ noPadding?: boolean }>`
+  width: 100%;
+  ${(props) =>
+    !props.noPadding &&
+    css`
+      padding: 0 20px 28px 20px;
+      overflow-y: scroll;
+    `}
   z-index: 0;
 `;

@@ -12,6 +12,15 @@ import styled from "styled-components";
 const Notification = () => {
   const [selected, setSelected] = useState("all");
 
+  const handleFilterChange = (id: string) => {
+    setSelected(id);
+  };
+
+  const filteredNotiCardData =
+    selected === "all"
+      ? notiCardData
+      : notiCardData.filter((data) => data.id === selected);
+
   return (
     <div>
       <Top>
@@ -23,28 +32,33 @@ const Notification = () => {
               id={data.id}
               category={data.category}
               selected={selected}
+              onChange={handleFilterChange}
             />
           ))}
         </StyledFilterBox>
       </Top>
       <Background>
-        {notiCardData.map((data, index) => (
-          <NotiCard
-            key={index}
-            category={data.category}
-            date={data.date}
-            text={data.text}
-          />
-        ))}
-        <NoData>
-          알림 내역이 없어요!
-          <Image
-            src="/assets/images/no_data.svg"
-            width={174}
-            height={174}
-            alt="결과없음"
-          />
-        </NoData>
+        {filteredNotiCardData.length > 0 ? (
+          filteredNotiCardData.map((data, index) => (
+            <NotiCard
+              key={index}
+              category={data.category}
+              id={data.id}
+              date={data.date}
+              text={data.text}
+            />
+          ))
+        ) : (
+          <NoData>
+            알림 내역이 없어요!
+            <Image
+              src="/assets/images/no_data.svg"
+              width={174}
+              height={174}
+              alt="결과없음"
+            />
+          </NoData>
+        )}
       </Background>
     </div>
   );

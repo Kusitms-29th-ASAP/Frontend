@@ -25,11 +25,11 @@ const Tabbar = () => {
         <Tab
           key={index}
           onClick={() => handleTabClick(tab.path)}
-          selected={pathname === tab.path}
+          selected={pathname === tab.path || pathname === tab.subPath}
         >
-          <Bar selected={pathname === tab.path} />
+          <Bar selected={pathname === tab.path || pathname === tab.subPath} />
           <Image
-            src={`/assets/icons/${selected === tab.path ? tab.icon + "_select" : tab.icon}.svg`}
+            src={`/assets/icons/${selected === tab.path || selected === tab.subPath ? tab.icon + "_select" : tab.icon}.svg`}
             width="24"
             height="24"
             alt={tab.label}
