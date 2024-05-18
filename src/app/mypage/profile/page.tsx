@@ -145,7 +145,7 @@ const PlusButton = styled.button`
   cursor: pointer;
 `;
 
-export const SignBox = styled.div`
+const SignBox = styled.div`
   width: 100%;
   height: 168px;
   margin-top: 12px;
