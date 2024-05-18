@@ -12,7 +12,7 @@ export interface TopbarProps {
 }
 
 const Topbar = (props: TopbarProps) => {
-  const { text, icon = false, link } = props;
+  const { text, icon = true, link } = props;
   const router = useRouter();
 
   const handleBackButtonClick = () => {

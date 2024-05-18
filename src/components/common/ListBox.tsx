@@ -121,7 +121,7 @@ const ListBox = (props: ListBoxProps) => {
 
 export default ListBox;
 
-const StyledListBox = styled.div`
+const StyledListBox = styled.div<ListBoxProps>`
   width: 100%;
   border-radius: 8px;
   border: 1px solid ${theme.colors.primary100};
@@ -143,6 +143,7 @@ const StyledListBox = styled.div`
       border: none;
     }
   }
+  cursor: ${(props) => (props.onClick ? "pointer" : "default")};
 `;
 
 const Content = styled.div`

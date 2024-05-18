@@ -1,48 +1,35 @@
 import { theme } from "@/styles/theme";
 import React from "react";
 import styled from "styled-components";
-import Image from "next/image";
 
-export interface CustomInputProps {
-  inputType?: "text" | "select";
+export interface CustomTextareaProps {
   value: any;
   onChange: (value: any) => void;
   onClick?: () => void;
-  color?: "black";
   placeholder?: string;
   readonly?: boolean;
   disabled?: boolean;
   clicked?: boolean;
   hidden?: boolean;
+  height?: number;
 }
 
-const CustomInput = (props: CustomInputProps) => {
+const CustomTextarea = (props: CustomTextareaProps) => {
   const {
-    inputType = "text",
     value,
     onChange,
     onClick,
-    color,
     placeholder,
     readonly = false,
     disabled = false,
     clicked,
     hidden = false,
+    height,
   } = props;
-
-  let inputClassName = inputType;
-  if (inputType) {
-    inputClassName += " " + inputType;
-  }
-
-  if (color) {
-    inputClassName += " " + color;
-  }
 
   const handleChange = (event: any) => {
     onChange(event.target.value);
   };
-
   const handleClick = () => {
     if (onClick) {
       onClick();
@@ -51,34 +38,22 @@ const CustomInput = (props: CustomInputProps) => {
 
   return (
     <Container onClick={handleClick}>
-      <StyledInput
-        type="text"
+      <StyledTextarea
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
-        color={color}
-        className={inputClassName}
         readOnly={readonly}
         disabled={disabled}
         onClick={onClick}
         clicked={clicked}
         hidden={hidden}
+        height={height}
       />
-      {inputType === "select" && (
-        <ImageContainer>
-          <Image
-            src="/assets/common/down_arrow.svg"
-            alt="arrow"
-            width={20}
-            height={20}
-          />
-        </ImageContainer>
-      )}
     </Container>
   );
 };
 
-export default CustomInput;
+export default CustomTextarea;
 
 const Container = styled.div`
   display: flex;
@@ -86,9 +61,9 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const StyledInput = styled.input<CustomInputProps>`
+const StyledTextarea = styled.textarea<CustomTextareaProps>`
   width: 100%;
-  height: 44px;
+  height: ${(props) => (props.height ? props.height + "px" : "44px")};
   padding: 14px 12px;
   display: flex;
   justify-content: center;
@@ -130,17 +105,4 @@ const StyledInput = styled.input<CustomInputProps>`
     border: 1px solid ${theme.colors.primary500};
     background: rgba(255, 135, 0, 0.1);
   }
-
-  &.black {
-    &:disabled {
-      color: ${theme.colors.b700};
-    }
-  }
-`;
-
-const ImageContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: -30px;
-  cursor: pointer;
 `;

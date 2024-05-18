@@ -5,10 +5,10 @@ import Topbar from "@/components/common/Topbar";
 import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
-import FormPopup from "@/components/school/parentReference/FormPopup";
 import Toast from "@/components/common/Toast";
+import FormPopup from "@/components/school/homeGuide/FormPopup";
 
-const AbsentReasonForm = () => {
+const HomeGuideForm = () => {
   const [writeForm, setWriteForm] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const handleWriteFormClick = () => {
@@ -18,16 +18,16 @@ const AbsentReasonForm = () => {
   return (
     <Container>
       <div>
-        <Topbar text="결석 사유서 작성" icon={true} />
+        <Topbar text="가정통신문 회신하기" icon={true} />
         <Title>
-          <span>결석 사유서를 클릭</span>해서 <br />
-          작성을 시작해보세요
+          <span>가정통신문을 클릭</span>해서 <br />
+          작성을 시작해보세요!
         </Title>
       </div>
-      <ImageBox style={{ width: "85%" }} onClick={handleWriteFormClick}>
+      <ImageBox onClick={handleWriteFormClick}>
         <Image
-          src="/assets/school/absent_form.svg"
-          alt="absent_form"
+          src="/assets/school/home_guide_form.svg"
+          alt="home_guide_form"
           layout="fill"
           objectFit="contain"
         />
@@ -48,18 +48,15 @@ const AbsentReasonForm = () => {
   );
 };
 
-export default AbsentReasonForm;
+export default HomeGuideForm;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   justify-content: space-between;
   padding: 16px 20px;
   height: 100vh;
-  div {
-    width: 100%;
-  }
 `;
 
 const Title = styled.div`

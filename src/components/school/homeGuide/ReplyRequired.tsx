@@ -1,7 +1,13 @@
 import ListBox from "@/components/common/ListBox";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
 const ReplyRequired = () => {
+  const router = useRouter();
+  const handleHomeGuideClick = () => {
+    router.push("/school/homeGuide/reply");
+  };
+
   return (
     <Container>
       <TitleBox>
@@ -16,12 +22,14 @@ const ReplyRequired = () => {
           time={"회신 필요"}
           dday={2}
           color={"orange"}
+          onClick={handleHomeGuideClick}
         />
         <ListBox
           text={"방과후학교 프로그램 신청서"}
           time={"제출 완료"}
           dday={5}
           color={"mint"}
+          onClick={handleHomeGuideClick}
         />
       </ListBoxContainer>
     </Container>
