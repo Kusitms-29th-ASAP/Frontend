@@ -1,15 +1,22 @@
 import { mealData } from "@/data/homeData";
 import { theme } from "@/styles/theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import MealTablePopup from "./MealTablePopup";
 import More from "../common/More";
+import Axios from "@/apis/axios";
+
+interface Food {
+  food: string;
+  warning: boolean;
+}
+
+interface Meal {
+  foods: Food[];
+}
 
 const MealTable = () => {
-  let now = new Date();
-  const week = ["일", "월", "화", "수", "목", "금", "토"];
-  let dayOfWeek = week[now.getDay()];
-
+  const [mealToday, setMealToday] = useState<Meal>({ foods: [] });
   const [mealTable, setMealTable] = useState(false);
 
   const handleOpenMealTable = () => {
@@ -20,16 +27,34 @@ const MealTable = () => {
     setMealTable(false);
   };
 
+  useEffect(() => {
+    Axios.get(`/api/v1/menus/today`)
+      .then((response) => {
+        const mealToday: Meal = response.data;
+        setMealToday(mealToday);
+        // console.log("Today Meal Table Get Success:", response.data);
+      })
+      .catch(() => {
+        // console.error("Today Meal Table Get Error");
+      });
+  }, []);
+
   return (
     <MealContainer>
       <Title>
-        {dayOfWeek}요일 시간표
+        오늘의 급식
         <More onClick={handleOpenMealTable} />
       </Title>
       <TableContainer>
-        {mealData.map((data, index) => {
-          return <List key={index}>{data}</List>;
-        })}
+        {mealToday.foods.length > 0 ? (
+          mealToday.foods.map((data, index) => (
+            <List key={index} $warning={data.warning}>
+              {data.food}
+            </List>
+          ))
+        ) : (
+          <NoData>급식 정보가 없어요 :(</NoData>
+        )}
       </TableContainer>
       {mealTable && <MealTablePopup onClose={handleCloseMealTable} />}
       {mealTable && <Overlay onClick={handleCloseMealTable} />}
@@ -66,13 +91,14 @@ const TableContainer = styled.div`
   border: 1px solid ${theme.colors.b200};
 `;
 
-const List = styled.div`
+const List = styled.div<{ $warning: boolean }>`
   width: 100%;
   height: 32px;
   border-radius: 8px;
   background: ${theme.colors.b100};
   padding: 6px 12px;
-  color: ${theme.colors.b600};
+  color: ${({ $warning, theme }) =>
+    $warning ? theme.colors.primary500 : theme.colors.b600};
   ${(props) => props.theme.fonts.body3_r};
 `;
 
@@ -86,4 +112,8 @@ const Overlay = styled.div`
   transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.6);
   z-index: 10;
+`;
+
+const NoData = styled.div`
+  ${(props) => props.theme.fonts.body3_m};
 `;

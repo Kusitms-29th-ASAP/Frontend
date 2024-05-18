@@ -1,20 +1,48 @@
 import { theme } from "@/styles/theme";
 import styled from "styled-components";
-import Card from "../common/Card";
-import { timeData } from "@/data/homeData";
+import Card, { CardProps } from "../common/Card";
+import Axios from "@/apis/axios";
+import { useEffect, useState } from "react";
+
+interface Timetable {
+  time: number;
+  subject: string;
+}
 
 const TimeTable = () => {
+  const [timeToday, setTimeToday] = useState<Timetable[]>([]);
   let now = new Date();
   const week = ["일", "월", "화", "수", "목", "금", "토"];
-  let dayOfWeek = week[now.getDay()];
+
+  useEffect(() => {
+    Axios.get(`/api/v1/timetables/today`)
+      .then((response) => {
+        const timeToday: Timetable[] = response.data.timetables;
+        setTimeToday(timeToday);
+        // console.log("Today Time Table Get Success:", response.data);
+      })
+      .catch(() => {
+        // console.error("Today Time Table Get Error");
+      });
+  }, []);
 
   return (
     <TimeContainer>
-      {dayOfWeek}요일 시간표
+      오늘의 시간표
       <TableContainer>
-        {timeData.map((data, index) => (
-          <Card sub={`${index + 1}교시`} main={data} key={index} />
-        ))}
+        {timeToday.length > 0 ? (
+          timeToday.map((data, index) => (
+            <Card
+              key={index}
+              sub={`${data.time.toString()}교시`}
+              main={data.subject}
+              color="orange"
+              type="timetable"
+            />
+          ))
+        ) : (
+          <NoData>시간표 정보가 없어요 :(</NoData>
+        )}
       </TableContainer>
     </TimeContainer>
   );
@@ -36,4 +64,8 @@ const TableContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 5px;
+`;
+
+const NoData = styled.div`
+  ${(props) => props.theme.fonts.body3_m};
 `;
