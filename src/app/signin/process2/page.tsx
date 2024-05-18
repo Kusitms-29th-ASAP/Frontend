@@ -65,7 +65,7 @@ const SigninProcess2 = () => {
           </CheckButtonBox>
           <Checkbox
             label="성별 선택 안 함"
-            checkboxType="checkBox"
+            checkboxType="checkbox"
             checked={sexType === "sex"}
             onChange={() => handleSexTypeChange("sex")}
           />
