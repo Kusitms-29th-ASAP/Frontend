@@ -5,7 +5,7 @@ import Checkbox from "@/components/common/Checkbox";
 import Topbar from "@/components/common/Topbar";
 import { useDeleteUser } from "@/hooks/auth/useDeleteUser";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const CONTENT = "스쿨포인트를 사용하려면 \n약관 동의가 필요해요";
@@ -16,6 +16,14 @@ const Terms = () => {
   const [isServiceAgreed, setIsServiceAgreed] = useState(false);
   const [isPrivacyAgreed, setIsPrivacyAgreed] = useState(false);
   const [isMarketingAgreed, setIsMarketingAgreed] = useState(false);
+
+  useEffect(() => {
+    if (isServiceAgreed && isPrivacyAgreed && isMarketingAgreed) {
+      setIsAllAgreed(true);
+    } else {
+      setIsAllAgreed(false);
+    }
+  }, [isServiceAgreed, isPrivacyAgreed, isMarketingAgreed]);
 
   const handleAllAgreeChange = (isChecked: boolean) => {
     setIsAllAgreed(isChecked);
