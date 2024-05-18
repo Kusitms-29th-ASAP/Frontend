@@ -16,6 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="kor">
+      <head>
+        <title>스쿨포인트</title>
+      </head>
       <body>
         <Provider store={store}>
           <QueryClientProvider client={queryClient}>
