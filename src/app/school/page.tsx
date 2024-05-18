@@ -14,7 +14,7 @@ const School = () => {
   return (
     <>
       <Container>
-        <Topbar text="학교생활" />
+        <Topbar text="학교생활" icon={false} />
       </Container>
       <Background>
         <SchoolHomeTop title={"주간 학습 안내"} />
