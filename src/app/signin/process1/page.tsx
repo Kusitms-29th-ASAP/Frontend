@@ -24,6 +24,11 @@ const SigninProcess1 = () => {
     router.push("/signin/process2");
   };
 
+  const isValidPhoneNumber = (number: string) => {
+    const regex = /^01([0|1|6|7|8|9]?)-(\d{3,4})-(\d{4})$/;
+    return regex.test(number);
+  };
+
   return (
     <Container>
       <Topbar text="회원가입" />
@@ -36,13 +41,13 @@ const SigninProcess1 = () => {
         <Input
           value={phoneNumber}
           onChange={handlePhoneNumberChange}
-          placeholder="010 - 0000 - 0000"
+          placeholder="010-0000-0000"
         />
       </ContentBox>
 
       <Button
         text="다음"
-        disabled={!phoneNumber}
+        disabled={!isValidPhoneNumber(phoneNumber)}
         onClick={handleNextButtonClick}
       />
     </Container>
