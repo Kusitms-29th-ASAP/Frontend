@@ -9,12 +9,13 @@ const Auth = () => {
   const router = useRouter();
   const REST_API_KEY = process.env.NEXT_PUBLIC_REST_API_KEY;
   const REDIRECT_URI = process.env.NEXT_PUBLIC_REDIRECT_URI;
-  const AUTHORIZATION_CODE = new URL(window.location.href).searchParams.get(
-    "code"
-  );
+  ("code");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
+      const AUTHORIZATION_CODE = new URL(window.location.href).searchParams.get(
+        "code"
+      );
       const ACCESS_TOKEN = localStorage.getItem("access_token");
       postKakaoToken(ACCESS_TOKEN!!);
 
@@ -48,7 +49,7 @@ const Auth = () => {
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [REST_API_KEY, REDIRECT_URI, router]);
 
   return null;
 };
