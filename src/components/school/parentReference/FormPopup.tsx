@@ -1,23 +1,21 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 import Popup from "@/components/common/Popup";
 import Button from "@/components/common/Button";
 import CustomInput from "@/components/common/CustomInput";
 import Calendar from "@/components/common/Calendar";
 import CustomTextarea from "@/components/common/CustomTextarea";
+import { useRouter } from "next/navigation";
 
 interface FormPopupProps {
   onClose: () => void;
-  setShowToast?: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowToast?: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Reason = `결석 이유를 자세히 입력해주세요. \n예) 질병(감기, 독감, 복통, 장염, 설사, 골절, 생리통 등)\n경조사(결혼, 장례) 천재지변(지진, 폭우, 폭설, 폭풍, 해일 등) 기타`;
 
 const FormPopup = (props: FormPopupProps) => {
   const { onClose, setShowToast } = props;
-
-  const [todo, setTodo] = useState("");
-  const isButtonEnabled = todo !== "";
 
   const [grade, setGrade] = useState("");
   const [classNum, setClassNum] = useState("");
@@ -26,9 +24,20 @@ const FormPopup = (props: FormPopupProps) => {
   const [reason, setReason] = useState("");
   const [date, setDate] = useState("");
   const [guardianName, setGuardianName] = useState("");
+  const router = useRouter();
+
+  const isButtonEnabled =
+    grade &&
+    classNum &&
+    studentNum &&
+    studentName &&
+    reason &&
+    date &&
+    guardianName;
 
   const handleButtonClick = () => {
     onClose();
+    setShowToast && setShowToast(true);
   };
 
   return (

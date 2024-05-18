@@ -6,9 +6,11 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
 import FormPopup from "@/components/school/parentReference/FormPopup";
+import Toast from "@/components/common/Toast";
 
 const AbsentReasonForm = () => {
   const [writeForm, setWriteForm] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const handleWriteFormClick = () => {
     setWriteForm(!writeForm);
   };
@@ -30,7 +32,17 @@ const AbsentReasonForm = () => {
           objectFit="contain"
         />
       </ImageBox>
-      {writeForm && <FormPopup onClose={handleWriteFormClick} />}
+      {writeForm && (
+        <FormPopup onClose={handleWriteFormClick} setShowToast={setShowToast} />
+      )}
+      {showToast && (
+        <Toast
+          message="제출이 완료되었어요!"
+          type="basic"
+          duration={3000}
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <Button type={"gray"} text={"제출하기"} />
     </Container>
   );
