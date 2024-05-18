@@ -14,10 +14,12 @@ export interface CalendarProps {
   onChange: (value: string) => void;
   color?: "black";
   disabled?: boolean;
+  placeholder?: string;
 }
 
-const Calendar = ({ value, onChange, color, disabled }: CalendarProps) => {
+const Calendar = (props: CalendarProps) => {
   const [date, setDate] = useState<dayjs.Dayjs | null>(null);
+  const { value, onChange, disabled, placeholder } = props;
 
   const handleDateChange = (newDate: dayjs.Dayjs | null) => {
     setDate(newDate);
@@ -36,7 +38,7 @@ const Calendar = ({ value, onChange, color, disabled }: CalendarProps) => {
           <CustomInputContainer>
             <CalendarInput
               value={value}
-              placeholder="날짜를 선택해주세요"
+              placeholder={placeholder ? placeholder : "날짜를 선택해주세요"}
               onChange={() => {}}
               readonly={true}
               color="black"

@@ -4,8 +4,15 @@ import Button from "@/components/common/Button";
 import Topbar from "@/components/common/Topbar";
 import styled from "styled-components";
 import Image from "next/image";
+import { useState } from "react";
+import FormPopup from "@/components/school/parentReference/FormPopup";
 
 const AbsentReasonForm = () => {
+  const [writeForm, setWriteForm] = useState(false);
+  const handleWriteFormClick = () => {
+    setWriteForm(!writeForm);
+  };
+
   return (
     <Container>
       <div>
@@ -15,7 +22,7 @@ const AbsentReasonForm = () => {
           작성을 시작해보세요
         </Title>
       </div>
-      <ImageBox style={{ width: "85%" }}>
+      <ImageBox style={{ width: "85%" }} onClick={handleWriteFormClick}>
         <Image
           src="/assets/school/absent_form.svg"
           alt="absent_form"
@@ -23,6 +30,7 @@ const AbsentReasonForm = () => {
           objectFit="contain"
         />
       </ImageBox>
+      {writeForm && <FormPopup onClose={handleWriteFormClick} />}
       <Button type={"gray"} text={"제출하기"} />
     </Container>
   );
