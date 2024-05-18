@@ -12,6 +12,8 @@ import Subtitle from "@/components/signin/Subtitle";
 const TITLE = "안녕하세요!\n스쿨포인트에 오신 걸 환영해요.";
 const CONTEXT =
   "학부모님의 편리한 소식 확인을 위해 \n 몇 가지 정보를 입력해 주세요!";
+const WARNING =
+  "잘못된 입력 형식입니다. \n010-0000-0000 으로 다시 작성해주세요!";
 
 const SigninProcess1 = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -22,6 +24,11 @@ const SigninProcess1 = () => {
   };
   const handleNextButtonClick = () => {
     router.push("/signin/process2");
+  };
+
+  const isValidPhoneNumber = (number: string) => {
+    const regex = /^01([0|1|6|7|8|9]?)-(\d{3,4})-(\d{4})$/;
+    return regex.test(number);
   };
 
   return (
@@ -36,13 +43,16 @@ const SigninProcess1 = () => {
         <Input
           value={phoneNumber}
           onChange={handlePhoneNumberChange}
-          placeholder="010 - 0000 - 0000"
+          placeholder="010-0000-0000"
         />
+        {phoneNumber && !isValidPhoneNumber(phoneNumber) && (
+          <WarningText>{WARNING}</WarningText>
+        )}
       </ContentBox>
 
       <Button
         text="다음"
-        disabled={!phoneNumber}
+        disabled={!isValidPhoneNumber(phoneNumber)}
         onClick={handleNextButtonClick}
       />
     </Container>
@@ -74,4 +84,10 @@ const Context = styled.div`
 
 const ContentBox = styled.div`
   height: 100%;
+`;
+
+const WarningText = styled.div`
+  color: #ef4444;
+  ${({ theme }) => theme.fonts.caption1_m};
+  margin-top: 6px;
 `;

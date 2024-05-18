@@ -11,7 +11,7 @@ const Study = () => {
   return (
     <>
       <Container>
-        <Topbar text="가정학습" />
+        <Topbar text="가정학습" icon={false} />
         <Banner />
         <Subjects />
       </Container>
