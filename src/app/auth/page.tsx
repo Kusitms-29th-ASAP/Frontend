@@ -14,38 +14,40 @@ const Auth = () => {
   );
 
   useEffect(() => {
-    const ACCESS_TOKEN = localStorage.getItem("access_token");
-    postKakaoToken(ACCESS_TOKEN!!);
+    if (typeof window !== "undefined") {
+      const ACCESS_TOKEN = localStorage.getItem("access_token");
+      postKakaoToken(ACCESS_TOKEN!!);
 
-    const getToken = async () => {
-      const res = axios.post(
-        "https://kauth.kakao.com/oauth/token",
-        {
-          grant_type: "authorization_code",
-          client_id: REST_API_KEY,
-          redirect_uri: REDIRECT_URI,
-          code: AUTHORIZATION_CODE,
-        },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
+      const getToken = async () => {
+        const res = axios.post(
+          "https://kauth.kakao.com/oauth/token",
+          {
+            grant_type: "authorization_code",
+            client_id: REST_API_KEY,
+            redirect_uri: REDIRECT_URI,
+            code: AUTHORIZATION_CODE,
           },
-        }
-      );
-      return res;
-    };
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        );
+        return res;
+      };
 
-    getToken()
-      .then((res) => {
-        if (res) {
-          localStorage.setItem(
-            "access_token",
-            JSON.stringify(res.data.access_token)
-          );
-          router.push("/signin/terms");
-        }
-      })
-      .catch((err) => console.log(err));
+      getToken()
+        .then((res) => {
+          if (res) {
+            localStorage.setItem(
+              "access_token",
+              JSON.stringify(res.data.access_token)
+            );
+            router.push("/signin/terms");
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   }, []);
 
   return null;
