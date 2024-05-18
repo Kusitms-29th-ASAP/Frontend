@@ -2,15 +2,18 @@ import { theme } from "@/styles/theme";
 import styled from "styled-components";
 import Image from "next/image";
 
+type checkboxType = "checkbox" | "grayCheckbox" | "checkBtn" | "checkArrow";
+type checkboxColor = "primary" | "gray" | "black";
+
 export interface CheckBoxProps {
-  checkboxType?: "checkbox" | "grayCheckbox" | "checkBtn" | "checkArrow";
+  checkboxType?: checkboxType;
   value?: string;
   label?: string;
   text?: string;
   checked?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   essential?: boolean;
-  color?: "primary" | "gray" | "black";
+  color?: checkboxColor;
 }
 
 const Checkbox = (props: CheckBoxProps) => {
@@ -72,7 +75,7 @@ const CheckBoxLayout = styled.div<{ $check: boolean }>`
 
   &.checkBtn {
     width: 100%;
-    padding: 15px 6px;
+    padding: 12px 16px;
     border-radius: 10px;
     background: rgba(255, 135, 0, 0.05);
     white-space: nowrap;
