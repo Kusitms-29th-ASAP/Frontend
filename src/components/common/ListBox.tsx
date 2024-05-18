@@ -201,7 +201,7 @@ const Delete = styled.div`
   justify-content: center;
   align-items: center;
   gap: 4px;
-  margin-top: 2px;
+  margin-top: 8px;
   margin-right: 10px;
   position: absolute;
   top: 0;
