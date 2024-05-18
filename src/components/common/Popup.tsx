@@ -30,7 +30,7 @@ const Popup: FC<PopupProps> = ({
         transition={{ duration: 0.2, type: "tween" }}
       >
         <Title>
-          <div>{title}</div>
+          <TitleBox>{title}</TitleBox>
           <ImageBox>
             <Image
               src="/assets/icons/ic_close.svg"
@@ -87,6 +87,10 @@ const Title = styled.div`
   top: 0;
   background: ${theme.colors.white};
   z-index: 1;
+`;
+
+const TitleBox = styled.div`
+  width: 100%;
 `;
 
 const ImageBox = styled.div`
