@@ -42,12 +42,12 @@ const Process3_1 = () => {
 
   const handleSelectGrade = (selectedGrade: string) => {
     setGrade(selectedGrade);
-    setOpenGradePopup(false); // 선택 후 팝업 닫기
+    setOpenGradePopup(false);
   };
 
   const handleSelectclassNum = (selectedclassNum: string) => {
     setClassNum(selectedclassNum);
-    setOpenclassNumPopup(false); // 선택 후 팝업 닫기
+    setOpenclassNumPopup(false);
   };
 
   return (
@@ -93,7 +93,11 @@ const Process3_1 = () => {
           />
         )}
       </ContentBox>
-      <Button text="다음" onClick={handleNextButtonClick} />
+      <Button
+        text="다음"
+        onClick={handleNextButtonClick}
+        disabled={grade === "" || classNum === ""}
+      />
     </Container>
   );
 };
