@@ -61,10 +61,12 @@ const CheckBoxContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin-bottom: 80px;
 `;
 
 const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
+  justify-content: space-between;
 `;
