@@ -3,8 +3,32 @@ import styled from "styled-components";
 import ListNumber from "../common/ListNumber";
 import { notificationData } from "@/data/homeData";
 import More from "../common/More";
+import Axios from "@/apis/axios";
+import { useEffect, useState } from "react";
+
+interface Description {
+  description: string;
+}
+
+interface Noti {
+  announcementId: number;
+  descriptions: Description[];
+}
 
 const Notification = () => {
+  const [notiData, setNotiData] = useState<Noti>();
+  useEffect(() => {
+    Axios.get(`/api/v1//classrooms/announcements/today`)
+      .then((response) => {
+        const notiData: Noti = response.data;
+        setNotiData(notiData);
+        console.log("Today Noti Get Success:", response.data);
+      })
+      .catch(() => {
+        console.error("Today Noti Get Error");
+      });
+  }, [notiData]);
+
   return (
     <NotiContainer>
       <Title>
