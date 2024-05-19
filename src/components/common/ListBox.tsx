@@ -8,6 +8,7 @@ export type listboxType = "check" | "none" | "direct" | "content";
 export type colorType = "orange" | "mint";
 
 export interface ListBoxProps {
+  id?: number;
   time?: string;
   type?: string;
   text?: string;
@@ -24,6 +25,7 @@ export interface ListBoxProps {
 }
 const ListBox = (props: ListBoxProps) => {
   const {
+    id,
     type,
     text,
     time,
@@ -71,6 +73,7 @@ const ListBox = (props: ListBoxProps) => {
 
   return (
     <StyledListBox
+      id={id}
       className={listboxClassName}
       color={color}
       style={style}
@@ -125,7 +128,7 @@ const StyledListBox = styled.div<ListBoxProps>`
   width: 100%;
   border-radius: 8px;
   border: 1px solid ${theme.colors.primary100};
-  background: ${theme.colors.white};
+  background: ${theme.colors.b50};
   letter-spacing: -0.28px;
   position: relative;
   display: flex;
@@ -155,7 +158,7 @@ const Content = styled.div`
 
 const Content1 = styled.div`
   ${(props) => props.theme.fonts.body3_m};
-  color: ${theme.colors.b700};
+  color: ${theme.colors.b400};
 `;
 
 const Content2 = styled.div`

@@ -54,7 +54,6 @@ const Container = styled.div`
   position: sticky;
   bottom: 0;
   left: 0;
-  z-index: 100;
 `;
 
 const Tab = styled.div<TabProps>`
