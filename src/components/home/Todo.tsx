@@ -3,14 +3,57 @@ import { theme } from "@/styles/theme";
 import Image from "next/image";
 import ListBox from "../common/ListBox";
 import { todoData } from "@/data/homeData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddTodoPopup from "./AddTodoPopup";
 import Toast from "../common/Toast";
+import Axios from "@/apis/axios";
+
+interface Todo {
+  todoId: number;
+  description: string;
+  todoType: string;
+  deadline: string;
+  status: string;
+  isAssigned: boolean;
+}
 
 const Todo = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [addTodo, setAddTodo] = useState(false);
+  const [todoData, setTodoData] = useState<Todo[]>([]);
   const week = ["일", "월", "화", "수", "목", "금", "토"];
+
+  // 날짜를 yyyy-mm-dd 형식으로 변환하는 함수
+  const formatDate = (date: Date) => {
+    return date.toISOString().split("T")[0];
+  };
+
+  const formattedDate = formatDate(currentDate);
+
+  useEffect(() => {
+    Axios.get(`/api/v1/todo?deadline=${formattedDate}`)
+      .then((response) => {
+        const todoData: Todo[] = response.data.todoList;
+        setTodoData(todoData);
+        console.log("Todo List Get Success:", response.data);
+      })
+      .catch(() => {
+        console.error("Todo LIst Get Error");
+      });
+  }, [todoData, formattedDate]);
+
+  /* deadline 날짜의 요일을 구하는 함수 */
+  const getDayOfWeek = (dateString: string) => {
+    const date = new Date(dateString);
+    const today = new Date();
+
+    const isTomorrow =
+      date.getFullYear() === today.getFullYear() &&
+      date.getMonth() === today.getMonth() &&
+      date.getDate() === today.getDate() + 1;
+
+    return isTomorrow ? "내일" : week[date.getDay()] + "요일";
+  };
 
   /* 이전 날짜 이동 */
   const handleBackDay = () => {
@@ -103,16 +146,22 @@ const Todo = () => {
         />
       </DateLine>
       <TodoLists>
-        {todoData.map((data, index) => (
-          <ListBox
-            key={index}
-            listboxType={data.direct ? "direct" : "check"}
-            color={data.time === "내일까지" ? "orange" : "mint"}
-            type={data.type}
-            text={data.text}
-            time={data.time}
-          />
-        ))}
+        {todoData.length > 0 ? (
+          todoData.map((data, index) => (
+            <ListBox
+              key={index}
+              id={data.todoId}
+              listboxType={data.isAssigned ? "check" : "direct"}
+              color={data.deadline === "내일까지" ? "orange" : "mint"}
+              type={data.todoType}
+              text={data.description}
+              time={`${getDayOfWeek(data.deadline)}까지`}
+              checked={data.status === "COMPLETE"}
+            />
+          ))
+        ) : (
+          <NoData>할 일이 없어요!</NoData>
+        )}
       </TodoLists>
       <Plus>
         <PlusButton onClick={handleOpenAddTodo}>
@@ -207,6 +256,16 @@ const PlusButton = styled.button`
     background: rgba(255, 135, 0, 0.1);
   }
   cursor: pointer;
+`;
+
+const NoData = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${theme.colors.primary300};
+  ${(props) => props.theme.fonts.body3_m};
 `;
 
 const Overlay = styled.div`

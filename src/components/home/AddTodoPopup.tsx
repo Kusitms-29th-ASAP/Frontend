@@ -5,6 +5,7 @@ import Button from "../common/Button";
 import CustomInput from "../common/CustomInput";
 import Popup from "../common/Popup";
 import Calendar from "../common/Calendar";
+import Axios from "@/apis/axios";
 
 const AddTodoPopup = ({
   onClose,
@@ -26,9 +27,34 @@ const AddTodoPopup = ({
     setSelectedDate(date);
   };
 
+  // 날짜 형식 변환(년월일 -> yyyy-mm-dd) 함수
+  const formatDate = (dateString: string) => {
+    const dateParts = dateString.split(/[년월일\s]+/).filter(Boolean);
+    if (dateParts.length === 3) {
+      const [year, month, day] = dateParts;
+      const formattedMonth = month.padStart(2, "0");
+      const formattedDay = day.padStart(2, "0");
+      return `${year}-${formattedMonth}-${formattedDay}`;
+    }
+    return dateString;
+  };
+
   const handleButtonClick = () => {
-    onClose();
-    setShowToast(true);
+    const formattedDate = formatDate(selectedDate);
+    console.log(todo, category, formattedDate);
+    Axios.post(`/api/v1/todo`, {
+      description: todo,
+      todoType: category,
+      deadline: formattedDate,
+    })
+      .then((response) => {
+        console.log("Add Todo Post Success:", response.data);
+        onClose();
+        setShowToast(true);
+      })
+      .catch((error) => {
+        console.error("Add Todo Post Error", error);
+      });
   };
 
   return (
@@ -40,7 +66,7 @@ const AddTodoPopup = ({
           onChange={(value: string) => setTodo(value)}
         />
         <RadioButtonGroup>
-          {["가정통신문", "숙제", "준비물", "기타"].map(
+          {["SCHOOL_ANNOUNCEMENT", "HOMEWORK", "SUPPLY", "ETC", "NONE"].map(
             (categoryName, index) => (
               <RadioButton
                 key={index}
@@ -72,7 +98,7 @@ const SubTitle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 87px;
+  margin-bottom: 42px;
   ${(props) => props.theme.fonts.body3_b}
 `;
 
