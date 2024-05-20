@@ -17,35 +17,36 @@ const Auth = () => {
       );
 
       const getToken = async () => {
-        const res = axios.post(
-          "https://kauth.kakao.com/oauth/token",
-          {
-            grant_type: "authorization_code",
-            client_id: REST_API_KEY,
-            redirect_uri: REDIRECT_URI,
-            code: AUTHORIZATION_CODE,
-          },
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
+        try {
+          const response = await axios.post(
+            "https://kauth.kakao.com/oauth/token",
+            {
+              grant_type: "authorization_code",
+              client_id: REST_API_KEY,
+              redirect_uri: REDIRECT_URI,
+              code: AUTHORIZATION_CODE,
             },
-          }
-        );
-        return res;
-      };
+            {
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+            }
+          );
 
-      getToken()
-        .then((res) => {
-          if (res) {
-            localStorage.setItem("access_token", res.data.access_token);
+          if (response) {
+            const accessToken = response.data.access_token;
+            localStorage.setItem("access_token", accessToken);
             router.push("/signin/terms");
 
-            const ACCESS_TOKEN = localStorage.getItem("access_token");
-            const registerToken = postKakaoToken(ACCESS_TOKEN!!);
+            const registerToken = await postKakaoToken(accessToken);
             console.log(registerToken);
           }
-        })
-        .catch((err) => console.log(err));
+        } catch (error) {
+          console.error("Error during token handling:", error);
+        }
+      };
+
+      getToken();
     }
   }, [REST_API_KEY, REDIRECT_URI, router]);
 
