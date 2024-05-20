@@ -6,7 +6,7 @@ import Checkbox from "@/components/common/Checkbox";
 import Topbar from "@/components/common/Topbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import Subtitle from "@/components/signin/Subtitle";
-import { AllergyCategories } from "@/data/allergyData";
+import { AllergyCategories, AllergyEnum } from "@/data/allergyData";
 import { PostUserRequest } from "@/interface/Auth";
 import { setUser } from "@/redux/slices/userSlice";
 import { RootState } from "@/redux/store";
@@ -23,9 +23,11 @@ const SigninProcess4 = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
+  const auth = useSelector((state: RootState) => state.auth);
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
+  const registerToken = auth.registerToken;
 
   const handleCheckboxChange = (item: string) => {
     setCheckedItems((prev) => ({ ...prev, [item]: !prev[item] }));
@@ -34,7 +36,9 @@ const SigninProcess4 = () => {
   const handleNextButtonClick = () => {
     const updateChildren = user.children.map((child) => ({
       ...child,
-      allergies: Object.keys(checkedItems).filter((item) => checkedItems[item]),
+      allergies: Object.keys(checkedItems)
+        .filter((key) => checkedItems[key])
+        .map((key) => AllergyEnum[key as keyof typeof AllergyEnum]),
     }));
 
     dispatch(
@@ -45,10 +49,10 @@ const SigninProcess4 = () => {
     );
 
     const User: PostUserRequest = {
-      registrationToken: user.registrationToken,
+      registrationToken: registerToken,
       agreement: user.agreement,
       phoneNumber: user.phoneNumber,
-      children: user.children,
+      children: updateChildren,
     };
 
     postUser(User);
