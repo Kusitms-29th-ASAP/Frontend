@@ -1,24 +1,58 @@
 import styled from "styled-components";
 import EditorNote from "./EditorNote";
 import Image from "next/image";
-
-const TEXT1 = `지난 겨울방학동안 3학년 과학 교과서에 있는 실험들을 직접 집에서 했어요!`;
-const TEXT2 = `과학교사 엄마라는 특권은 누려야되지 않겠냐며 미리 받아온 교과서를 뒤적이다 중학생들과 함께해도 재미있는 오호 만들과학교사 엄마라는 특권은 누려야되지 않겠냐며 미리 받아온 교과서를 뒤적이다 중학생들과 함께해도 재미있는\n\n 오호 만들과학교사 엄마라는 특권은 누려야되지 않겠냐며 미리 받아온 교과서를 뒤적이다 중학생들과 함께해도 재미있는 오호 만들과학교사 엄마라는 특권은 누려야되지 않겠냐며 미리 받아온 교과서를 뒤적이다 중학생들과 함께해도 재미있는 오호 만들과학교사 엄마라는 특권은 누려야되지 않겠냐며 미리 받아온 교과서를 뒤적이다 중학생들과 함께해도 재미있는 오호 만들`;
+import { usePathname } from "next/navigation";
+import { ReviewData } from "@/data/reviewData";
 
 const Content = () => {
+  const pathname = usePathname();
+  const id = pathname.split("/").pop();
+  const review = ReviewData.find((review) => review.id === Number(id));
+
   return (
     <Container>
-      <EditorNote />
-      <Text>{TEXT1}</Text>
-      <ImageBox>
-        <Image
-          src="/assets/study/study.svg"
-          alt="study"
-          layout="fill"
-          objectFit="contain"
-        />
-      </ImageBox>
-      <Text>{TEXT2}</Text>
+      {review && (
+        <>
+          <EditorNote editorNote={review.editorNote ? review.editorNote : ""} />
+          {review.text1 && <Text>{review.text1}</Text>}
+          {review.image1 && (
+            <ImageBox>
+              <Image
+                src={review.image1}
+                alt="study"
+                layout="fill"
+                objectFit="contain"
+              />
+            </ImageBox>
+          )}
+
+          {review.text2 && <Text>{review.text2}</Text>}
+          {review.image2 && (
+            <ImageBox>
+              <Image
+                src={review.image2}
+                alt="study"
+                layout="fill"
+                objectFit="contain"
+              />
+            </ImageBox>
+          )}
+
+          {review.text3 && <Text>{review.text3}</Text>}
+          {review.image3 && (
+            <ImageBox>
+              <Image
+                src={review.image3}
+                alt="study"
+                layout="fill"
+                objectFit="contain"
+              />
+            </ImageBox>
+          )}
+
+          {review.text4 && <Text>{review.text4}</Text>}
+        </>
+      )}
     </Container>
   );
 };
