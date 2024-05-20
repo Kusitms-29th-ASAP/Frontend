@@ -1,13 +1,18 @@
 "use client";
 
+import postUser from "@/apis/user/postUser";
 import Button from "@/components/common/Button";
 import Checkbox from "@/components/common/Checkbox";
 import Topbar from "@/components/common/Topbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import Subtitle from "@/components/signin/Subtitle";
 import { AllergyCategories } from "@/data/allergyData";
+import { PostUserRequest } from "@/interface/Auth";
+import { setUser } from "@/redux/slices/userSlice";
+import { RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 const CONTEXT1 = "마지막 단계에요!";
@@ -16,6 +21,8 @@ const TITLE = "자녀의 알레르기 유발 식재료가 \n 있다면, 체크�
 
 const SigninProcess4 = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -25,6 +32,23 @@ const SigninProcess4 = () => {
   };
 
   const handleNextButtonClick = () => {
+    dispatch(
+      setUser({
+        ...user,
+        allergies: Object.keys(checkedItems).filter(
+          (item) => checkedItems[item]
+        ),
+      })
+    );
+
+    const User: PostUserRequest = {
+      registrationToken: user.registrationToken,
+      agreement: user.agreement,
+      phoneNumber: user.phoneNumber,
+      children: user.children,
+    };
+
+    postUser(User);
     router.push("/signin/completion");
   };
 

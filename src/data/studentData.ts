@@ -1,16 +1,3 @@
-export const GradeData = ["1학년", "2학년", "3학년", "4학년", "5학년", "6학년"];
+export const GradeData = [1, 2, 3, 4, 5, 6];
 
-export const classNumData = [
-  "1반",
-  "2반",
-  "3반",
-  "4반",
-  "5반",
-  "6반",
-  "7반",
-  "8반",
-  "9반",
-  "10반",
-  "11반",
-  "12반",
-];
+export const classNumData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];

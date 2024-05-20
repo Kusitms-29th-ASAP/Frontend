@@ -5,18 +5,21 @@ import { GradeData } from "@/data/studentData";
 
 interface SelectionPopupProps {
   onClose: () => void;
-  onSelect: (value: string) => void;
-  selectionList: string[];
+  onSelect: (value: number) => void;
+  selectionList: number[];
 }
 
 const SelectionPopup = (props: SelectionPopupProps) => {
   const { onClose, onSelect, selectionList } = props;
   let title = "";
+  let description = "";
 
   if (selectionList == GradeData) {
     title = "학년 선택";
+    description = "학년";
   } else {
     title = "학급 선택";
+    description = "반";
   }
 
   return (
@@ -26,7 +29,7 @@ const SelectionPopup = (props: SelectionPopupProps) => {
           {selectionList.map((value, index) => (
             <Button
               type="primaryBorder"
-              text={value}
+              text={`${value}${description}`}
               onClick={() => {
                 onSelect(value);
                 onClose();

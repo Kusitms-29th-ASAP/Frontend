@@ -5,20 +5,27 @@ import Input from "@/components/common/CustomInput";
 import Topbar from "@/components/common/Topbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import Subtitle from "@/components/signin/Subtitle";
+import { setUser } from "@/redux/slices/userSlice";
+import { RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 const DESCRIPTION =
   "학급 초대 코드를 아직 받지 않으셔도 어플에 가입하실 수 있어요.\n 학급 초대 코드는 나중에 등록할 수 있어요.";
 
 const SigninProcess3 = () => {
-  const [studentName, setstudentName] = useState("김동우");
+  const studentName = useSelector(
+    (state: RootState) => state.user.children[0].name
+  );
   const [schoolParentName, setSchoolParentName] = useState("김부모");
   const [school, setSchool] = useState("");
   const [grade, setGrade] = useState("");
   const name = studentName.substr(1, 3);
   const router = useRouter();
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
 
   const handleSchoolChange = (value: string) => {
     setSchool(value);
@@ -27,6 +34,19 @@ const SigninProcess3 = () => {
     setGrade(value);
   };
   const handleNextButtonClick = () => {
+    dispatch(
+      setUser({
+        ...user,
+        children: [
+          {
+            name: studentName,
+            elementSchoolId: 1,
+            elementSchoolGrade: grade,
+          },
+        ],
+      })
+    );
+
     router.push("/signin/process3-1");
   };
 
