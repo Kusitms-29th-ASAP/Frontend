@@ -33,17 +33,16 @@ const Process3_1 = () => {
   const user = useSelector((state: RootState) => state.user);
 
   const handleNextButtonClick = () => {
+    const updateChildren = user.children.map((child) => ({
+      ...child,
+      elementSchoolGrade: GRADE[grade!! - 1],
+      elementSchoolClass: classNum,
+    }));
+
     dispatch(
       setUser({
         ...user,
-        children: [
-          {
-            name: studentName,
-            elementSchoolId: 1,
-            elementSchoolGrade: GRADE[grade!! - 1],
-            elementSchoolClass: classNum,
-          },
-        ],
+        children: updateChildren,
       })
     );
     router.push("/signin/process4");

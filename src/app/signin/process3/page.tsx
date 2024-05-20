@@ -34,16 +34,16 @@ const SigninProcess3 = () => {
     setGrade(value);
   };
   const handleNextButtonClick = () => {
+    const updateChildren = user.children.map((child) => ({
+      ...child,
+      elementSchoolId: 1,
+      elementSchoolGrade: grade,
+    }));
+
     dispatch(
       setUser({
         ...user,
-        children: [
-          {
-            name: studentName,
-            elementSchoolId: 1,
-            elementSchoolGrade: grade,
-          },
-        ],
+        children: updateChildren,
       })
     );
 

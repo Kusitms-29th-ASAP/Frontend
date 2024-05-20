@@ -32,16 +32,15 @@ const SigninProcess4 = () => {
   };
 
   const handleNextButtonClick = () => {
+    const updateChildren = user.children.map((child) => ({
+      ...child,
+      allergies: Object.keys(checkedItems).filter((item) => checkedItems[item]),
+    }));
+
     dispatch(
       setUser({
         ...user,
-        children: [
-          {
-            allergies: Object.keys(checkedItems).filter(
-              (item) => checkedItems[item]
-            ),
-          },
-        ],
+        updateChildren,
       })
     );
 
