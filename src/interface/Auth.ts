@@ -4,7 +4,7 @@ export interface TokenResponse {
 }
 
 export interface PostUserRequest {
-  registraitonToken: string;
+  registrationToken: string;
   agreement: {
     termsOfService: boolean;
     privacyPolicy: boolean;
@@ -22,5 +22,5 @@ export interface PostUserRequest {
     elementSchoolClassNumber: string;
     elementSchoolClassCode: string;
     allergies: string[];
-  };
+  }[];
 }
