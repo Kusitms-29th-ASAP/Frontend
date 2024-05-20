@@ -27,7 +27,6 @@ const SigninProcess4 = () => {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
-  const registerToken = auth.registerToken;
 
   const handleCheckboxChange = (item: string) => {
     setCheckedItems((prev) => ({ ...prev, [item]: !prev[item] }));
@@ -49,7 +48,7 @@ const SigninProcess4 = () => {
     );
 
     const User: PostUserRequest = {
-      registrationToken: registerToken,
+      registrationToken: auth.registerToken,
       agreement: user.agreement,
       phoneNumber: user.phoneNumber,
       children: updateChildren,
