@@ -4,9 +4,9 @@ import { register } from "module";
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
-    accessToken: null,
-    refreshToken: null,
-    registerToken: null,
+    accessToken: "",
+    refreshToken: "",
+    registerToken: "",
   },
   reducers: {
     setToken: (state, action) => {
@@ -15,9 +15,9 @@ export const authSlice = createSlice({
       state.registerToken = action.payload;
     },
     clearToken: (state) => {
-      state.accessToken = null;
-      state.refreshToken = null;
-      state.registerToken = null;
+      accessToken: "";
+      refreshToken: "";
+      registerToken: "";
     },
   },
 });

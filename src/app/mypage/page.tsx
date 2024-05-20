@@ -1,19 +1,30 @@
 "use client";
 
+import deleteUser from "@/apis/auth/deleteUser";
 import Tabbar from "@/components/common/Tabbar";
 import Topbar from "@/components/common/Topbar";
+import { RootState } from "@/redux/store";
 import { theme } from "@/styles/theme";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const Mypage = () => {
   const router = useRouter();
+  const tokens = useSelector((state: RootState) => state.auth);
+  const { refreshToken } = tokens;
+
+  const handleLogout = () => {
+    deleteUser(refreshToken);
+    router.push("/");
+  };
+  const handleDeleteUser = () => {};
 
   return (
     <Container>
       <Padding>
-        <Topbar text="마이페이지" />
+        <Topbar text="마이페이지" icon={false} />
       </Padding>
       <Background>
         <RowContainCard>
@@ -74,8 +85,8 @@ const Mypage = () => {
           </Line>
         </ColContainCard>
         <ColContainCard>
-          <div>로그아웃</div>
-          <Gray>회원탈퇴</Gray>
+          <LogOut onClick={handleLogout}>로그아웃</LogOut>
+          <DeleteUser onClick={handleDeleteUser}>회원탈퇴</DeleteUser>
         </ColContainCard>
       </Background>
       <Tabbar />
@@ -91,6 +102,7 @@ const Container = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
   position: relative;
+  padding-top: 20px;
 `;
 
 const Padding = styled.div`
@@ -177,4 +189,12 @@ const DarkGray = styled.div`
 
 const DarkGrayCap = styled(DarkGray)`
   ${(props) => props.theme.fonts.caption1_r};
+`;
+
+const LogOut = styled.div`
+  cursor: pointer;
+`;
+
+const DeleteUser = styled(Gray)`
+  cursor: pointer;
 `;
