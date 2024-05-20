@@ -8,8 +8,6 @@ import { RootState } from "@/redux/store";
 const Layout = (props: any) => {
   const category = useSelector((state: RootState) => state.category.value);
 
-  console.log(category);
-
   return (
     <>
       {props.children}

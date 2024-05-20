@@ -39,6 +39,9 @@ const Container = styled.div`
   gap: 12px;
   background: ${({ theme }) => theme.colors.b80};
   padding: 24px 20px;
+
+  width: 100%;
+  height: 100%;
 `;
 
 const ReviewContentBox = styled.div`
