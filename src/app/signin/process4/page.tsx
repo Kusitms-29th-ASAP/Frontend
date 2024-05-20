@@ -35,9 +35,13 @@ const SigninProcess4 = () => {
     dispatch(
       setUser({
         ...user,
-        allergies: Object.keys(checkedItems).filter(
-          (item) => checkedItems[item]
-        ),
+        children: [
+          {
+            allergies: Object.keys(checkedItems).filter(
+              (item) => checkedItems[item]
+            ),
+          },
+        ],
       })
     );
 
