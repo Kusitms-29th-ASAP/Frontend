@@ -3,12 +3,20 @@ import ReviewContent from "./ReviewContent";
 import ReviewTitle from "./ReviewTitle";
 import { ReviewData } from "@/data/reviewData";
 
-const Reviews = () => {
+interface ReviewsProps {
+  category: number;
+}
+
+const Reviews = (category: ReviewsProps) => {
+  const FilterReviewData = ReviewData.filter(
+    (review) => review.category === category.category
+  );
+
   return (
     <Container>
       <ReviewTitle />
       <ReviewContentBox>
-        {ReviewData.map((review) => (
+        {FilterReviewData.map((review) => (
           <ReviewContent
             key={review.id}
             id={review.id}
