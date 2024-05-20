@@ -24,6 +24,11 @@ const SigninProcess2 = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
 
+  const parseAndFormatDate = (dateString: any) => {
+    const [_, year, month, day] = dateString.match(/(\d+)년 (\d+)월 (\d+)일/);
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  };
+
   const handleNameChange = (value: string) => {
     setName(value);
   };
@@ -34,6 +39,8 @@ const SigninProcess2 = () => {
     setgender(type);
   };
   const handleNextButtonClick = () => {
+    const formattedDate = parseAndFormatDate(date);
+
     dispatch(
       setUser({
         ...user,
@@ -41,7 +48,7 @@ const SigninProcess2 = () => {
           {
             name: name,
             gender: gender,
-            birth: date,
+            birth: formattedDate,
           },
         ],
       })
