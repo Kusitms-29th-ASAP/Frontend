@@ -1,7 +1,9 @@
 import Axios from "../axios";
 
 interface PostKakaoTokenResponse {
-  registerToken: string;
+  accessToken?: string;
+  refreshToken?: string;
+  registerToken?: string;
 }
 
 export async function postKakaoToken(
