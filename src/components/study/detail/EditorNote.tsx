@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
-const CONTEXT = `겨울 방학동안 아이와 함께 집에서 실험한 엄마표\n 과학교실입니다! 재밌게 봐주세용`;
+interface EditorNoteProps {
+  editorNote: string;
+}
 
-const EditorNote = () => {
+const EditorNote = (props: EditorNoteProps) => {
+  const { editorNote } = props;
+
   return (
     <Container>
       <Title>에디터의 노트</Title>
-      <Context>{CONTEXT}</Context>
+      <Context>{editorNote}</Context>
     </Container>
   );
 };

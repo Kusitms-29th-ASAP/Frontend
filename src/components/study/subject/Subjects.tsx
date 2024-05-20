@@ -1,13 +1,16 @@
 import { SubjectData } from "@/data/subjectData";
 import SubjectContent from "./SubjectContent";
 import styled from "styled-components";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { setCategory } from "@/redux/slices/categorySlice";
 
 const Subjects = () => {
-  const [selectedId, setSelectedId] = useState(0);
+  const category = useSelector((state: RootState) => state.category.value);
+  const dispatch = useDispatch();
 
   const handleSubjectSelect = (id: number) => {
-    setSelectedId(id);
+    dispatch(setCategory(id));
   };
 
   return (
@@ -17,7 +20,7 @@ const Subjects = () => {
           key={subject.id}
           id={subject.id}
           title={subject.title}
-          isSelected={selectedId === subject.id}
+          isSelected={category === subject.id}
           onSelect={handleSubjectSelect}
         />
       ))}
