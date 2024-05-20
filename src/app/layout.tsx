@@ -13,8 +13,7 @@ const queryClient = new QueryClient();
 
 export const metadata: Metadata = {
   title: "스쿨포인트",
-  description: "스쿨포인트는 학생들을 위한 학습 관리 서비스입니다.",
-  keywords: ["스쿨포인트", "학습 관리", "학생"],
+  description: "AI 기반 통합 알림장 소통 플랫폼 스쿨포인트",
   viewport: {
     width: "device-width",
     initialScale: 1,
