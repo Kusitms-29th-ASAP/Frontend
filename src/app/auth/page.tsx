@@ -9,15 +9,12 @@ const Auth = () => {
   const router = useRouter();
   const REST_API_KEY = process.env.NEXT_PUBLIC_REST_API_KEY;
   const REDIRECT_URI = process.env.NEXT_PUBLIC_REDIRECT_URI;
-  ("code");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const AUTHORIZATION_CODE = new URL(window.location.href).searchParams.get(
         "code"
       );
-      const ACCESS_TOKEN = localStorage.getItem("access_token");
-      postKakaoToken(ACCESS_TOKEN!!);
 
       const getToken = async () => {
         const res = axios.post(
@@ -40,11 +37,12 @@ const Auth = () => {
       getToken()
         .then((res) => {
           if (res) {
-            localStorage.setItem(
-              "access_token",
-              JSON.stringify(res.data.access_token)
-            );
+            localStorage.setItem("access_token", res.data.access_token);
             router.push("/signin/terms");
+
+            const ACCESS_TOKEN = localStorage.getItem("access_token");
+            const registerToken = postKakaoToken(ACCESS_TOKEN!!);
+            console.log(registerToken);
           }
         })
         .catch((err) => console.log(err));
