@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import "./global.css";
+import NOSSR from "@/components/common/NOSSR";
 
 const queryClient = new QueryClient();
 
@@ -22,7 +23,9 @@ export default function RootLayout({
       <body>
         <Provider store={store}>
           <QueryClientProvider client={queryClient}>
-            <ThemeProvider theme={theme}>{children}</ThemeProvider>
+            <ThemeProvider theme={theme}>
+              <NOSSR>{children}</NOSSR>
+            </ThemeProvider>
           </QueryClientProvider>
         </Provider>
       </body>
