@@ -43,4 +43,5 @@ const Background = styled.div`
   padding: 20px;
   gap: 20px;
   background: ${({ theme }) => theme.colors.b100};
+  overflow: hidden;
 `;
