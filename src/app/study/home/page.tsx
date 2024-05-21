@@ -1,9 +1,7 @@
 "use client";
 
-import Tabbar from "@/components/common/Tabbar";
 import Topbar from "@/components/common/Topbar";
 import Banner from "@/components/study/Banner";
-import Reviews from "@/components/study/review/Reviews";
 import Subjects from "@/components/study/subject/Subjects";
 import styled from "styled-components";
 
@@ -15,8 +13,6 @@ const Study = () => {
         <Banner />
         <Subjects />
       </Container>
-      <Reviews />
-      <Tabbar />
     </>
   );
 };
