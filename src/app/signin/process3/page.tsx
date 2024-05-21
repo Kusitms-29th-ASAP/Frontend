@@ -1,10 +1,12 @@
 "use client";
 
+import getSchool from "@/apis/school/getShcool";
 import Button from "@/components/common/Button";
 import Input from "@/components/common/CustomInput";
 import Topbar from "@/components/common/Topbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import Subtitle from "@/components/signin/Subtitle";
+import { School } from "@/interface/School";
 import { setUser } from "@/redux/slices/userSlice";
 import { RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";
@@ -21,32 +23,50 @@ const SigninProcess3 = () => {
   );
   const [schoolParentName, setSchoolParentName] = useState("김부모");
   const [school, setSchool] = useState("");
-  const [grade, setGrade] = useState("");
+  const [code, setCode] = useState("");
   const name = studentName.substr(1, 3);
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
+  const [schoolId, setSchoolId] = useState<number | null>(null);
+  const [schoolList, setSchoolList] = useState<School[]>([]);
+  const [openSchoolList, setOpenSchoolList] = useState(false);
 
-  const handleSchoolChange = (value: string) => {
+  const handleSchoolChange = async (value: string) => {
     setSchool(value);
+    console.log("change");
+    if (value !== "") {
+      const data = await getSchool(value);
+      setSchoolList(data.schools);
+      setOpenSchoolList(true);
+    } else {
+      setSchoolList([]);
+      setOpenSchoolList(false);
+    }
   };
-  const handleGradeChange = (value: string) => {
-    setGrade(value);
+
+  const handleSchoolClick = (id: number, name: string) => {
+    setSchool(name);
+    setSchoolId(id);
+    setSchoolList([]);
+    setOpenSchoolList(false);
+  };
+
+  const handleCodeChange = (value: string) => {
+    setCode(value);
   };
   const handleNextButtonClick = () => {
     const updateChildren = user.children.map((child) => ({
       ...child,
-      elementSchoolId: 566, // 임시
-      elementSchoolGrade: grade,
+      elementSchoolId: schoolId,
+      elementSchoolClassCode: code,
     }));
-
     dispatch(
       setUser({
         ...user,
         children: updateChildren,
       })
     );
-
     router.push("/signin/process3-1");
   };
 
@@ -64,14 +84,28 @@ const SigninProcess3 = () => {
       <ContentBox>
         <div>
           <Subtitle>학교 검색으로 등록하기</Subtitle>
-          <InputBox>
+
+          <Search>
             <Input
               value={school}
               onChange={handleSchoolChange}
               placeholder="학교의 이름을 입력해주세요."
             />
             <Button text="검색" size="small" disabled={!school} />
-          </InputBox>
+            {openSchoolList && (
+              <SearchBoxList>
+                {schoolList.map((school) => (
+                  <SearchBox
+                    key={school.id}
+                    onClick={() => handleSchoolClick(school.id, school.name)}
+                  >
+                    <h1>{school.name}</h1>
+                    <h2>{school.address}</h2>
+                  </SearchBox>
+                ))}
+              </SearchBoxList>
+            )}
+          </Search>
         </div>
 
         <div>
@@ -80,8 +114,8 @@ const SigninProcess3 = () => {
           </Subtitle>
           <Description>{DESCRIPTION}</Description>
           <Input
-            value={grade}
-            onChange={handleGradeChange}
+            value={code}
+            onChange={handleCodeChange}
             placeholder="전달받은 초대 코드가 있다면 입력해주세요."
           />
         </div>
@@ -121,13 +155,52 @@ const ContentBox = styled.div`
   height: 100%;
 `;
 
-const InputBox = styled.div`
-  display: flex;
-  gap: 12px;
-`;
-
 const Description = styled.div`
   ${({ theme }) => theme.fonts.caption1_m};
   color: ${({ theme }) => theme.colors.b400};
   margin: 4px 0 16px 0;
+`;
+
+const Search = styled.div`
+  display: flex;
+  gap: 12px;
+  position: relative;
+  width: 100%;
+`;
+
+const SearchBoxList = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  box-shadow: 0px 2px 64px 0px rgba(30, 41, 59, 0.06);
+  border-radius: 10px;
+  border: 1px solid ${({ theme }) => theme.colors.b200};
+
+  position: absolute;
+  top: 36px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background: ${({ theme }) => theme.colors.white};
+
+  z-index: 1;
+`;
+
+const SearchBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background: ${({ theme }) => theme.colors.white};
+  cursor: pointer;
+
+  h1 {
+    ${({ theme }) => theme.fonts.body3_b};
+    color: ${({ theme }) => theme.colors.b700};
+  }
+  h2 {
+    ${({ theme }) => theme.fonts.caption1_r};
+    color: ${({ theme }) => theme.colors.b400};
+  }
 `;
