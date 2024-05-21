@@ -48,7 +48,7 @@ const SigninProcess4 = () => {
     );
 
     const User: PostUserRequest = {
-      registrationToken: auth.registerToken,
+      registrationToken: `Bearer ${auth.registerToken}`,
       agreement: user.agreement,
       phoneNumber: user.phoneNumber,
       children: updateChildren,

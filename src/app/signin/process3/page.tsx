@@ -36,7 +36,7 @@ const SigninProcess3 = () => {
   const handleNextButtonClick = () => {
     const updateChildren = user.children.map((child) => ({
       ...child,
-      elementSchoolId: 1,
+      elementSchoolId: 566, // 임시
       elementSchoolGrade: grade,
     }));
 
