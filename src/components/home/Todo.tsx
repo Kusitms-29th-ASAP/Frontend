@@ -218,7 +218,6 @@ const Todo = () => {
           setShowToast={setShowToast}
         />
       )}
-      {addTodo && <Overlay onClick={handleCloseAddTodo} />}
       {showToast && (
         <Toast
           message="할 일이 추가되었어요!"
@@ -259,7 +258,7 @@ const DateLine = styled.div`
 
 const TodoLists = styled.div`
   width: 100%;
-  height: 210px;
+  height: 205px;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
@@ -304,16 +303,4 @@ const NoData = styled.div`
   align-items: center;
   color: ${theme.colors.primary300};
   ${(props) => props.theme.fonts.body3_m};
-`;
-
-const Overlay = styled.div`
-  max-width: 480px;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 10;
 `;
