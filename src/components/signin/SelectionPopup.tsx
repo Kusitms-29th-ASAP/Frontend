@@ -5,7 +5,7 @@ import { GradeData } from "@/data/studentData";
 
 interface SelectionPopupProps {
   onClose: () => void;
-  onSelect: (value: number) => void;
+  onSelect: (value: any) => void;
   selectionList: number[];
 }
 
