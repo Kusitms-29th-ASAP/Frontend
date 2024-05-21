@@ -72,7 +72,7 @@ const Em = styled.span`
 
 const TodoHomeLists = styled.div<TodoHomeListsProps>`
   width: 100%;
-  height: ${(props) => (props.expanded ? "auto" : "125px")};
+  height: ${(props) => (props.expanded ? "auto" : "140px")};
   overflow-y: hidden;
   display: flex;
   flex-direction: column;

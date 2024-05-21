@@ -216,6 +216,8 @@ const Todo = () => {
         <AddTodoPopup
           onClose={handleCloseAddTodo}
           setShowToast={setShowToast}
+          render={render}
+          setRenderData={setRenderData}
         />
       )}
       {showToast && (
