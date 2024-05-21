@@ -1,9 +1,27 @@
 import { theme } from "@/styles/theme";
 import styled from "styled-components";
 import SummaryCard from "./SummaryCard";
-import { SummaryCardProps } from "@/data/newsData";
 
-const Summary = ({ dummyData }: { dummyData: SummaryCardProps[] }) => {
+export type summaryType = "simple" | "detail";
+
+interface Line {
+  keywords: string[];
+  summaries: string[];
+}
+
+interface AnnouncementsProps {
+  summaryType?: string;
+  isNew: boolean;
+  category: string;
+  title: string;
+  uploadDate: string;
+  imageUrls?: string[];
+  highlight?: Line;
+  summary?: string[];
+  announcementId?: number;
+}
+
+const Summary = ({ dummyData }: { dummyData: AnnouncementsProps[] }) => {
   return (
     <Container>
       <Content>
@@ -14,11 +32,11 @@ const Summary = ({ dummyData }: { dummyData: SummaryCardProps[] }) => {
             isNew={data.isNew}
             category={data.category}
             title={data.title}
-            date={data.date}
-            look={data.look}
-            keyword={data.keyword}
-            sentence={data.sentence}
-            summaryId={data.summaryId}
+            uploadDate={data.uploadDate}
+            summary={data.summary}
+            highlight={data.highlight}
+            imageUrls={data.imageUrls}
+            announcementId={data.announcementId}
           />
         ))}
       </Content>
@@ -30,6 +48,7 @@ export default Summary;
 
 const Container = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   padding: 26px 20px 29px 20px;

@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import SummaryCard, { SummaryCardProps } from "./SummaryCard";
+import SummaryCard from "./SummaryCard";
 
 export default {
   title: "News/SummaryCard",
@@ -11,7 +11,26 @@ export default {
   },
 } as Meta;
 
-const Template: StoryFn<SummaryCardProps> = (args) => <SummaryCard {...args} />;
+interface Line {
+  keywords: string[];
+  summaries: string[];
+}
+
+interface AnnouncementsProps {
+  summaryType?: string;
+  isNew: boolean;
+  category: string;
+  title: string;
+  uploadDate: string;
+  imageUrls?: string[];
+  highlight?: Line;
+  summary?: string[];
+  announcementId?: number;
+}
+
+const Template: StoryFn<AnnouncementsProps> = (args) => (
+  <SummaryCard {...args} />
+);
 
 export const Simple = Template.bind({});
 Simple.args = {
@@ -19,11 +38,12 @@ Simple.args = {
   isNew: true,
   category: "Category",
   title: "Simple SummaryCard",
-  date: "date",
-  look: 123,
-  keyword: ["keyword1", "keyword2"],
-  sentence: ["sentence1", "sentence2", "sentence3"],
-  summaryId: 0,
+  uploadDate: "date",
+  highlight: {
+    keywords: ["키워드1", "키워드2"],
+    summaries: ["요약1", "요약2", "요약3"],
+  },
+  announcementId: 0,
 };
 
 export const Detail = Template.bind({});
@@ -32,9 +52,10 @@ Detail.args = {
   isNew: true,
   category: "Category",
   title: "Detail SummaryCard",
-  date: "date",
-  look: 123,
-  keyword: ["keyword1", "keyword2"],
-  sentence: ["sentence1", "sentence2", "sentence3"],
-  summaryId: 0,
+  uploadDate: "date",
+  highlight: {
+    keywords: ["키워드1", "키워드2"],
+    summaries: ["요약1", "요약2", "요약3"],
+  },
+  announcementId: 0,
 };
