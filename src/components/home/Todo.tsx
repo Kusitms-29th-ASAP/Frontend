@@ -31,7 +31,8 @@ const Todo = () => {
   const formattedDate = formatDate(currentDate);
 
   useEffect(() => {
-    Axios.get(`/api/v1/todo?deadline=${formattedDate}`)
+    // Axios.get(`/api/v1/todo?deadline=${formattedDate}`)
+    Axios.get(`/api/v1/todo?deadline=2024-05-20`)
       .then((response) => {
         const todoData: Todo[] = response.data.todoList;
         setTodoData(todoData);
@@ -40,7 +41,7 @@ const Todo = () => {
       .catch(() => {
         console.error("Todo LIst Get Error");
       });
-  }, [todoData, formattedDate]);
+  }, []);
 
   /* deadline 날짜의 요일을 구하는 함수 */
   const getDayOfWeek = (dateString: string) => {
