@@ -10,7 +10,7 @@ import { School } from "@/interface/School";
 import { setUser } from "@/redux/slices/userSlice";
 import { RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -28,11 +28,13 @@ const SigninProcess3 = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
+  const [schoolId, setSchoolId] = useState<number | null>(null);
   const [schoolList, setSchoolList] = useState<School[]>([]);
   const [openSchoolList, setOpenSchoolList] = useState(false);
 
   const handleSchoolChange = async (value: string) => {
     setSchool(value);
+    console.log("change");
     if (value !== "") {
       const data = await getSchool(value);
       setSchoolList(data.schools);
@@ -43,23 +45,28 @@ const SigninProcess3 = () => {
     }
   };
 
+  const handleSchoolClick = (id: number, name: string) => {
+    setSchool(name);
+    setSchoolId(id);
+    setSchoolList([]);
+    setOpenSchoolList(false);
+  };
+
   const handleCodeChange = (value: string) => {
     setCode(value);
   };
   const handleNextButtonClick = () => {
     const updateChildren = user.children.map((child) => ({
       ...child,
-      elementSchoolId: 566, // 임시
+      elementSchoolId: schoolId,
       elementSchoolClassCode: code,
     }));
-
     dispatch(
       setUser({
         ...user,
         children: updateChildren,
       })
     );
-
     router.push("/signin/process3-1");
   };
 
@@ -88,7 +95,10 @@ const SigninProcess3 = () => {
             {openSchoolList && (
               <SearchBoxList>
                 {schoolList.map((school) => (
-                  <SearchBox key={school.id}>
+                  <SearchBox
+                    key={school.id}
+                    onClick={() => handleSchoolClick(school.id, school.name)}
+                  >
                     <h1>{school.name}</h1>
                     <h2>{school.address}</h2>
                   </SearchBox>

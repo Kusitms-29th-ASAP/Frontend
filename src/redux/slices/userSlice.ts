@@ -17,7 +17,7 @@ export const userSlice = createSlice({
         name: "",
         gender: "",
         birth: "",
-        elementSchoolId: 566, // 임시
+        elementSchoolId: 0,
         elementSchoolGrade: "",
         elementSchoolClassNumber: "",
         elementSchoolClassCode: "",
