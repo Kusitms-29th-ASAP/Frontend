@@ -10,7 +10,7 @@ const NotificationDetail = () => {
     <>
       <Container>
         <Topbar text="알림장 자세히보기" icon={true} />
-        <TopContent isToday={true} day={new Date()} teacher={"김동우"} />
+        <TopContent isToday={true} day={"2024-05-22"} teacher={"김동우"} />
       </Container>
       <NotificationDetailList />
     </>
