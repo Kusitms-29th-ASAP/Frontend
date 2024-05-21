@@ -2,21 +2,93 @@ import styled from "styled-components";
 import { theme } from "@/styles/theme";
 import Image from "next/image";
 import ListBox from "../common/ListBox";
-import { todoData } from "@/data/homeData";
-import { useState } from "react";
-import AddTodoPopup from "./AddTodoPopup";
+import { useEffect, useState } from "react";
+import AddTodoPopup, { categories } from "./AddTodoPopup";
 import Toast from "../common/Toast";
+import Axios from "@/apis/axios";
+
+interface Todo {
+  todoId: number;
+  description: string;
+  todoType: string;
+  deadline: string;
+  status: string;
+  isAssigned: boolean;
+}
 
 const Todo = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [addTodo, setAddTodo] = useState(false);
+  const [todoData, setTodoData] = useState<Todo[]>([]);
+  /* useEffect에서 의존성 배열로 넘기는, 렌더링 알림 역할 */
+  const [render, setRenderData] = useState(false);
   const week = ["일", "월", "화", "수", "목", "금", "토"];
+
+  /* 날짜를 yyyy-mm-dd 형식으로 변환하는 함수 */
+  const formatDate = (date: Date) => {
+    return date.toISOString().split("T")[0];
+  };
+
+  useEffect(() => {
+    let formattedDate = formatDate(currentDate);
+    Axios.get(`/api/v1/todo?date=${formattedDate}`)
+      .then((response) => {
+        const todoData: Todo[] = response.data.todoList;
+        setTodoData(todoData);
+        // console.log("Todo List Get Success:", response.data);
+      })
+      .catch(() => {
+        // console.error("Todo LIst Get Error");
+      });
+  }, [currentDate, render]);
+
+  /* 상태 수정 API */
+  const changeTodo = (todoId: number) => {
+    Axios.put(`/api/v1/todo`, { todoId: todoId })
+      .then((response) => {
+        setRenderData(!render);
+        // console.log("Todo 수정 성공:", todoId, response.data);
+      })
+      .catch((error) => {
+        // console.error("Todo 수정 실패:", error);
+      });
+  };
+
+  /* Todo 삭제 API */
+  const deleteTodo = (todoId: number) => {
+    Axios.delete(`/api/v1/todo`, { data: { todoId: todoId } })
+      .then((response) => {
+        setRenderData(!render);
+        // console.log("Todo 삭제 성공:", todoId);
+      })
+      .catch((error) => {
+        // console.error("Todo 삭제 실패:", error);
+      });
+  };
+
+  // const handleCheckboxChange = (todoId: number) => {
+  //   changeTodo(todoId);
+  // };
+
+  /* deadline 날짜의 요일을 구하는 함수 */
+  const getDayOfWeek = (dateString: string) => {
+    const date = new Date(dateString);
+    const today = new Date();
+
+    const isTomorrow =
+      date.getFullYear() === today.getFullYear() &&
+      date.getMonth() === today.getMonth() &&
+      date.getDate() === today.getDate() + 1;
+
+    return isTomorrow ? "내일" : week[date.getDay()] + "요일";
+  };
 
   /* 이전 날짜 이동 */
   const handleBackDay = () => {
     const newDate = new Date(currentDate);
     newDate.setDate(currentDate.getDate() - 1);
     setCurrentDate(newDate);
+    setRenderData(!render);
   };
 
   /* 이후 날짜 이동 */
@@ -26,6 +98,7 @@ const Todo = () => {
     if (getDayDifference(currentDate) > 0)
       newDate.setDate(currentDate.getDate() + 1);
     setCurrentDate(newDate);
+    setRenderData(!render);
   };
 
   /* 화면에 나오는 날짜 */
@@ -103,16 +176,30 @@ const Todo = () => {
         />
       </DateLine>
       <TodoLists>
-        {todoData.map((data, index) => (
-          <ListBox
-            key={index}
-            listboxType={data.direct ? "direct" : "check"}
-            color={data.time === "내일까지" ? "orange" : "mint"}
-            type={data.type}
-            text={data.text}
-            time={data.time}
-          />
-        ))}
+        {todoData && todoData.length > 0 ? (
+          todoData.map((data, index) => (
+            <ListBox
+              key={index}
+              id={data.todoId}
+              listboxType={data.isAssigned ? "check" : "direct"}
+              color={data.deadline === "내일까지" ? "orange" : "mint"}
+              type={
+                categories.find((category) => category.value === data.todoType)
+                  ?.label || data.todoType
+              }
+              onClick={() => {
+                changeTodo(data.todoId);
+                // console.log("ListBox 클릭:", data.todoId);
+              }}
+              text={data.description}
+              time={`${getDayOfWeek(data.deadline)}까지`}
+              checked={data.status === "COMPLETE"}
+              onDelete={() => deleteTodo(data.todoId)}
+            />
+          ))
+        ) : (
+          <NoData>할 일이 없어요!</NoData>
+        )}
       </TodoLists>
       <Plus>
         <PlusButton onClick={handleOpenAddTodo}>
@@ -131,7 +218,6 @@ const Todo = () => {
           setShowToast={setShowToast}
         />
       )}
-      {addTodo && <Overlay onClick={handleCloseAddTodo} />}
       {showToast && (
         <Toast
           message="할 일이 추가되었어요!"
@@ -172,7 +258,7 @@ const DateLine = styled.div`
 
 const TodoLists = styled.div`
   width: 100%;
-  height: 210px;
+  height: 205px;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
@@ -209,14 +295,12 @@ const PlusButton = styled.button`
   cursor: pointer;
 `;
 
-const Overlay = styled.div`
-  max-width: 480px;
+const NoData = styled.div`
   width: 100%;
   height: 100%;
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${theme.colors.primary300};
+  ${(props) => props.theme.fonts.body3_m};
 `;

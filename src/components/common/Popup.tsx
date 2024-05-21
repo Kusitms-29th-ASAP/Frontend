@@ -60,7 +60,7 @@ const Overlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  z-index: 100;
+  z-index: 1000;
 `;
 
 const StyledPopup = styled(motion.div)<{ height: string }>`
@@ -72,6 +72,7 @@ const StyledPopup = styled(motion.div)<{ height: string }>`
   position: relative;
   color: ${theme.colors.b700};
   border-radius: 12px 12px 0px 0px;
+  z-index: 300;
 `;
 
 const Title = styled.div`

@@ -22,7 +22,7 @@ const Signature = () => {
 
   const handleBeginDrawing = () => {
     setIsSignatureEmpty(false);
-    console.log(isSignatureEmpty);
+    // console.log(isSignatureEmpty);
   };
 
   /* dataURL을 File로 반환하는 함수 */
@@ -39,7 +39,7 @@ const Signature = () => {
   const clear = () => {
     sigPad.current?.clear();
     setIsSignatureEmpty(true);
-    console.log(isSignatureEmpty);
+    // console.log(isSignatureEmpty);
   };
 
   const save = async () => {
@@ -50,7 +50,7 @@ const Signature = () => {
 
     /* signature 파일 */
     const signImage = convertDataUrlToFile();
-    console.log("이미지", signImage);
+    // console.log("이미지", signImage);
 
     router.push("/mypage/profile");
 
@@ -58,7 +58,7 @@ const Signature = () => {
     Axios.post(`엔드포인트`, signImage)
       .then((response) => {
         router.push("/mypage/profile");
-        console.log("Signature Post Success:", response.data);
+        // console.log("Signature Post Success:", response.data);
       })
       .catch(() => {
         console.error("Signature Post Error");

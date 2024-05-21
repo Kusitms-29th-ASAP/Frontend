@@ -8,6 +8,7 @@ export type listboxType = "check" | "none" | "direct" | "content";
 export type colorType = "orange" | "mint";
 
 export interface ListBoxProps {
+  id?: number;
   time?: string;
   type?: string;
   text?: string;
@@ -21,9 +22,11 @@ export interface ListBoxProps {
   checked?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: () => void;
+  onDelete?: () => void;
 }
 const ListBox = (props: ListBoxProps) => {
   const {
+    id,
     type,
     text,
     time,
@@ -35,8 +38,8 @@ const ListBox = (props: ListBoxProps) => {
     content2,
     value,
     checked,
-    onChange,
     onClick,
+    onDelete,
   } = props;
 
   const [futureDate, setFutureDate] = useState("");
@@ -71,13 +74,14 @@ const ListBox = (props: ListBoxProps) => {
 
   return (
     <StyledListBox
+      id={id}
       className={listboxClassName}
       color={color}
       style={style}
       onClick={onClick}
     >
       {(listboxType === "check" || listboxType === "direct") && (
-        <Checkbox value={value} checked={checked} onChange={onChange} />
+        <Checkbox value={value} checked={checked} />
       )}
       <Content>
         <Type className={listboxClassName}>
@@ -103,7 +107,7 @@ const ListBox = (props: ListBoxProps) => {
       </Content>
 
       {listboxType === "direct" ? (
-        <Delete>
+        <Delete onClick={onDelete}>
           <Span>삭제</Span>
           <Image
             src="/assets/icons/ic_minus-circle.svg"
@@ -125,7 +129,7 @@ const StyledListBox = styled.div<ListBoxProps>`
   width: 100%;
   border-radius: 8px;
   border: 1px solid ${theme.colors.primary100};
-  background: ${theme.colors.white};
+  background: ${theme.colors.b50};
   letter-spacing: -0.28px;
   position: relative;
   display: flex;
@@ -155,7 +159,7 @@ const Content = styled.div`
 
 const Content1 = styled.div`
   ${(props) => props.theme.fonts.body3_m};
-  color: ${theme.colors.b700};
+  color: ${theme.colors.b400};
 `;
 
 const Content2 = styled.div`

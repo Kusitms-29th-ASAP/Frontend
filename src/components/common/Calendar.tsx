@@ -2,12 +2,11 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { MobileDatePicker } from "@mui/x-date-pickers";
-import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import CustomInput from "./CustomInput";
 import Image from "next/image";
-import { styled as styledComponents } from "styled-components";
 import dayjs from "dayjs";
+import styled from "styled-components";
 
 export interface CalendarProps {
   value: string;
@@ -66,34 +65,36 @@ const Calendar = (props: CalendarProps) => {
 
 export default Calendar;
 
-const StyledDemoContainer = styled(DemoContainer)({
-  width: "100%",
-  position: "relative",
-});
+const StyledDemoContainer = styled(DemoContainer)`
+  width: 100%;
+  position: relative;
+`;
 
-const CustomInputContainer = styledComponents.div`
+const CustomInputContainer = styled.div`
   position: relative;
   width: 100%;
 `;
 
-const StyledMobileDatePicker = styled(MobileDatePicker)({
-  width: "100%",
-  position: "absolute",
-  top: "0",
-  left: "0",
-  opacity: "0",
-  "& .MuiInputBase-root": { height: "44px" },
-});
+const StyledMobileDatePicker = styled(MobileDatePicker)`
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  & .MuiInputBase-root {
+    height: 44px;
+  }
+`;
 
-const CalendarInput = styled(CustomInput)({
-  width: "440px",
-  position: "absolute",
-  top: "0",
-  left: "0",
-});
+const CalendarInput = styled(CustomInput)`
+  width: 440px;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
 
-const IconImage = styled(Image)({
-  position: "absolute",
-  top: "12px",
-  right: "15px",
-});
+const IconImage = styled(Image)`
+  position: absolute;
+  top: 12px;
+  right: 15px;
+`;

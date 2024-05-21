@@ -42,7 +42,7 @@ const MyPage = () => {
   const handleNameChange = (value: string) => {
     setChild({ ...child, name: value });
     setModify(true);
-    console.log(child.name);
+    // console.log(child.name);
   };
 
   const handleBirthChange = (value: string) => {

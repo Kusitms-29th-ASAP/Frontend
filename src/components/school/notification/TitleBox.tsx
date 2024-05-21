@@ -2,16 +2,23 @@ import styled from "styled-components";
 import Image from "next/image";
 
 interface TitleBoxProps {
-  day: Date;
+  day: string;
+  // day: Date;
   teacher: string;
 }
 
 const TitleBox = (props: TitleBoxProps) => {
   const { day, teacher } = props;
 
-  const month = day.getMonth() + 1;
-  const date = day.getDate();
-  const week = day.getDay();
+  const parsedDate = new Date(day);
+
+  // console.log("day", day);
+  // const month = day.getMonth() + 1;
+  // const date = day.getDate();
+  // const week = day.getDay();
+  const month = parsedDate.getMonth() + 1;
+  const date = parsedDate.getDate();
+  const week = parsedDate.getDay();
   const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
   const weekday = weekdays[week];
 
