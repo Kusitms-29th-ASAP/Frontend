@@ -25,7 +25,7 @@ const Process3_1 = () => {
   const [openclassNumPopup, setOpenclassNumPopup] = useState(false);
 
   const [grade, setGrade] = useState<null | number>(null);
-  const [classNum, setClassNum] = useState<null | number>(null);
+  const [classNum, setClassNum] = useState<string>("");
 
   const name = studentName.substr(1, 3);
   const router = useRouter();
@@ -36,7 +36,7 @@ const Process3_1 = () => {
     const updateChildren = user.children.map((child) => ({
       ...child,
       elementSchoolGrade: GRADE[grade!! - 1],
-      elementSchoolClass: classNum,
+      elementSchoolClassNumber: "1", // 임시
     }));
 
     dispatch(
@@ -66,7 +66,7 @@ const Process3_1 = () => {
     setOpenGradePopup(false);
   };
 
-  const handleSelectclassNum = (selectedclassNum: number) => {
+  const handleSelectclassNum = (selectedclassNum: string) => {
     setClassNum(selectedclassNum);
     setOpenclassNumPopup(false);
   };
