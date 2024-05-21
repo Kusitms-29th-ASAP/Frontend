@@ -6,52 +6,74 @@ import styled from "styled-components";
 import Subtitle from "@/components/signin/Subtitle";
 import CustomInput from "@/components/common/CustomInput";
 import Calendar from "@/components/common/Calendar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { theme } from "@/styles/theme";
 import ChangeChildPopup from "@/components/mypage/ChangeChildPopup";
-import { childrenListData } from "@/data/mypageData";
 import AllergyPopup from "@/components/mypage/AllergyPopup";
 import KeywordItem from "@/components/mypage/Keyword";
+import Axios from "@/apis/axios";
 
 interface Child {
-  name: string;
-  school: string;
+  childName: string;
+  schoolName: string;
   grade: number;
-  class: number;
-  birth: string;
-  allergy: string[];
+  className: number;
+  childId: number;
+  isPrimary?: boolean;
+  birthday?: string;
+  allergies?: string[];
 }
 
 const MyPage = () => {
   const [child, setChild] = useState<Child>({
-    name: "김동우",
-    school: "신용산초등학교",
-    grade: 3,
-    class: 7,
-    birth: "2014년 4월 5일",
-    allergy: ["난류"],
+    childName: "",
+    schoolName: "",
+    grade: 0,
+    className: 0,
+    childId: 0,
+    isPrimary: true,
+    birthday: "",
+    allergies: [],
   });
+  const [childList, setChildList] = useState<Child[]>([]);
 
   const [modify, setModify] = useState(false);
   const [changePopup, setChangePopup] = useState(false);
   const [allergyPopup, setAllergyPopup] = useState(false);
 
-  const gradeImageSrc = `/assets/images/grade${child.grade}.svg`;
+  const gradeImageSrc = `/assets/common/grade${child?.grade}.svg`;
+
+  /* 선택 자녀 정보 불러오기 */
+  useEffect(() => {
+    Axios.get(`/api/v1/children/-71495`).then((response) => {
+      const data = response.data;
+      setChild(data);
+      console.log("선택된 자녀", child);
+    });
+  }, []);
+
+  /* 자녀 전체 불러오기 */
+  useEffect(() => {
+    Axios.get(`/api/v1/children`).then((response) => {
+      const data = response.data.childList;
+      setChildList(data);
+      console.log("전체 자녀", childList);
+    });
+  }, []);
 
   /* onChange 함수 */
   const handleNameChange = (value: string) => {
-    setChild({ ...child, name: value });
-    setModify(true);
-    // console.log(child.name);
-  };
-
-  const handleBirthChange = (value: string) => {
-    setChild({ ...child, birth: value });
+    setChild({ ...child, childName: value });
     setModify(true);
   };
 
-  const handleAllergyChange = (value: string[]) => {
-    setChild({ ...child, allergy: value });
+  const handleBirthdayChange = (value: string) => {
+    setChild({ ...child, birthday: value });
+    setModify(true);
+  };
+
+  const handleAllergiesChange = (value: string[]) => {
+    setChild({ ...child, allergies: value });
     setModify(true);
   };
 
@@ -71,13 +93,20 @@ const MyPage = () => {
   };
 
   /* 알레르기 정보 업데이트 함수 (AllergyPopup 전달) */
-  const handleAllergyUpdate = (selectedAllergy: string[]) => {
-    setChild({ ...child, allergy: selectedAllergy });
+  const handleAllergyUpdate = (selectedAllergies: string[]) => {
+    setChild({ ...child, allergies: selectedAllergies });
     setAllergyPopup(false);
   };
 
   /* 자녀 프로필 업데이트 함수 */
   const handleChildUpdate = (selectedChild: Child) => {
+    Axios.put(`/api/v1/children/3445442953`, {
+      childName: child.childName,
+      birthday: child.birthday,
+      allergies: child.allergies,
+    }).then(() => {
+      console.log("자녀 프로필 변경완료");
+    });
     setChild(selectedChild);
     setChangePopup(false);
     setModify(true);
@@ -105,8 +134,8 @@ const MyPage = () => {
           alt="character"
         />
         <Info>
-          <Br>{child.name}</Br>
-          {child.school} | {child.grade}학년 {child.class}반
+          <Br>{child?.childName}</Br>
+          {child?.schoolName} | {child?.grade}학년 {child?.className}반
         </Info>
       </Profile>
       <Change onClick={() => setChangePopup(true)}>
@@ -122,29 +151,32 @@ const MyPage = () => {
         <div>
           <Subtitle>이름</Subtitle>
           <CustomInput
-            value={child.name}
+            value={child?.childName}
             onChange={handleNameChange}
             placeholder="성함"
           />
         </div>
         <div>
           <Subtitle>생년월일</Subtitle>
-          <Calendar value={child.birth} onChange={handleBirthChange} />
+          <Calendar
+            value={child.birthday + ""}
+            onChange={handleBirthdayChange}
+          />
         </div>
         <div>
           <Subtitle>알레르기 유발정보</Subtitle>
           <InputBox>
             <CustomInput
               inputType="select"
-              value={child.allergy}
-              onChange={handleAllergyChange}
+              value={child.allergies}
+              onChange={handleAllergiesChange}
               placeholder="없음"
               onClick={() => setAllergyPopup(true)}
               hidden={true}
             />
             <KeywordItems>
-              {child.allergy.map((allergy, index) => (
-                <KeywordItem key={index} keyword={allergy} />
+              {child.allergies?.map((allergies, index) => (
+                <KeywordItem key={index} keyword={allergies} />
               ))}
             </KeywordItems>
           </InputBox>
@@ -153,7 +185,7 @@ const MyPage = () => {
               onClose={handleAllergyPopup}
               onUpdate={handleAllergyUpdate}
               initialCheckedItems={{
-                ...child.allergy.reduce(
+                ...child.allergies?.reduce(
                   (acc, curr) => ({ ...acc, [curr]: true }),
                   {}
                 ),
@@ -166,7 +198,7 @@ const MyPage = () => {
       {changePopup && (
         <ChangeChildPopup
           onClose={handleChangePopup}
-          data={[...childrenListData]}
+          data={childList}
           currentChild={child}
           onChildSelect={handleChildUpdate}
         />

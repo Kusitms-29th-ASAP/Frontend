@@ -2,17 +2,19 @@ import styled from "styled-components";
 import Popup from "../common/Popup";
 import ChildProfile from "./ChildProfile";
 import Button from "../common/Button";
-import { ChildrenList } from "@/data/mypageData";
 import { theme } from "@/styles/theme";
 import { useState } from "react";
+import Axios from "@/apis/axios";
 
 interface Child {
-  name: string;
-  school: string;
+  childName: string;
+  schoolName: string;
   grade: number;
-  class: number;
-  birth: string;
-  allergy: string[];
+  className: number;
+  childId: number;
+  isPrimary?: boolean;
+  birthday?: string;
+  allergies?: string[];
 }
 
 interface ChangeChildProps {
@@ -32,7 +34,12 @@ const ChangeChildPopup = (props: ChangeChildProps) => {
   };
 
   const handleConfirm = () => {
-    if (selectedChild && selectedChild.name !== currentChild.name) {
+    if (selectedChild && selectedChild.childName !== currentChild.childName) {
+      Axios.put(`/api/v1/children/primary`, {
+        childId: selectedChild.childId,
+      }).then(() => {
+        console.log("선택 자녀 변경완료");
+      });
       onChildSelect(selectedChild);
       onClose();
     }
@@ -49,12 +56,12 @@ const ChangeChildPopup = (props: ChangeChildProps) => {
         {data.map((data, index) => (
           <ChildProfile
             key={index}
-            name={data.name}
-            school={data.school}
+            name={data.childName}
+            school={data.schoolName}
             grade={data.grade}
-            classInfo={data.class}
+            classInfo={data.className}
             onClick={() => handleSelectChild(data)}
-            selected={selectedChild?.name === data.name}
+            selected={selectedChild?.childName === data.childName}
           />
         ))}
       </Gap>
@@ -62,7 +69,9 @@ const ChangeChildPopup = (props: ChangeChildProps) => {
         <Button
           text="선택완료"
           onClick={handleConfirm}
-          disabled={!selectedChild || selectedChild.name === currentChild.name}
+          disabled={
+            !selectedChild || selectedChild.childName === currentChild.childName
+          }
         />
       </Bottom>
     </Popup>
