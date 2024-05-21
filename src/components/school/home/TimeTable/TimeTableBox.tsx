@@ -1,18 +1,19 @@
 import TimeBox from "./TimeBox";
 import SubjectBox from "./SubjectBox";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const subjectsData = [
   { id: 1, subject: ["국어", "과학", "미술", "미술", "수학"] },
-  { id: 2, subject: ["국어", "과학", "미술", "미술", "수학"] },
-  { id: 3, subject: ["국어", "과학", "미술", "미술"] },
-  { id: 4, subject: ["국어", "과학", "미술", "미술", "체육"] },
-  { id: 5, subject: ["국어", "과학", "미술", "미술"] },
+  { id: 2, subject: ["수학", "국어", "도덕", "영어", "사회"] },
+  { id: 3, subject: ["체육", "국어", "국어", "영어"] },
+  { id: 4, subject: ["과학", "과학", "국어", "수학", "체육"] },
+  { id: 5, subject: ["음악", "사회", "도덕", "계발"] },
 ];
 
 const TimeTableBox = () => {
   const TimeData = [1, 2, 3, 4, 5];
   const Week = ["월", "화", "수", "목", "금"];
+  const todayIndex = new Date().getDay() - 1;
 
   return (
     <Container>
@@ -20,7 +21,9 @@ const TimeTableBox = () => {
         <TimeBox time={0} />
         <WeekBoxContainer>
           {Week.map((day, index) => (
-            <WeekBox key={index}>{day}</WeekBox>
+            <WeekBox key={index} highlight={index === todayIndex}>
+              {day}
+            </WeekBox>
           ))}
         </WeekBoxContainer>
       </TimetableTop>
@@ -32,7 +35,7 @@ const TimeTableBox = () => {
         </TimeListBox>
         <SubjectListBox>
           {subjectsData.map((data, index) => (
-            <SubjectCol key={index}>
+            <SubjectCol key={index} highlight={index === todayIndex}>
               {data.subject.map((subject, index) => (
                 <SubjectBox subject={subject} key={index} />
               ))}
@@ -64,7 +67,7 @@ const WeekBoxContainer = styled.div`
   height: 30px;
 `;
 
-const WeekBox = styled.div`
+const WeekBox = styled.div<{ highlight: boolean }>`
   display: flex;
   width: 100%;
   justify-content: center;
@@ -80,6 +83,11 @@ const WeekBox = styled.div`
   &:last-child {
     border-radius: 0 6px 6px 0;
   }
+  ${(props) =>
+    props.highlight &&
+    css`
+      background: ${({ theme }) => theme.colors.primary500};
+    `}
 `;
 
 const TimetableBottom = styled.div`
@@ -95,11 +103,22 @@ const TimeListBox = styled.div`
   gap: 8px;
 `;
 
-const SubjectCol = styled.div`
+const SubjectCol = styled.div<{ highlight: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 8px;
   flex: 1 1 0%;
+
+  ${(props) =>
+    props.highlight &&
+    css`
+      div {
+        color: ${({ theme }) => theme.colors.primary500};
+        background: ${({ theme }) => theme.colors.white};
+        border: 1px solid ${({ theme }) => theme.colors.primary500};
+        border-radius: 6px;
+      }
+    `}
 `;
 
 const SubjectListBox = styled.div`
