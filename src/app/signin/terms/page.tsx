@@ -3,9 +3,10 @@
 import Button from "@/components/common/Button";
 import Checkbox from "@/components/common/Checkbox";
 import Topbar from "@/components/common/Topbar";
-import { useDeleteUser } from "@/hooks/auth/useDeleteUser";
+import { setUser } from "@/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 const CONTENT = "스쿨포인트를 사용하려면 \n약관 동의가 필요해요";
@@ -16,6 +17,8 @@ const Terms = () => {
   const [isServiceAgreed, setIsServiceAgreed] = useState(false);
   const [isPrivacyAgreed, setIsPrivacyAgreed] = useState(false);
   const [isMarketingAgreed, setIsMarketingAgreed] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isServiceAgreed && isPrivacyAgreed && isMarketingAgreed) {
@@ -33,20 +36,22 @@ const Terms = () => {
   };
 
   const handleNextButtonClick = () => {
+    dispatch(
+      setUser({
+        agreement: {
+          termsOfService: isServiceAgreed,
+          privacyPolicy: isPrivacyAgreed,
+          marketing: isMarketingAgreed,
+        },
+      })
+    );
     router.push("/signin/process1");
-  };
-
-  // const userDeleteMutation = useDeleteUser();
-  const handleLogoutClick = () => {
-    // userDeleteMutation.mutate();
   };
 
   return (
     <Container>
-      <Topbar text="회원가입" />
+      <Topbar text="회원가입" icon={true} />
       <ContentBox>{CONTENT}</ContentBox>
-
-      {/* <button onClick={handleLogoutClick}>로그아웃</button> */}
 
       <AgreeBox>
         <Checkbox
