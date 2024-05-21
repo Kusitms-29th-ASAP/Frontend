@@ -61,7 +61,6 @@ const NotiContainer = styled.div`
   padding: 16px;
   gap: 10px;
   border-radius: 10px;
-  margin-bottom: 26px;
   background: ${theme.colors.white};
   box-shadow: 0px 0px 64px 0px rgba(30, 41, 59, 0.1);
   ${(props) => props.theme.fonts.body2_b};
@@ -84,7 +83,7 @@ const NotiList = styled.div`
   gap: 4px;
 `;
 
-const NoData = styled.div`
+export const NoData = styled.div`
   width: 100%;
   height: 100%;
   display: flex;

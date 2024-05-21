@@ -1,23 +1,54 @@
 "use client";
 
 import styled from "styled-components";
-import { LastNotificationsData } from "@/data/notificationData";
 import Notification from "./Notification";
+import { useEffect, useState } from "react";
+import Axios from "@/apis/axios";
+import { NoData } from "./TodayNotification";
+
+interface Description {
+  description: string;
+}
+
+interface Announcement {
+  descriptions: Description[];
+  writeDate: string;
+}
 
 const LastNotifications = () => {
+  const [teacher, setTeacher] = useState("");
+  const [lastNotiData, setLastNotiData] = useState<Announcement[]>([]);
+
+  useEffect(() => {
+    Axios.get(`/api/v1/classrooms/announcements`)
+      .then((response) => {
+        const { teacherName, announcements } = response.data;
+        setTeacher(teacherName);
+        setLastNotiData(announcements);
+        console.log("All Noti Get Success:", teacher, announcements);
+      })
+      .catch(() => {
+        console.error("All Noti Get Error");
+      });
+  }, []);
+
   return (
     <Container>
       <LastTitle>지난 알림장</LastTitle>
       <LastNotificationBox>
-        {LastNotificationsData.map((data) => (
-          <Notification
-            key={data.id}
-            day={data.day}
-            teacher={data.teacher}
-            notifications={data.notifications}
-            isToday={false}
-          />
-        ))}
+        {lastNotiData.length > 0 ? (
+          lastNotiData.map((data, index) => (
+            <Notification
+              key={index}
+              day={data.writeDate}
+              teacher={teacher}
+              notifications={data}
+              isToday={false}
+            />
+          ))
+        ) : (
+          <NoData>지난 알림장이 없어요!</NoData>
+        )}
       </LastNotificationBox>
     </Container>
   );

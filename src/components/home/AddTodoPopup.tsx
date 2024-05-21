@@ -7,6 +7,14 @@ import Popup from "../common/Popup";
 import Calendar from "../common/Calendar";
 import Axios from "@/apis/axios";
 
+export const categories = [
+  { value: "SCHOOL_ANNOUNCEMENT", label: "가정통신문" },
+  { value: "HOMEWORK", label: "숙제" },
+  { value: "SUPPLY", label: "준비물" },
+  { value: "ETC", label: "기타" },
+  { value: "NONE", label: "없음" },
+];
+
 const AddTodoPopup = ({
   onClose,
   setShowToast,
@@ -66,17 +74,15 @@ const AddTodoPopup = ({
           onChange={(value: string) => setTodo(value)}
         />
         <RadioButtonGroup>
-          {["SCHOOL_ANNOUNCEMENT", "HOMEWORK", "SUPPLY", "ETC", "NONE"].map(
-            (categoryName, index) => (
-              <RadioButton
-                key={index}
-                selected={category === categoryName}
-                onClick={() => handleCategoryChange(categoryName)}
-              >
-                {categoryName}
-              </RadioButton>
-            )
-          )}
+          {categories.map((categoryItem, index) => (
+            <RadioButton
+              key={index}
+              selected={category === categoryItem.value}
+              onClick={() => handleCategoryChange(categoryItem.value)}
+            >
+              {categoryItem.label}
+            </RadioButton>
+          ))}
         </RadioButtonGroup>
         <SubTitle>
           언제까지 할 일인가요?

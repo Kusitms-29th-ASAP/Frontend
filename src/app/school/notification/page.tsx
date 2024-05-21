@@ -10,11 +10,10 @@ const Notification = () => {
   return (
     <>
       <Container>
-        <Topbar text="학급알림장" icon={true} />
+        <Topbar text="학급알림장" icon={true} link="/school" />
       </Container>
       <TodayNotification />
       <LastNotification />
-      <Tabbar />
     </>
   );
 };

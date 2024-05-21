@@ -22,6 +22,7 @@ export interface ListBoxProps {
   checked?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: () => void;
+  onDelete?: () => void;
 }
 const ListBox = (props: ListBoxProps) => {
   const {
@@ -37,8 +38,8 @@ const ListBox = (props: ListBoxProps) => {
     content2,
     value,
     checked,
-    onChange,
     onClick,
+    onDelete,
   } = props;
 
   const [futureDate, setFutureDate] = useState("");
@@ -80,7 +81,7 @@ const ListBox = (props: ListBoxProps) => {
       onClick={onClick}
     >
       {(listboxType === "check" || listboxType === "direct") && (
-        <Checkbox value={value} checked={checked} onChange={onChange} />
+        <Checkbox value={value} checked={checked} />
       )}
       <Content>
         <Type className={listboxClassName}>
@@ -106,7 +107,7 @@ const ListBox = (props: ListBoxProps) => {
       </Content>
 
       {listboxType === "direct" ? (
-        <Delete>
+        <Delete onClick={onDelete}>
           <Span>삭제</Span>
           <Image
             src="/assets/icons/ic_minus-circle.svg"

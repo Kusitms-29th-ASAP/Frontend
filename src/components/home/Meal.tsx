@@ -25,6 +25,7 @@ const Box = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin-top: 26px;
   padding: 16px 0px 127px 0px;
   gap: 31px;
   background-color: ${theme.colors.white};

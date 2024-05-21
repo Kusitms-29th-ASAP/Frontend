@@ -4,7 +4,7 @@ import TopBox from "./TopBox";
 
 interface TopContentProps {
   isToday: boolean;
-  day: Date;
+  day: string;
   teacher: string;
 }
 

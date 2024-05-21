@@ -18,7 +18,6 @@ const WeeklyStudy = () => {
         <WeeklyStudyList />
         <WeeklyNotification />
       </Background>
-      <Tabbar />
     </>
   );
 };
