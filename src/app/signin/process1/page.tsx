@@ -8,6 +8,9 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
 import Subtitle from "@/components/signin/Subtitle";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "@/redux/slices/userSlice";
+import { RootState } from "@/redux/store";
 
 const TITLE = "안녕하세요!\n스쿨포인트에 오신 걸 환영해요.";
 const CONTEXT =
@@ -18,11 +21,23 @@ const WARNING =
 const SigninProcess1 = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const router = useRouter();
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
 
   const handlePhoneNumberChange = (value: string) => {
     setPhoneNumber(value);
   };
   const handleNextButtonClick = () => {
+    const cleanPhoneNumber = phoneNumber.replace(/-/g, "");
+    dispatch(
+      setUser({
+        ...user,
+        phoneNumber: {
+          number: cleanPhoneNumber,
+        },
+      })
+    );
+
     router.push("/signin/process2");
   };
 

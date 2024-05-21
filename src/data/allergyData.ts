@@ -24,3 +24,25 @@ export const AllergyCategories = [
     items: ["복숭아", "토마토", "아황산류"],
   },
 ];
+
+export enum AllergyEnum {
+  "땅콩" = "PEANUT",
+  "쇠고기" = "BEEF",
+  "난류" = "EGG",
+  "밀" = "WHEAT",
+  "조개류" = "SHELLFISH",
+  "토마토" = "TOMATO",
+  "호두" = "WALNUT",
+  "메밀" = "BUCKWHEAT",
+  "대두" = "SOYBEAN",
+  "새우" = "SHRIMP",
+  "게" = "CRAB",
+  "복숭아" = "PEACH",
+  "오징어" = "SQUID",
+  "아황산류" = "SULFITES",
+  "돼지고기" = "PORK",
+  "우유" = "MILK",
+  "잣" = "PINE_NUT",
+  "고등어" = "MACKEREL",
+  "닭고기" = "CHICKEN",
+}

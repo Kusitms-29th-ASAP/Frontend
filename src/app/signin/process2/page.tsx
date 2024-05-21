@@ -7,8 +7,11 @@ import Input from "@/components/common/CustomInput";
 import Topbar from "@/components/common/Topbar";
 import ProgressBar from "@/components/signin/ProgressBar";
 import Subtitle from "@/components/signin/Subtitle";
+import { setUser } from "@/redux/slices/userSlice";
+import { RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 const CONTEXT = "자녀에 대한 정보를\n알려주세요!";
@@ -16,8 +19,15 @@ const CONTEXT = "자녀에 대한 정보를\n알려주세요!";
 const SigninProcess2 = () => {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
-  const [sexType, setSexType] = useState("");
+  const [gender, setgender] = useState("");
   const router = useRouter();
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
+
+  const parseAndFormatDate = (dateString: any) => {
+    const [_, year, month, day] = dateString.match(/(\d+)년 (\d+)월 (\d+)일/);
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  };
 
   const handleNameChange = (value: string) => {
     setName(value);
@@ -25,10 +35,24 @@ const SigninProcess2 = () => {
   const handleDateChange = (value: string) => {
     setDate(value);
   };
-  const handleSexTypeChange = (type: string) => {
-    setSexType(type);
+  const handlegenderChange = (type: string) => {
+    setgender(type);
   };
   const handleNextButtonClick = () => {
+    const formattedDate = parseAndFormatDate(date);
+
+    dispatch(
+      setUser({
+        ...user,
+        children: [
+          {
+            name: name,
+            gender: gender,
+            birth: formattedDate,
+          },
+        ],
+      })
+    );
     router.push("/signin/process3");
   };
 
@@ -53,21 +77,21 @@ const SigninProcess2 = () => {
             <Checkbox
               label="남성"
               checkboxType="checkBtn"
-              checked={sexType === "male"}
-              onChange={() => handleSexTypeChange("male")}
+              checked={gender === "MALE"}
+              onChange={() => handlegenderChange("MALE")}
             />
             <Checkbox
               label="여성"
               checkboxType="checkBtn"
-              checked={sexType === "female"}
-              onChange={() => handleSexTypeChange("female")}
+              checked={gender === "FEMALE"}
+              onChange={() => handlegenderChange("FEMALE")}
             />
           </CheckButtonBox>
           <Checkbox
             label="성별 선택 안 함"
             checkboxType="checkbox"
-            checked={sexType === "sex"}
-            onChange={() => handleSexTypeChange("sex")}
+            checked={gender === "NONE"}
+            onChange={() => handlegenderChange("NONE")}
           />
         </div>
 
@@ -78,7 +102,7 @@ const SigninProcess2 = () => {
       </ContentBox>
       <Button
         text="다음"
-        disabled={!name || !sexType || !date}
+        disabled={!name || !gender || !date}
         onClick={handleNextButtonClick}
       />
     </Container>
@@ -113,11 +137,4 @@ const CheckButtonBox = styled.div`
   display: flex;
   margin-bottom: 12px;
   gap: 12px;
-`;
-
-const SexNonSelected = styled.div`
-  ${({ theme }) => theme.fonts.body3_m};
-  color: ${({ theme }) => theme.colors.b500};
-  margin-top: 12px;
-  cursor: pointer;
 `;
