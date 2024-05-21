@@ -50,7 +50,7 @@ const SummaryDetail = () => {
   }, []);
 
   const handleSend = () => {
-    router.push("/"); // 학교생활 > 가정통신문 더보기 > 회신
+    router.push("/school/homeGuide");
   };
 
   return (
