@@ -35,10 +35,10 @@ const Todo = () => {
       .then((response) => {
         const todoData: Todo[] = response.data.todoList;
         setTodoData(todoData);
-        console.log("Todo List Get Success:", response.data);
+        // console.log("Todo List Get Success:", response.data);
       })
       .catch(() => {
-        console.error("Todo LIst Get Error");
+        // console.error("Todo LIst Get Error");
       });
   }, [currentDate, render]);
 
@@ -47,10 +47,10 @@ const Todo = () => {
     Axios.put(`/api/v1/todo`, { todoId: todoId })
       .then((response) => {
         setRenderData(!render);
-        console.log("Todo 수정 성공:", todoId, response.data);
+        // console.log("Todo 수정 성공:", todoId, response.data);
       })
       .catch((error) => {
-        console.error("Todo 수정 실패:", error);
+        // console.error("Todo 수정 실패:", error);
       });
   };
 
@@ -59,10 +59,10 @@ const Todo = () => {
     Axios.delete(`/api/v1/todo`, { data: { todoId: todoId } })
       .then((response) => {
         setRenderData(!render);
-        console.log("Todo 삭제 성공:", todoId);
+        // console.log("Todo 삭제 성공:", todoId);
       })
       .catch((error) => {
-        console.error("Todo 삭제 실패:", error);
+        // console.error("Todo 삭제 실패:", error);
       });
   };
 
@@ -189,7 +189,7 @@ const Todo = () => {
               }
               onClick={() => {
                 changeTodo(data.todoId);
-                console.log("ListBox 클릭:", data.todoId);
+                // console.log("ListBox 클릭:", data.todoId);
               }}
               text={data.description}
               time={`${getDayOfWeek(data.deadline)}까지`}
