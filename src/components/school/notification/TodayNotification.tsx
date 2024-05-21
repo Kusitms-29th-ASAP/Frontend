@@ -49,7 +49,7 @@ const TodayNotification = () => {
           teacher={teacher}
           notifications={notiData[0]}
           isToday={true}
-          onClick={handleNotificationClick}
+          // onClick={handleNotificationClick}
         />
       ) : (
         <NoData>알림 내용이 없어요!</NoData>
