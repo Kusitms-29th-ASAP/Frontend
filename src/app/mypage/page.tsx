@@ -2,6 +2,7 @@
 
 import deleteUser from "@/apis/auth/deleteUser";
 import Axios from "@/apis/axios";
+import getUserInfo from "@/apis/user/getUserInfo";
 import Tabbar from "@/components/common/Tabbar";
 import Topbar from "@/components/common/Topbar";
 import { RootState } from "@/redux/store";
@@ -40,6 +41,21 @@ const Mypage = () => {
   });
   const [childList, setChildList] = useState<Child[]>([]);
   // const [primaryChild, setPrimaryChild] = useState<Child>();
+  const [userName, setUserName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const userInfo = async () => {
+    const data = await getUserInfo();
+    setUserName(data.userName);
+    setPhoneNumber(data.phoneNumber);
+  };
+  userInfo();
+
+  function formatPhoneNumber(phoneNumber: string) {
+    return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7)}`;
+  }
+  const newPhoneNumber = formatPhoneNumber(phoneNumber);
+
   const handleLogout = () => {
     deleteUser(refreshToken);
     router.push("/");
@@ -86,10 +102,10 @@ const Mypage = () => {
         <RowContainCard>
           <Col>
             <RowBottom>
-              <Bold>임승현</Bold>
+              <Bold>{userName}</Bold>
               <DarkGray>학부모님</DarkGray>
             </RowBottom>
-            <Gray>010-1111-1111</Gray>
+            <Gray>{newPhoneNumber}</Gray>
           </Col>
           <Row
             onClick={() => {

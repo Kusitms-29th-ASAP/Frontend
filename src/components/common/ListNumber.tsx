@@ -23,9 +23,8 @@ export default ListNumber;
 
 const StyledListNumber = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   cursor: ${(props) => (props.onClick ? "pointer" : "default")};
 `;
@@ -40,6 +39,7 @@ const Number = styled.div`
   background: rgba(255, 135, 0, 0.15);
   color: ${theme.colors.primary700};
   ${(props) => props.theme.fonts.caption1_b}
+  margin-top: 2px;
 `;
 
 const Text = styled.div<{ color?: string }>`

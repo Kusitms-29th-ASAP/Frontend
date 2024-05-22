@@ -65,7 +65,7 @@ const School = () => {
         <Background>
           <SchoolInfo>
             설정학교
-            <Br>서울미동초등학교</Br>
+            <Br>양원숲초등학교</Br>
           </SchoolInfo>
           <BellImage
             src="/assets/news/bell.svg"

@@ -7,7 +7,7 @@ interface SchoolHomeTopProps {
 
 const SchoolHomeTop = (props: SchoolHomeTopProps) => {
   const { title } = props;
-  const [schoolName, grade, classNum] = ["신용산", 3, 1];
+  const [schoolName, grade, classNum] = ["양원숲", 3, 1];
 
   return (
     <Container>
