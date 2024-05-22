@@ -23,7 +23,7 @@ const MenuCard = ({
 
   return (
     <Card>
-      <Date>{day}일</Date>
+      <DateBox>{day}일</DateBox>
       <Menus>
         {foods.map((item, index) => (
           <MenuItem key={index} $warning={item.warning}>
@@ -36,46 +36,55 @@ const MenuCard = ({
 };
 
 const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
+  /* 전체 급식 데이터 */
   const [mealTable, setMealTable] = useState<MealTable[]>([]);
+  /* 주간별 급식 데이터 */
   const [weeklyMealTable, setWeeklyMealTable] = useState<MealTable[][]>([]);
+  /* 매달 시작 요일 */
+  const [dayOfWeek, setDayOfWeek] = useState<string>("");
+
+  let remainingDays = 0;
 
   useEffect(() => {
     Axios.get(`/api/v1/menus/month`)
       .then((response) => {
         const mealTableData: MealTable[] = response.data.menus;
         setMealTable(mealTableData);
-        const groupedByWeek = groupByWeek(mealTableData);
-        setWeeklyMealTable(groupedByWeek);
-        // console.log("Monthly Meal Table Get Success:", response.data);
+        console.log("데이터 옴", mealTableData);
+
+        const dayNames = ["월", "화", "수", "목", "금", "토", "일"];
+        const date = new Date(mealTableData[0].date);
+        const dayOfWeek = dayNames[date.getDay()];
+        setDayOfWeek(dayOfWeek);
+
+        // 첫 번째 주차의 데이터 개수 결정
+        if (dayOfWeek === "월") {
+          remainingDays = 5;
+        } else if (dayOfWeek === "화") {
+          remainingDays = 4;
+        } else if (dayOfWeek === "수") {
+          remainingDays = 3;
+        } else if (dayOfWeek === "목") {
+          remainingDays = 2;
+        } else if (dayOfWeek === "금") {
+          remainingDays = 1;
+        }
+
+        const weeklyMealTable: MealTable[][] = [];
+        if (remainingDays > 0) {
+          weeklyMealTable.push(mealTableData.slice(0, remainingDays));
+        }
+
+        for (let i = remainingDays; i < mealTableData.length; i += 5) {
+          weeklyMealTable.push(mealTableData.slice(i, i + 5));
+        }
+
+        setWeeklyMealTable(weeklyMealTable);
       })
       .catch(() => {
-        // console.error("Monthly Meal Table Get Error");
+        console.error("Monthly Meal Table Get Error");
       });
   }, []);
-
-  const groupByWeek = (mealTable: MealTable[]) => {
-    const weeks: MealTable[][] = [];
-    let currentWeek: MealTable[] = [];
-    // let dayOfWeek = new Date(mealTable[0]?.date).getDay();
-
-    let dayOfWeek = "월";
-    mealTable.forEach((meal) => {
-      // const currentDayOfWeek = new Date(meal.date).getDay();
-      const currentDayOfWeek = "수";
-      if (currentDayOfWeek < dayOfWeek) {
-        weeks.push(currentWeek);
-        currentWeek = [];
-      }
-      currentWeek.push(meal);
-      dayOfWeek = currentDayOfWeek;
-    });
-
-    if (currentWeek.length > 0) {
-      weeks.push(currentWeek);
-    }
-
-    return weeks;
-  };
 
   return (
     <Popup onClose={onClose} title="5월 급식표" height="716px">
@@ -107,9 +116,8 @@ const Title = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 4px;
-  ${(props) => props.theme.fonts.body1_b}
-  padding: 20px;
+  margin-bottom: 8px;
+  ${(props) => props.theme.fonts.body2_b}
   border-radius: 12px 12px 0px 0px;
   position: sticky;
   top: 0;
@@ -120,7 +128,8 @@ const Title = styled.div`
 const Week = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 4px;
+  margin-bottom: 20px;
 `;
 
 const Card = styled.div`
@@ -135,19 +144,25 @@ const Card = styled.div`
   text-align: left;
 `;
 
-const Date = styled.div`
-  ${(props) => props.theme.fonts.caption1_b}
+const DateBox = styled.div`
+  width: 30px;
+  ${(props) => props.theme.fonts.caption1_b};
+  display: flex;
   text-align: center;
+  align-items: center;
 `;
 
 const Menus = styled.div`
-  width: 269px;
+  width: 100%;
   display: flex;
+  align-items: center;
   gap: 5px;
+  flex-wrap: wrap;
 `;
 
 const MenuItem = styled.span<{ $warning: boolean }>`
   color: ${({ $warning, theme }) => $warning && theme.colors.primary500};
   ${(props) => props.theme.fonts.caption1_r};
   white-space: nowrap;
+  line-height: 100%;
 `;
