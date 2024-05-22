@@ -31,7 +31,7 @@ const Todo = () => {
 
   useEffect(() => {
     let formattedDate = formatDate(currentDate);
-    Axios.get(`/api/v1/todo?date=${formattedDate}`)
+    Axios.get(`/api/v1/todos?date=${formattedDate}`)
       .then((response) => {
         const todoData: Todo[] = response.data.todoList;
         setTodoData(todoData);
@@ -44,7 +44,7 @@ const Todo = () => {
 
   /* 상태 수정 API */
   const changeTodo = (todoId: number) => {
-    Axios.put(`/api/v1/todo`, { todoId: todoId })
+    Axios.put(`/api/v1/todos`, { todoId: todoId })
       .then((response) => {
         setRenderData(!render);
         // console.log("Todo 수정 성공:", todoId, response.data);
@@ -56,7 +56,7 @@ const Todo = () => {
 
   /* Todo 삭제 API */
   const deleteTodo = (todoId: number) => {
-    Axios.delete(`/api/v1/todo`, { data: { todoId: todoId } })
+    Axios.delete(`/api/v1/todos`, { data: { todoId: todoId } })
       .then((response) => {
         setRenderData(!render);
         // console.log("Todo 삭제 성공:", todoId);
@@ -65,10 +65,6 @@ const Todo = () => {
         // console.error("Todo 삭제 실패:", error);
       });
   };
-
-  // const handleCheckboxChange = (todoId: number) => {
-  //   changeTodo(todoId);
-  // };
 
   /* deadline 날짜의 요일을 구하는 함수 */
   const getDayOfWeek = (dateString: string) => {
