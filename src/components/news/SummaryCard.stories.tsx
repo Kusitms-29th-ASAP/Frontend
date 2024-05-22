@@ -17,7 +17,8 @@ interface Line {
 }
 
 interface AnnouncementsProps {
-  summaryType?: string;
+  type?: "school" | "eduOffice";
+  summaryType?: "simple" | "detail";
   isNew: boolean;
   category: string;
   title: string;
@@ -34,6 +35,7 @@ const Template: StoryFn<AnnouncementsProps> = (args) => (
 
 export const Simple = Template.bind({});
 Simple.args = {
+  type: "school",
   summaryType: "simple",
   isNew: true,
   category: "Category",
@@ -48,6 +50,7 @@ Simple.args = {
 
 export const Detail = Template.bind({});
 Detail.args = {
+  type: "school",
   summaryType: "detail",
   isNew: true,
   category: "Category",
