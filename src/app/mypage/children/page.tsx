@@ -12,7 +12,7 @@ import ChangeChildPopup from "@/components/mypage/ChangeChildPopup";
 import AllergyPopup from "@/components/mypage/AllergyPopup";
 import KeywordItem from "@/components/mypage/Keyword";
 import Axios from "@/apis/axios";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface Child {
   childName: string;
@@ -26,7 +26,6 @@ interface Child {
 }
 
 const MyPage = () => {
-  const router = useRouter();
   const [child, setChild] = useState<Child>({
     childName: "",
     schoolName: "",
@@ -42,23 +41,21 @@ const MyPage = () => {
   const [modify, setModify] = useState(false);
   const [changePopup, setChangePopup] = useState(false);
   const [allergyPopup, setAllergyPopup] = useState(false);
-
+  const [primaryId, setPrimaryId] = useState<number>();
   const gradeImageSrc = `/assets/common/grade${child?.grade}.svg`;
 
   /* 선택 자녀 불러오기 */
+
   useEffect(() => {
     if (childList.length > 0) {
       const primaryChild = childList.find((child) => child.isPrimary);
-      console.log("primaryChild", primaryChild);
-      Axios.get(`/api/v1/children/${primaryChild?.childId}`)
-        .then((response) => {
+      setPrimaryId(primaryChild?.childId);
+      Axios.get(`/api/v1/children/${primaryChild?.childId}`).then(
+        (response) => {
           const data = response.data;
           setChild(data);
-          console.log("선택된 자녀", data);
-        })
-        .catch((error) => {
-          console.error("선택 자녀 에러: ", error);
-        });
+        }
+      );
     }
   }, [childList, use]);
 
@@ -68,11 +65,8 @@ const MyPage = () => {
       .then((response) => {
         const data = response.data.childList;
         setChildList(data);
-        console.log("전체 자녀", data);
       })
-      .catch((error) => {
-        console.error("전체 자녀 에러: ", error);
-      });
+      .catch((error) => {});
   }, [use]);
 
   /* onChange 함수 */
@@ -91,16 +85,16 @@ const MyPage = () => {
     setModify(true);
   };
 
+  useEffect(() => {}, [child]);
+
   /* 수정 완료 전환 함수 */
   const handleModify = () => {
     setModify(false);
     /* 자녀 프로필 변경사항 저장하기 */
-    Axios.put(`/api/v1/children/${child?.childId}`, {
+    Axios.put(`/api/v1/children/${primaryId}`, {
       childName: child.childName,
       birthday: child.birthday,
       allergies: child.allergies,
-    }).then(() => {
-      console.log("자녀 프로필 변경완료");
     });
   };
 

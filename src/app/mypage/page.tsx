@@ -66,17 +66,12 @@ const Mypage = () => {
   useEffect(() => {
     if (childList.length > 0) {
       const primaryChild = childList.find((child) => child.isPrimary);
-      // setPrimaryChild(primaryChild);
-      console.log("primaryChild", primaryChild);
       Axios.get(`/api/v1/children/${primaryChild?.childId}`)
         .then((response) => {
           const data = response.data;
           setChild(data);
-          console.log("선택된 자녀", data);
         })
-        .catch((error) => {
-          console.error("선택 자녀 에러: ", error);
-        });
+        .catch((error) => {});
     }
   }, [childList]);
 
@@ -86,11 +81,8 @@ const Mypage = () => {
       .then((response) => {
         const data = response.data.childList;
         setChildList(data);
-        console.log("전체 자녀", data);
       })
-      .catch((error) => {
-        console.error("전체 자녀 에러: ", error);
-      });
+      .catch((error) => {});
   }, []);
 
   return (
@@ -132,10 +124,7 @@ const Mypage = () => {
                 height={20}
                 alt="select"
                 onClick={() => {
-                  const params = new URLSearchParams();
-                  params.append("child", JSON.stringify(child));
-                  params.append("childList", JSON.stringify(childList));
-                  router.push(`/mypage/children?${params.toString()}`);
+                  router.push(`/mypage/children`);
                 }}
                 style={{ cursor: "pointer" }}
               />
