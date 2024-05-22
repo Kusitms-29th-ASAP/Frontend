@@ -8,10 +8,14 @@ interface PutUserInfoRequest {
   };
 }
 
-export async function putUserInfo(userInfo: PutUserInfoRequest): Promise<void> {
+export async function putUserInfo({
+  userName,
+  phoneNumber,
+}: PutUserInfoRequest): Promise<void> {
   try {
     await Axios.put<TokenResponse>("/api/v1/users", {
-      userInfo,
+      userName,
+      phoneNumber,
     });
   } catch (error) {
     throw new Error("Failed to: " + error);

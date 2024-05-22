@@ -24,7 +24,6 @@ const Mypage = () => {
     const data = await getUserInfo();
     setUserName(data.userName);
     setPhoneNumber(data.phoneNumber);
-    console.log(data);
   };
   userInfo();
 
