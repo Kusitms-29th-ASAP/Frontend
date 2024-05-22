@@ -4,11 +4,15 @@ import styled from "styled-components";
 import Todo from "./Todo";
 import Notification from "./Notification";
 import getUserInfo from "@/apis/user/getUserInfo";
+import { useState } from "react";
+import { User } from "@/interface/User";
 
 const Ready = () => {
+  const [childrenName, setChildrenName] = useState("김동우");
+
   const userInfo = async () => {
     const data = await getUserInfo();
-    console.log(data);
+    setChildrenName(data.userName);
   };
   userInfo();
 
@@ -22,7 +26,7 @@ const Ready = () => {
         </Title>
         <LineBox>
           설정된 자녀
-          <Name>김동우</Name>
+          <Name>{childrenName}</Name>
           <Image
             src="/assets/icons/ic_flip.svg"
             alt="병아리"

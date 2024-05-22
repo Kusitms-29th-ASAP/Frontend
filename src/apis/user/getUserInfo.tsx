@@ -1,8 +1,9 @@
 import Axios from "../axios";
-import { User } from "@/interface/User";
 
 interface UserInfoResponse {
-  user: User;
+  userName: string;
+  phoneNumber: string;
+  email: string;
 }
 
 export async function getUserInfo(): Promise<UserInfoResponse> {
