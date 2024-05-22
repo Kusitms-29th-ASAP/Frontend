@@ -5,7 +5,6 @@ import Todo from "./Todo";
 import Notification from "./Notification";
 import getUserInfo from "@/apis/user/getUserInfo";
 import { useState } from "react";
-import { User } from "@/interface/User";
 
 const Ready = () => {
   const [childrenName, setChildrenName] = useState("김동우");
