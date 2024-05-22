@@ -55,7 +55,6 @@ const SigninProcess4 = () => {
     };
 
     const data = postUser(User);
-    console.log(data);
 
     router.push("/signin/completion");
   };

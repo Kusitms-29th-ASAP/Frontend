@@ -1,3 +1,4 @@
+import { allergiesData } from "@/data/allergyData";
 import { theme } from "@/styles/theme";
 import styled from "styled-components";
 
@@ -6,7 +7,18 @@ interface KeywordItemProps {
 }
 
 const KeywordItem = ({ keyword }: KeywordItemProps) => {
-  return <Keyword>{keyword}</Keyword>;
+  const allergyDescription =
+    allergiesData.find((allergy) => allergy.Allergy === keyword)?.Description ||
+    "";
+  const allergyNumber =
+    allergiesData.find((allergy) => allergy.Allergy === keyword)?.Number || "";
+
+  return (
+    allergyDescription &&
+    allergyNumber && (
+      <Keyword>{`${allergyNumber}. ${allergyDescription}`}</Keyword>
+    )
+  );
 };
 export default KeywordItem;
 

@@ -19,7 +19,7 @@ const ChildProfile: React.FC<ChildProfileProps> = ({
   onClick,
   selected,
 }) => {
-  const gradeImageSrc = `/assets/images/grade${grade}.svg`;
+  const gradeImageSrc = `/assets/common/grade${grade}.svg`;
 
   return (
     <Profile onClick={onClick} selected={selected}>

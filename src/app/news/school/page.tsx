@@ -31,11 +31,8 @@ const School = () => {
         const summaryData: AnnouncementsProps[] =
           response.data.schoolAnnouncementInfos;
         setSummaryData(summaryData);
-        console.log("소식 목록:", summaryData);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }, []);
 
   const handleTabClick = (path: any) => {

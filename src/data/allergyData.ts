@@ -46,3 +46,25 @@ export enum AllergyEnum {
   "고등어" = "MACKEREL",
   "닭고기" = "CHICKEN",
 }
+
+export const allergiesData = [
+  { Number: 1, Allergy: 'EGG', Description: '난류' },
+  { Number: 2, Allergy: 'MILK', Description: '우유' },
+  { Number: 3, Allergy: 'BUCKWHEAT', Description: '메밀' },
+  { Number: 4, Allergy: 'PEANUT', Description: '땅콩' },
+  { Number: 5, Allergy: 'SOYBEAN', Description: '대두' },
+  { Number: 6, Allergy: 'WHEAT', Description: '밀' },
+  { Number: 7, Allergy: 'MACKEREL', Description: '고등어' },
+  { Number: 8, Allergy: 'CRAB', Description: '게' },
+  { Number: 9, Allergy: 'SHRIMP', Description: '새우' },
+  { Number: 10, Allergy: 'PORK', Description: '돼지고기' },
+  { Number: 11, Allergy: 'PEACH', Description: '복숭아' },
+  { Number: 12, Allergy: 'TOMATO', Description: '토마토' },
+  { Number: 13, Allergy: 'SULFITES', Description: '아황산류' },
+  { Number: 14, Allergy: 'WALNUT', Description: '호두' },
+  { Number: 15, Allergy: 'CHICKEN', Description: '닭고기' },
+  { Number: 16, Allergy: 'BEEF', Description: '쇠고기' },
+  { Number: 17, Allergy: 'SQUID', Description: '오징어' },
+  { Number: 18, Allergy: 'SHELLFISH', Description: '조개류(굴, 전복, 홍합 포함)' },
+  { Number: 19, Allergy: 'PINE_NUT', Description: '잣' }
+];

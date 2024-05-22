@@ -2,17 +2,19 @@ import styled from "styled-components";
 import Popup from "../common/Popup";
 import ChildProfile from "./ChildProfile";
 import Button from "../common/Button";
-import { ChildrenList } from "@/data/mypageData";
 import { theme } from "@/styles/theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Axios from "@/apis/axios";
 
 interface Child {
-  name: string;
-  school: string;
+  childName: string;
+  schoolName: string;
   grade: number;
-  class: number;
-  birth: string;
-  allergy: string[];
+  classroomName: number;
+  childId?: number;
+  isPrimary?: boolean;
+  birthday?: string;
+  allergies?: string[];
 }
 
 interface ChangeChildProps {
@@ -20,11 +22,17 @@ interface ChangeChildProps {
   data: Child[];
   currentChild: Child;
   onChildSelect: (selectedChild: Child) => void;
+  use: boolean;
+  setUse: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ChangeChildPopup = (props: ChangeChildProps) => {
-  const { onClose, data, currentChild, onChildSelect } = props;
-  const [selectedChild, setSelectedChild] = useState<Child | null>(null);
+  const { onClose, data, currentChild, onChildSelect, use, setUse } = props;
+  const [selectedChild, setSelectedChild] = useState<Child | null>(
+    currentChild
+  );
+
+  useEffect(() => {}, [selectedChild]);
 
   const handleSelectChild = (child: Child) => {
     /* 자녀 정보 요청, 변경 */
@@ -32,10 +40,15 @@ const ChangeChildPopup = (props: ChangeChildProps) => {
   };
 
   const handleConfirm = () => {
-    if (selectedChild && selectedChild.name !== currentChild.name) {
-      onChildSelect(selectedChild);
-      onClose();
-    }
+    Axios.put(`/api/v1/children/primary`, {
+      childId: selectedChild?.childId,
+    }).then(() => {
+      setUse(!use);
+      if (selectedChild) {
+        onChildSelect(selectedChild);
+        onClose();
+      }
+    });
   };
 
   return (
@@ -49,12 +62,12 @@ const ChangeChildPopup = (props: ChangeChildProps) => {
         {data.map((data, index) => (
           <ChildProfile
             key={index}
-            name={data.name}
-            school={data.school}
+            name={data.childName}
+            school={data.schoolName}
             grade={data.grade}
-            classInfo={data.class}
+            classInfo={data.classroomName}
             onClick={() => handleSelectChild(data)}
-            selected={selectedChild?.name === data.name}
+            selected={selectedChild?.childName === data.childName}
           />
         ))}
       </Gap>
@@ -62,7 +75,9 @@ const ChangeChildPopup = (props: ChangeChildProps) => {
         <Button
           text="선택완료"
           onClick={handleConfirm}
-          disabled={!selectedChild || selectedChild.name === currentChild.name}
+          disabled={
+            !selectedChild || selectedChild.childName === currentChild.childName
+          }
         />
       </Bottom>
     </Popup>

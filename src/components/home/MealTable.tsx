@@ -5,6 +5,7 @@ import styled from "styled-components";
 import MealTablePopup from "./MealTablePopup";
 import More from "../common/More";
 import Axios from "@/apis/axios";
+import Image from "next/image";
 
 interface Food {
   food: string;
@@ -50,6 +51,17 @@ const MealTable = () => {
           mealToday.foods.map((data, index) => (
             <List key={index} $warning={data.warning}>
               {data.food}
+              {data.warning && (
+                <Caution>
+                  자녀가 주의해야 할 메뉴예요
+                  <Image
+                    src="/assets/icons/ic_alert.svg"
+                    width={16}
+                    height={16}
+                    alt="alert"
+                  />
+                </Caution>
+              )}
             </List>
           ))
         ) : (
@@ -95,11 +107,22 @@ const List = styled.div<{ $warning: boolean }>`
   width: 100%;
   height: 32px;
   border-radius: 8px;
-  background: ${theme.colors.b100};
+  background: ${({ $warning, theme }) =>
+    $warning ? "rgba(255, 135, 0, 0.15)" : theme.colors.b100};
   padding: 6px 12px;
   color: ${({ $warning, theme }) =>
     $warning ? theme.colors.primary500 : theme.colors.b600};
-  ${(props) => props.theme.fonts.body3_r};
+  ${({ $warning }) => ($warning ? theme.fonts.body3_b : theme.fonts.body3_r)};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Caution = styled.div`
+  display: flex;
+  align-items: center;
+  ${(props) => props.theme.fonts.caption3_r};
+  gap: 2px;
 `;
 
 const Overlay = styled.div`

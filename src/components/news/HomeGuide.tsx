@@ -2,6 +2,7 @@ import ListBox from "@/components/common/ListBox";
 import More from "@/components/common/More";
 import { todoHomeData } from "@/data/newsData";
 import { theme } from "@/styles/theme";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -10,10 +11,7 @@ interface TodoHomeListsProps {
 }
 
 const HomeGuide = () => {
-  const [expanded, setExpanded] = useState<boolean>(false);
-  const handleMoreExpand = () => {
-    setExpanded(!expanded);
-  };
+  const router = useRouter();
 
   return (
     <>
@@ -22,9 +20,13 @@ const HomeGuide = () => {
           <div>
             <Em>가정통신문 제출</Em> 잊지마세요!
           </div>
-          <More onClick={handleMoreExpand} />
+          <More
+            onClick={() => {
+              router.push("/school/homeGuide");
+            }}
+          />
         </Title>
-        <TodoHomeLists expanded={expanded}>
+        <TodoHomeLists>
           {todoHomeData.map((data, index) => (
             <ListBox
               key={index}
@@ -70,10 +72,10 @@ const Em = styled.span`
   color: ${theme.colors.primary700};
 `;
 
-const TodoHomeLists = styled.div<TodoHomeListsProps>`
+const TodoHomeLists = styled.div`
   width: 100%;
-  height: ${(props) => (props.expanded ? "auto" : "140px")};
-  overflow-y: hidden;
+  height: 140px;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   gap: 8px;

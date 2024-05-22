@@ -30,11 +30,8 @@ const EduOffice = () => {
       .then((response) => {
         const summaryData = response.data.educationOfficeAnnouncementInfos;
         setSummaryData(summaryData);
-        console.log("교육청 목록:", response.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }, []);
 
   const handleTabClick = (path: any) => {

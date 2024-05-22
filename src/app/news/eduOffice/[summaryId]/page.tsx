@@ -39,11 +39,8 @@ const SummaryDetail = () => {
       .then((response) => {
         const summaryData: AnnouncementsProps = response.data;
         setSummaryData(summaryData);
-        console.log("교육청 상세목록:", response.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }, []);
 
   const handleSend = () => {

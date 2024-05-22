@@ -14,7 +14,6 @@ export function usePostKakaoToken(accessToken: string): usePostKakaoToken {
     {
       onSuccess: (data) => {
         queryClient.invalidateQueries();
-        // console.log("Response data:", data);
       },
     }
   );

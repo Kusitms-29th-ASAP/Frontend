@@ -42,11 +42,8 @@ const SummaryDetail = () => {
       .then((response) => {
         const summaryData = response.data;
         setSummaryData(summaryData);
-        console.log("학교 상세목록:", response.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }, []);
 
   const handleSend = () => {
