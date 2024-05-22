@@ -86,11 +86,7 @@ const FormPopup = (props: FormPopupProps) => {
 
           <div>
             <SubTitle>작성 일자</SubTitle>
-            <Calendar
-              value={date}
-              onChange={setDate}
-              placeholder={"작성일자를 선택해주세요."}
-            />
+            <Calendar value={date} onChange={setDate} />
           </div>
 
           <div>
