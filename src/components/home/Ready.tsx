@@ -3,8 +3,15 @@ import Image from "next/image";
 import styled from "styled-components";
 import Todo from "./Todo";
 import Notification from "./Notification";
+import getUserInfo from "@/apis/user/getUserInfo";
 
 const Ready = () => {
+  const userInfo = async () => {
+    const data = await getUserInfo();
+    console.log(data);
+  };
+  userInfo();
+
   return (
     <Box>
       <Top>
