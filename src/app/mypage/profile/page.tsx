@@ -67,6 +67,7 @@ const Profile = () => {
     router.push("/mypage");
   };
 
+  const signImage = localStorage.getItem("signImage");
   return (
     <>
       <Row>
@@ -116,7 +117,13 @@ const Profile = () => {
               전자서명 등록하기
             </PlusButton>
           </Row>
-          <SignBox>아직 등록된 전자서명이 없습니다.</SignBox>
+          <SignBox>
+            {signImage ? (
+              <Image src={signImage} width={400} height={168} alt="Signature" />
+            ) : (
+              <div>아직 등록된 전자서명이 없습니다.</div>
+            )}
+          </SignBox>
         </div>
       </Content>
     </>

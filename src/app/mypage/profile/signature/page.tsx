@@ -28,6 +28,10 @@ const Signature = () => {
   /* dataURL을 File로 반환하는 함수 */
   const convertDataUrlToFile = () => {
     const dataURL = sigPad.current?.toDataURL("image/png");
+    if (dataURL) {
+      localStorage.setItem("signImage", dataURL);
+    }
+
     const decodedURL = dataURL?.replace(/^data:image\/\sw+;base64,/, "");
     if (decodedURL) {
       const buf = Buffer.from(decodedURL, "base64");
