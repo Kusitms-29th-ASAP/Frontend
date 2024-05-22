@@ -2,12 +2,14 @@
 
 import styled from "styled-components";
 import Topbar from "@/components/common/Topbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomInput from "@/components/common/CustomInput";
 import Subtitle from "@/components/signin/Subtitle";
 import { theme } from "@/styles/theme";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import getUserInfo from "@/apis/user/getUserInfo";
+import putUserInfo from "@/apis/user/putUserInfo";
 
 interface Profile {
   name: string;
@@ -18,27 +20,51 @@ interface Profile {
 const Profile = () => {
   const router = useRouter();
 
-  const [profile, setProfile] = useState<Profile>({
-    name: "임승현",
-    phone: "010-1111-1111",
-    email: "abcd@naver.com",
+  const [modify, setModify] = useState(false);
+  const [profile, setProfile] = useState({
+    name: "",
+    phone: "",
+    email: "",
   });
 
-  const [modify, setModify] = useState(false);
+  useEffect(() => {
+    const userInfoFunction = async () => {
+      const data = await getUserInfo();
+      const formattedPhone = formatPhoneNumber(data.phoneNumber);
+      setProfile({
+        name: data.userName,
+        phone: formattedPhone,
+        email: data.email,
+      });
+    };
+    userInfoFunction();
+  }, []);
 
-  const handleNameChange = (value: string) => {
-    setProfile({ ...profile, name: value });
+  function formatPhoneNumber(phoneNumber: string) {
+    return phoneNumber.length === 11
+      ? `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7)}`
+      : phoneNumber;
+  }
+
+  const handleNameChange = (value: any) => {
+    setProfile((prev) => ({ ...prev, name: value }));
     setModify(true);
   };
 
-  const handlePhoneChange = (value: string) => {
-    setProfile({ ...profile, phone: value });
+  const handlePhoneChange = (value: any) => {
+    setProfile((prev) => ({ ...prev, phone: value }));
     setModify(true);
   };
 
   const handleModify = () => {
     setModify(false);
-    /* 프로필 변경사항 저장하기 */
+    putUserInfo({
+      userName: profile.name,
+      phoneNumber: {
+        number: profile.phone.replace(/-/g, ""),
+      },
+    });
+    router.push("/mypage");
   };
 
   return (

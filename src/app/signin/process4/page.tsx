@@ -54,7 +54,9 @@ const SigninProcess4 = () => {
       children: updateChildren,
     };
 
-    postUser(User);
+    const data = postUser(User);
+    console.log(data);
+
     router.push("/signin/completion");
   };
 

@@ -1,12 +1,14 @@
 "use client";
 
 import deleteUser from "@/apis/auth/deleteUser";
+import getUserInfo from "@/apis/user/getUserInfo";
 import Tabbar from "@/components/common/Tabbar";
 import Topbar from "@/components/common/Topbar";
 import { RootState } from "@/redux/store";
 import { theme } from "@/styles/theme";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -14,6 +16,21 @@ const Mypage = () => {
   const router = useRouter();
   const tokens = useSelector((state: RootState) => state.auth);
   const { refreshToken } = tokens;
+
+  const [userName, setUserName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const userInfo = async () => {
+    const data = await getUserInfo();
+    setUserName(data.userName);
+    setPhoneNumber(data.phoneNumber);
+  };
+  userInfo();
+
+  function formatPhoneNumber(phoneNumber: string) {
+    return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7)}`;
+  }
+  const newPhoneNumber = formatPhoneNumber(phoneNumber);
 
   const handleLogout = () => {
     deleteUser(refreshToken);
@@ -30,10 +47,10 @@ const Mypage = () => {
         <RowContainCard>
           <Col>
             <RowBottom>
-              <Bold>임승현</Bold>
+              <Bold>{userName}</Bold>
               <DarkGray>학부모님</DarkGray>
             </RowBottom>
-            <Gray>010-1111-1111</Gray>
+            <Gray>{newPhoneNumber}</Gray>
           </Col>
           <Row
             onClick={() => {
@@ -67,7 +84,7 @@ const Mypage = () => {
             </Line>
             <ChildInfo>
               <span style={{ fontWeight: "700" }}>김동우&nbsp;</span>
-              신용산 초등학교 3학년 7반
+              양원숲초등학교 3학년 7반
             </ChildInfo>
           </div>
           <Line>

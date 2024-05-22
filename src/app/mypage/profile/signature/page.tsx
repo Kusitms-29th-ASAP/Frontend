@@ -109,9 +109,9 @@ const Signature = () => {
       </Div>
       <Content>
         <div>
-          <Subtitle>
+          <Title>
             <Primary>스쿨포인트에 전자서명</Primary>에 대한 동의
-          </Subtitle>
+          </Title>
           <Box>
             {signData.map((data, index) => (
               <ListNumber
@@ -186,7 +186,7 @@ const Box = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 16px;
-  gap: 10px;
+  gap: 16px;
   border-radius: 12px;
   background: ${theme.colors.b80};
   color: ${theme.colors.b500};
@@ -215,4 +215,18 @@ const SignBox = styled.div`
   background: ${theme.colors.b100};
   color: ${theme.colors.b400};
   ${(props) => props.theme.fonts.body3_m};
+`;
+
+const Title = styled.div`
+  display: flex;
+  align-items: center;
+
+  ${({ theme }) => theme.fonts.body2_b};
+  color: ${({ theme }) => theme.colors.b700};
+  margin-bottom: 8px;
+
+  span {
+    ${({ theme }) => theme.fonts.caption1_m};
+    color: ${({ theme }) => theme.colors.b400};
+  }
 `;

@@ -9,7 +9,7 @@ import styled from "styled-components";
 const WorkStudyOptions = ["교외 체험학습 신청서", "신청서 제출 내역"];
 
 const WorkStudy = () => {
-  const [schoolName, setSchoolName] = useState("계현");
+  const [schoolName, setSchoolName] = useState("양원숲");
 
   return (
     <>
