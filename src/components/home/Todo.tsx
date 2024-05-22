@@ -44,19 +44,19 @@ const Todo = () => {
 
   /* 상태 수정 API */
   const changeTodo = (todoId: number) => {
-    Axios.put(`/api/v1/todos`, { todoId: todoId })
+    Axios.put(`/api/v1/todos/${todoId}`)
       .then((response) => {
         setRenderData(!render);
-        // console.log("Todo 수정 성공:", todoId, response.data);
+        console.log("Todo 수정 성공:", todoId, response.data);
       })
       .catch((error) => {
-        // console.error("Todo 수정 실패:", error);
+        console.log("수정", todoId);
       });
   };
 
   /* Todo 삭제 API */
   const deleteTodo = (todoId: number) => {
-    Axios.delete(`/api/v1/todos`, { data: { todoId: todoId } })
+    Axios.delete(`/api/v1/todos/${todoId}`)
       .then((response) => {
         setRenderData(!render);
         // console.log("Todo 삭제 성공:", todoId);
