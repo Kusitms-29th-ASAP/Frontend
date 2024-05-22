@@ -12,6 +12,9 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: ["kr.object.ncloudstorage.com"],
+  },
 };
 
 export default withPlugins(

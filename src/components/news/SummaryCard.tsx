@@ -1,61 +1,64 @@
 import ListNumber from "@/components/common/ListNumber";
 import { theme } from "@/styles/theme";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
-export type summaryType = "simple" | "detail";
+interface Line {
+  keywords: string[];
+  summaries: string[];
+}
 
-export interface SummaryCardProps {
-  summaryType?: string;
+interface AnnouncementsProps {
+  type?: "school" | "eduOffice";
+  summaryType?: "simple" | "detail";
   isNew: boolean;
   category: string;
   title: string;
-  date: string;
-  look: number;
-  keyword: string[];
-  sentence: string[];
-  summaryId: number;
+  uploadDate: string;
+  imageUrls?: string[];
+  highlight?: Line;
+  summary?: string[];
+  announcementId?: number;
 }
-const SummaryCard = ({
-  summaryType = "simple",
-  isNew,
-  category,
-  title,
-  date,
-  look,
-  keyword,
-  sentence,
-  summaryId,
-}: SummaryCardProps) => {
-  const router = useRouter();
-  const pathname = usePathname();
 
-  const handleCardClick = () => {
-    router.push(`/news/${summaryId}`);
+const SummaryCard = (props: AnnouncementsProps) => {
+  const {
+    type = "school",
+    summaryType = "simple",
+    isNew,
+    category,
+    title,
+    uploadDate,
+    imageUrls,
+    highlight,
+    summary,
+    announcementId,
+  } = props;
+
+  const router = useRouter();
+
+  const handleCardClick = (announcementId: number) => {
+    router.push(`/news/${type}/${announcementId}`);
   };
 
   return (
-    <StyledCard className={summaryType} onClick={handleCardClick}>
+    <StyledCard
+      className={summaryType}
+      onClick={
+        summaryType === "simple" && announcementId
+          ? () => handleCardClick(announcementId)
+          : undefined
+      }
+    >
       <Top>
         <Label>
           {isNew && <New>NEW</New>}
           <Category>{category}</Category>
         </Label>
-        {summaryType === "simple" && (
-          <Look>
-            <Image
-              src="/assets/icons/ic_eye.svg"
-              width={16}
-              height={16}
-              alt="look"
-            />
-            {look}명이 봤어요
-          </Look>
-        )}
       </Top>
       <Title className={summaryType}>{title}</Title>
-      <Date>{date}</Date>
+      <Date>{uploadDate}</Date>
       {summaryType === "detail" && (
         <Detail>
           <Row>
@@ -69,7 +72,7 @@ const SummaryCard = ({
           </Row>
           <>
             <Row>
-              {keyword.map((data, index) => (
+              {highlight?.keywords.map((data, index) => (
                 <StyledKeyword key={index}>{data}</StyledKeyword>
               ))}
             </Row>
@@ -77,9 +80,15 @@ const SummaryCard = ({
         </Detail>
       )}
       <Sentence>
-        {sentence.map((data, index) => (
-          <StyledListNumber key={index} index={index + 1} text={data} />
-        ))}
+        {summaryType === "simple" &&
+          summary?.map((data, index) => (
+            <StyledListNumber key={index} index={index + 1} text={data} />
+          ))}
+
+        {summaryType === "detail" &&
+          highlight?.summaries.map((data, index) => (
+            <StyledListNumber key={index} index={index + 1} text={data} />
+          ))}
       </Sentence>
     </StyledCard>
   );

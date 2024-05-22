@@ -15,13 +15,19 @@ export const categories = [
   { value: "NONE", label: "없음" },
 ];
 
+interface AddTodoPopupProps {
+  onClose: () => void;
+  setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
+  render: boolean;
+  setRenderData: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 const AddTodoPopup = ({
   onClose,
   setShowToast,
-}: {
-  onClose: () => void;
-  setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+  render,
+  setRenderData,
+}: AddTodoPopupProps) => {
   const [todo, setTodo] = useState("");
   const [category, setCategory] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
@@ -59,6 +65,7 @@ const AddTodoPopup = ({
         // console.log("Add Todo Post Success:", response.data);
         onClose();
         setShowToast(true);
+        setRenderData(!render);
       })
       .catch((error) => {
         // console.error("Add Todo Post Error", error);
