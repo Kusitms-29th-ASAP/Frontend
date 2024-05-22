@@ -69,7 +69,7 @@ export interface ChildrenList {
 export const childrenListData : ChildrenList[] = [
   {
     name: "김동우",
-    school: "신용산초등학교",
+    school: "양원숲초등학교",
     grade: 3,
     class: 7,
     birth: "2014년 4월 5일",
@@ -77,7 +77,7 @@ export const childrenListData : ChildrenList[] = [
   },
   {
     name: "김규리",
-    school: "신용산초등학교",
+    school: "양원숲초등학교",
     grade: 1,
     class: 7,
     birth: "2014년 4월 1일",

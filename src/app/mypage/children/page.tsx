@@ -25,7 +25,7 @@ interface Child {
 const MyPage = () => {
   const [child, setChild] = useState<Child>({
     name: "김동우",
-    school: "신용산초등학교",
+    school: "양원숲초등학교",
     grade: 3,
     class: 7,
     birth: "2014년 4월 5일",

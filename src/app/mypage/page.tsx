@@ -67,7 +67,7 @@ const Mypage = () => {
             </Line>
             <ChildInfo>
               <span style={{ fontWeight: "700" }}>김동우&nbsp;</span>
-              신용산 초등학교 3학년 7반
+              양원숲초등학교 3학년 7반
             </ChildInfo>
           </div>
           <Line>
