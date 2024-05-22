@@ -12,54 +12,68 @@ import ChangeChildPopup from "@/components/mypage/ChangeChildPopup";
 import AllergyPopup from "@/components/mypage/AllergyPopup";
 import KeywordItem from "@/components/mypage/Keyword";
 import Axios from "@/apis/axios";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Child {
   childName: string;
   schoolName: string;
   grade: number;
-  className: number;
-  childId: number;
+  classroomName: number;
+  childId?: number;
   isPrimary?: boolean;
   birthday?: string;
   allergies?: string[];
 }
 
 const MyPage = () => {
+  const router = useRouter();
   const [child, setChild] = useState<Child>({
     childName: "",
     schoolName: "",
     grade: 0,
-    className: 0,
+    classroomName: 0,
     childId: 0,
     isPrimary: true,
     birthday: "",
     allergies: [],
   });
   const [childList, setChildList] = useState<Child[]>([]);
-
+  const [use, setUse] = useState<boolean>(false);
   const [modify, setModify] = useState(false);
   const [changePopup, setChangePopup] = useState(false);
   const [allergyPopup, setAllergyPopup] = useState(false);
 
   const gradeImageSrc = `/assets/common/grade${child?.grade}.svg`;
 
-  /* 선택 자녀 정보 불러오기 */
+  /* 선택 자녀 불러오기 */
   useEffect(() => {
-    Axios.get(`/api/v1/children/-71495`).then((response) => {
-      const data = response.data;
-      setChild(data);
-      console.log("선택된 자녀", child);
-    });
-  }, []);
+    if (childList.length > 0) {
+      const primaryChild = childList.find((child) => child.isPrimary);
+      console.log("primaryChild", primaryChild);
+      Axios.get(`/api/v1/children/${primaryChild?.childId}`)
+        .then((response) => {
+          const data = response.data;
+          setChild(data);
+          console.log("선택된 자녀", data);
+        })
+        .catch((error) => {
+          console.error("선택 자녀 에러: ", error);
+        });
+    }
+  }, [childList, use]);
 
   /* 자녀 전체 불러오기 */
   useEffect(() => {
-    Axios.get(`/api/v1/children`).then((response) => {
-      const data = response.data.childList;
-      setChildList(data);
-      console.log("전체 자녀", childList);
-    });
-  }, []);
+    Axios.get(`/api/v1/children`)
+      .then((response) => {
+        const data = response.data.childList;
+        setChildList(data);
+        console.log("전체 자녀", data);
+      })
+      .catch((error) => {
+        console.error("전체 자녀 에러: ", error);
+      });
+  }, [use]);
 
   /* onChange 함수 */
   const handleNameChange = (value: string) => {
@@ -81,6 +95,13 @@ const MyPage = () => {
   const handleModify = () => {
     setModify(false);
     /* 자녀 프로필 변경사항 저장하기 */
+    Axios.put(`/api/v1/children/${child?.childId}`, {
+      childName: child.childName,
+      birthday: child.birthday,
+      allergies: child.allergies,
+    }).then(() => {
+      console.log("자녀 프로필 변경완료");
+    });
   };
 
   /* 팝업 상태 전환 함수 */
@@ -100,13 +121,6 @@ const MyPage = () => {
 
   /* 자녀 프로필 업데이트 함수 */
   const handleChildUpdate = (selectedChild: Child) => {
-    Axios.put(`/api/v1/children/3445442953`, {
-      childName: child.childName,
-      birthday: child.birthday,
-      allergies: child.allergies,
-    }).then(() => {
-      console.log("자녀 프로필 변경완료");
-    });
     setChild(selectedChild);
     setChangePopup(false);
     setModify(true);
@@ -135,7 +149,7 @@ const MyPage = () => {
         />
         <Info>
           <Br>{child?.childName}</Br>
-          {child?.schoolName} | {child?.grade}학년 {child?.className}반
+          {child?.schoolName} | {child?.grade}학년 {child?.classroomName}반
         </Info>
       </Profile>
       <Change onClick={() => setChangePopup(true)}>
@@ -201,6 +215,8 @@ const MyPage = () => {
           data={childList}
           currentChild={child}
           onChildSelect={handleChildUpdate}
+          use={use}
+          setUse={setUse}
         />
       )}
     </>

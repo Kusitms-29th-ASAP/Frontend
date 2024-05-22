@@ -1,25 +1,81 @@
 "use client";
 
 import deleteUser from "@/apis/auth/deleteUser";
+import Axios from "@/apis/axios";
 import Tabbar from "@/components/common/Tabbar";
 import Topbar from "@/components/common/Topbar";
 import { RootState } from "@/redux/store";
 import { theme } from "@/styles/theme";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+
+interface Child {
+  childName: string;
+  schoolName: string;
+  grade: number;
+  classroomName: number;
+  childId?: number;
+  isPrimary?: boolean;
+  birthday?: string;
+  allergies?: string[];
+}
 
 const Mypage = () => {
   const router = useRouter();
   const tokens = useSelector((state: RootState) => state.auth);
   const { refreshToken } = tokens;
 
+  const [child, setChild] = useState<Child>({
+    childName: "",
+    schoolName: "",
+    grade: 0,
+    classroomName: 0,
+    childId: 0,
+    isPrimary: true,
+    birthday: "",
+    allergies: [],
+  });
+  const [childList, setChildList] = useState<Child[]>([]);
+  // const [primaryChild, setPrimaryChild] = useState<Child>();
   const handleLogout = () => {
     deleteUser(refreshToken);
     router.push("/");
   };
   const handleDeleteUser = () => {};
+
+  /* 선택 자녀 불러오기 */
+  useEffect(() => {
+    if (childList.length > 0) {
+      const primaryChild = childList.find((child) => child.isPrimary);
+      // setPrimaryChild(primaryChild);
+      console.log("primaryChild", primaryChild);
+      Axios.get(`/api/v1/children/${primaryChild?.childId}`)
+        .then((response) => {
+          const data = response.data;
+          setChild(data);
+          console.log("선택된 자녀", data);
+        })
+        .catch((error) => {
+          console.error("선택 자녀 에러: ", error);
+        });
+    }
+  }, [childList]);
+
+  /* 자녀 전체 불러오기 */
+  useEffect(() => {
+    Axios.get(`/api/v1/children`)
+      .then((response) => {
+        const data = response.data.childList;
+        setChildList(data);
+        console.log("전체 자녀", data);
+      })
+      .catch((error) => {
+        console.error("전체 자녀 에러: ", error);
+      });
+  }, []);
 
   return (
     <Container>
@@ -60,14 +116,17 @@ const Mypage = () => {
                 height={20}
                 alt="select"
                 onClick={() => {
-                  router.push("/mypage/children");
+                  const params = new URLSearchParams();
+                  params.append("child", JSON.stringify(child));
+                  params.append("childList", JSON.stringify(childList));
+                  router.push(`/mypage/children?${params.toString()}`);
                 }}
                 style={{ cursor: "pointer" }}
               />
             </Line>
             <ChildInfo>
-              <span style={{ fontWeight: "700" }}>김동우&nbsp;</span>
-              신용산 초등학교 3학년 7반
+              <span style={{ fontWeight: "700" }}>{child.childName}&nbsp;</span>
+              {child.schoolName} {child.grade}학년 {child.classroomName}반
             </ChildInfo>
           </div>
           <Line>

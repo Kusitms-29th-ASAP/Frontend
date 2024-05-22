@@ -10,8 +10,8 @@ interface Child {
   childName: string;
   schoolName: string;
   grade: number;
-  className: number;
-  childId: number;
+  classroomName: number;
+  childId?: number;
   isPrimary?: boolean;
   birthday?: string;
   allergies?: string[];
@@ -22,11 +22,15 @@ interface ChangeChildProps {
   data: Child[];
   currentChild: Child;
   onChildSelect: (selectedChild: Child) => void;
+  use: boolean;
+  setUse: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ChangeChildPopup = (props: ChangeChildProps) => {
-  const { onClose, data, currentChild, onChildSelect } = props;
-  const [selectedChild, setSelectedChild] = useState<Child | null>(null);
+  const { onClose, data, currentChild, onChildSelect, use, setUse } = props;
+  const [selectedChild, setSelectedChild] = useState<Child | null>(
+    currentChild
+  );
 
   const handleSelectChild = (child: Child) => {
     /* 자녀 정보 요청, 변경 */
@@ -34,15 +38,16 @@ const ChangeChildPopup = (props: ChangeChildProps) => {
   };
 
   const handleConfirm = () => {
-    if (selectedChild && selectedChild.childName !== currentChild.childName) {
-      Axios.put(`/api/v1/children/primary`, {
-        childId: selectedChild.childId,
-      }).then(() => {
-        console.log("선택 자녀 변경완료");
-      });
-      onChildSelect(selectedChild);
-      onClose();
-    }
+    Axios.put(`/api/v1/children/primary`, {
+      data: { childId: selectedChild?.childId },
+    }).then(() => {
+      setUse(!use);
+      if (selectedChild) {
+        onChildSelect(selectedChild);
+        onClose();
+      }
+      console.log("선택한 자녀 변경 성공");
+    });
   };
 
   return (
@@ -59,7 +64,7 @@ const ChangeChildPopup = (props: ChangeChildProps) => {
             name={data.childName}
             school={data.schoolName}
             grade={data.grade}
-            classInfo={data.className}
+            classInfo={data.classroomName}
             onClick={() => handleSelectChild(data)}
             selected={selectedChild?.childName === data.childName}
           />
