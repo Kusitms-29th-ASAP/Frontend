@@ -35,23 +35,15 @@ const Todo = () => {
       .then((response) => {
         const todoData: Todo[] = response.data.todoList;
         setTodoData(todoData);
-        // console.log("Todo List Get Success:", response.data);
       })
-      .catch(() => {
-        // console.error("Todo LIst Get Error");
-      });
+      .catch(() => {});
   }, [currentDate, render]);
 
   /* 상태 수정 API */
   const changeTodo = (todoId: number) => {
-    Axios.put(`/api/v1/todos/${todoId}`)
-      .then((response) => {
-        setRenderData(!render);
-        console.log("Todo 수정 성공:", todoId, response.data);
-      })
-      .catch((error) => {
-        console.log("수정", todoId);
-      });
+    Axios.put(`/api/v1/todos/${todoId}`).then((response) => {
+      setRenderData(!render);
+    });
   };
 
   /* Todo 삭제 API */
@@ -59,11 +51,8 @@ const Todo = () => {
     Axios.delete(`/api/v1/todos/${todoId}`)
       .then((response) => {
         setRenderData(!render);
-        // console.log("Todo 삭제 성공:", todoId);
       })
-      .catch((error) => {
-        // console.error("Todo 삭제 실패:", error);
-      });
+      .catch((error) => {});
   };
 
   /* deadline 날짜의 요일을 구하는 함수 */
@@ -185,7 +174,6 @@ const Todo = () => {
               }
               onClick={() => {
                 changeTodo(data.todoId);
-                // console.log("ListBox 클릭:", data.todoId);
               }}
               text={data.description}
               time={`${getDayOfWeek(data.deadline)}까지`}

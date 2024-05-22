@@ -50,7 +50,6 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
       .then((response) => {
         const mealTableData: MealTable[] = response.data.menus;
         setMealTable(mealTableData);
-        console.log("데이터 옴", mealTableData);
 
         const dayNames = ["월", "화", "수", "목", "금", "토", "일"];
         const date = new Date(mealTableData[0].date);

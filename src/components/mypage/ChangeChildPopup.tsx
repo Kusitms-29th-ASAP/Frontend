@@ -3,7 +3,7 @@ import Popup from "../common/Popup";
 import ChildProfile from "./ChildProfile";
 import Button from "../common/Button";
 import { theme } from "@/styles/theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Axios from "@/apis/axios";
 
 interface Child {
@@ -32,6 +32,8 @@ const ChangeChildPopup = (props: ChangeChildProps) => {
     currentChild
   );
 
+  useEffect(() => {}, [selectedChild]);
+
   const handleSelectChild = (child: Child) => {
     /* 자녀 정보 요청, 변경 */
     setSelectedChild(child);
@@ -39,14 +41,13 @@ const ChangeChildPopup = (props: ChangeChildProps) => {
 
   const handleConfirm = () => {
     Axios.put(`/api/v1/children/primary`, {
-      data: { childId: selectedChild?.childId },
+      childId: selectedChild?.childId,
     }).then(() => {
       setUse(!use);
       if (selectedChild) {
         onChildSelect(selectedChild);
         onClose();
       }
-      console.log("선택한 자녀 변경 성공");
     });
   };
 
