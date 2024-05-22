@@ -17,8 +17,8 @@ const Mypage = () => {
   const tokens = useSelector((state: RootState) => state.auth);
   const { refreshToken } = tokens;
 
-  const [userName, setUserName] = useState("임승현");
-  const [phoneNumber, setPhoneNumber] = useState("010-1111-1111");
+  const [userName, setUserName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const userInfo = async () => {
     const data = await getUserInfo();

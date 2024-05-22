@@ -20,12 +20,12 @@ interface Profile {
 const Profile = () => {
   const router = useRouter();
 
+  const [modify, setModify] = useState(false);
   const [profile, setProfile] = useState({
     name: "",
     phone: "",
     email: "",
   });
-  const [modify, setModify] = useState(false);
 
   useEffect(() => {
     const userInfoFunction = async () => {
@@ -52,8 +52,7 @@ const Profile = () => {
   };
 
   const handlePhoneChange = (value: any) => {
-    const formattedPhone = formatPhoneNumber(value);
-    setProfile((prev) => ({ ...prev, phone: formattedPhone }));
+    setProfile((prev) => ({ ...prev, phone: value }));
     setModify(true);
   };
 
@@ -62,7 +61,7 @@ const Profile = () => {
     putUserInfo({
       userName: profile.name,
       phoneNumber: {
-        number: profile.phone.replace(/-/g, ""), // '-' 제거 후 저장
+        number: profile.phone.replace(/-/g, ""),
       },
     });
     router.push("/mypage");
