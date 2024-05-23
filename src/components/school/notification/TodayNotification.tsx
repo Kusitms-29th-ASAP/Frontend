@@ -43,7 +43,7 @@ const TodayNotification = () => {
       <TodayTitle>오늘의 알림장</TodayTitle>
       {notiData[0] !== null ? (
         <Notification
-          day={today}
+          day={notiData[0].writeDate}
           teacher={teacher}
           notifications={notiData[0]}
           isToday={true}
