@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import Axios from "@/apis/axios";
+import { Child } from "@/app/mypage/page";
 
 interface SchoolHomeTopProps {
   title: string;
@@ -7,7 +10,46 @@ interface SchoolHomeTopProps {
 
 const SchoolHomeTop = (props: SchoolHomeTopProps) => {
   const { title } = props;
-  const [schoolName, grade, classNum] = ["양원숲", 3, 7];
+  const [childList, setChildList] = useState<Child[]>([]);
+
+  const [child, setChild] = useState<Child>({
+    childName: "",
+    schoolName: "",
+    grade: 0,
+    classroomName: 0,
+    childId: 0,
+    isPrimary: true,
+    birthday: "",
+    allergies: [],
+  });
+  const [schoolName, grade, classNum] = [
+    child.schoolName,
+    child.grade,
+    child.classroomName,
+  ];
+
+  /* 자녀 전체 불러오기 */
+  useEffect(() => {
+    Axios.get(`/api/v1/children`)
+      .then((response) => {
+        const data = response.data.childList;
+        setChildList(data);
+      })
+      .catch((error) => {});
+  }, []);
+
+  /* 선택 자녀 불러오기 */
+  useEffect(() => {
+    if (childList.length > 0) {
+      const primaryChild = childList.find((child) => child.isPrimary);
+      Axios.get(`/api/v1/children/${primaryChild?.childId}`)
+        .then((response) => {
+          const data = response.data;
+          setChild(data);
+        })
+        .catch((error) => {});
+    }
+  }, [childList]);
 
   return (
     <Container>
