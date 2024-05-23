@@ -56,7 +56,9 @@ const SigninProcess4 = () => {
     };
 
     const data = await postUser(User);
-    localStorage.setItem("access_token", data.accessToken);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("access_token", data.accessToken);
+    }
 
     dispatch(
       setToken({
