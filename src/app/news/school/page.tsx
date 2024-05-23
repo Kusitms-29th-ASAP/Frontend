@@ -73,7 +73,7 @@ const School = () => {
           />
           <HomeGuideRemind />
         </Background>
-        {summaryData && <Summary dummyData={summaryData} />}
+        {summaryData && <Summary type="school" dummyData={summaryData} />}
       </Layout>
       <Tabbar />
     </>

@@ -31,6 +31,7 @@ const EduOffice = () => {
       .then((response) => {
         const summaryData = response.data.educationOfficeAnnouncementInfos;
         setSummaryData(summaryData);
+        console.log(summaryData);
       })
       .catch((error) => {});
   }, []);
@@ -72,7 +73,7 @@ const EduOffice = () => {
           />
           <HomeGuideRemind />
         </Background>
-        {summaryData && <Summary dummyData={summaryData} />}
+        {summaryData && <Summary type="eduOffice" dummyData={summaryData} />}
       </Layout>
       <Tabbar />
     </>
