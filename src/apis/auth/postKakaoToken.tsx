@@ -1,4 +1,4 @@
-import Axios from "../axios";
+import axios from "axios";
 
 interface PostKakaoTokenResponse {
   accessToken?: string;
@@ -10,8 +10,8 @@ export async function postKakaoToken(
   accessToken: string
 ): Promise<PostKakaoTokenResponse> {
   try {
-    const response = await Axios.post<PostKakaoTokenResponse>(
-      "/api/v1/auth/login/KAKAO",
+    const response = await axios.post<PostKakaoTokenResponse>(
+      "https://api.ncp.simproject.kr/api/v1/auth/login/KAKAO",
       {
         accessToken: accessToken,
       }
