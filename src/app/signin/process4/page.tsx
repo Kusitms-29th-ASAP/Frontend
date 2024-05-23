@@ -8,6 +8,7 @@ import ProgressBar from "@/components/signin/ProgressBar";
 import Subtitle from "@/components/signin/Subtitle";
 import { AllergyCategories, AllergyEnum } from "@/data/allergyData";
 import { PostUserRequest } from "@/interface/Auth";
+import { setToken } from "@/redux/slices/authSlice";
 import { setUser } from "@/redux/slices/userSlice";
 import { RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";
@@ -32,7 +33,7 @@ const SigninProcess4 = () => {
     setCheckedItems((prev) => ({ ...prev, [item]: !prev[item] }));
   };
 
-  const handleNextButtonClick = () => {
+  const handleNextButtonClick = async () => {
     const updateChildren = user.children.map((child) => ({
       ...child,
       allergies: Object.keys(checkedItems)
@@ -54,7 +55,15 @@ const SigninProcess4 = () => {
       children: updateChildren,
     };
 
-    const data = postUser(User);
+    const data = await postUser(User);
+    localStorage.setItem("access_token", data.accessToken);
+
+    dispatch(
+      setToken({
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
+      })
+    );
 
     router.push("/signin/completion");
   };
