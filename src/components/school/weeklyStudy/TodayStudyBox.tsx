@@ -8,12 +8,13 @@ type Study = {
 };
 
 interface TodayStudyBoxProps {
+  week: number;
   subject: string;
   studies: Study[];
 }
 
 const TodayStudyBox = (props: TodayStudyBoxProps) => {
-  const { subject, studies } = props;
+  const { week, subject, studies } = props;
 
   return (
     <Container>
