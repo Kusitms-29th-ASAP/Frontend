@@ -29,11 +29,9 @@ const TodayNotification = () => {
   useEffect(() => {
     Axios.get(`/api/v1/classrooms/announcements`)
       .then((response) => {
-        const { teacherName, writeDate, announcements } = response.data;
-        setTeacher(teacherName);
-        setToday(writeDate);
-        setLastNotiData(announcements);
-        console.log(response.data);
+        const data = response.data;
+        setTeacher(data.teacherName);
+        setLastNotiData(data.announcements);
       })
       .catch(() => {});
   }, []);
@@ -43,7 +41,7 @@ const TodayNotification = () => {
       <TodayTitle>오늘의 알림장</TodayTitle>
       {notiData[0] !== null ? (
         <Notification
-          day={notiData[0].writeDate}
+          day={"2024-05-25"}
           teacher={teacher}
           notifications={notiData[0]}
           isToday={true}
