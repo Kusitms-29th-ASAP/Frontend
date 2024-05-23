@@ -3,17 +3,36 @@ import Image from "next/image";
 import styled from "styled-components";
 import Todo from "./Todo";
 import Notification from "./Notification";
-import getUserInfo from "@/apis/user/getUserInfo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Child } from "@/app/mypage/page";
+import Axios from "@/apis/axios";
 
 const Ready = () => {
-  const [childrenName, setChildrenName] = useState("김동우");
+  const [childList, setChildList] = useState<Child[]>([]);
+  const [childrenName, setChildrenName] = useState("");
 
-  const userInfo = async () => {
-    const data = await getUserInfo();
-    setChildrenName(data.userName);
-  };
-  userInfo();
+  /* 자녀 전체 불러오기 */
+  useEffect(() => {
+    Axios.get(`/api/v1/children`)
+      .then((response) => {
+        const data = response.data.childList;
+        setChildList(data);
+      })
+      .catch((error) => {});
+  }, []);
+
+  /* 선택 자녀 불러오기 */
+  useEffect(() => {
+    if (childList.length > 0) {
+      const primaryChild = childList.find((child) => child.isPrimary);
+      Axios.get(`/api/v1/children/${primaryChild?.childId}`)
+        .then((response) => {
+          const data = response.data;
+          setChildrenName(data.childName);
+        })
+        .catch((error) => {});
+    }
+  }, [childList]);
 
   return (
     <Box>
