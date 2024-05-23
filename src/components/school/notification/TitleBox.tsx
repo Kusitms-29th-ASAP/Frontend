@@ -3,7 +3,6 @@ import Image from "next/image";
 
 interface TitleBoxProps {
   day: string;
-  // day: Date;
   teacher: string;
 }
 
