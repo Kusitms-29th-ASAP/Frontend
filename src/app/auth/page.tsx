@@ -40,8 +40,6 @@ const Auth = () => {
         );
 
         const kakao_accessToken = response.data.access_token;
-        localStorage.setItem("access_token", kakao_accessToken);
-
         const data = await postKakaoToken(kakao_accessToken);
 
         if (data.accessToken) {
