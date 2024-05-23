@@ -63,10 +63,11 @@ const Document = () => {
         {docsData.map((data) => (
           <ListBox
             key={data.id}
-            time={"제출 완료"}
+            time={"승인 요청"}
             listboxType={"content"}
             content1={data.content1}
             content2={data.content2}
+            date={data.date}
             color={"mint"}
             onClick={() => handleListBoxClick(data)}
           />

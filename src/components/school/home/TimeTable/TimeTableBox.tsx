@@ -3,11 +3,11 @@ import SubjectBox from "./SubjectBox";
 import styled, { css } from "styled-components";
 
 const subjectsData = [
-  { id: 1, subject: ["국어", "과학", "미술", "미술", "수학"] },
-  { id: 2, subject: ["수학", "국어", "도덕", "영어", "사회"] },
-  { id: 3, subject: ["체육", "국어", "국어", "영어"] },
-  { id: 4, subject: ["과학", "과학", "국어", "수학", "체육"] },
-  { id: 5, subject: ["음악", "사회", "도덕", "계발"] },
+  { id: 1, subject: ["영어", "수학", "체육", "사회", "국어"] },
+  { id: 2, subject: ["사회", "사회", "영어", "체육", "과학", "국어"] },
+  { id: 3, subject: ["도덕", "수학", "자율", "자율", "국어"] },
+  { id: 4, subject: ["음악", "미술", "미술", "수학", "과학"] },
+  { id: 5, subject: ["수학", "음악", "국어", "과학", "국어"] },
 ];
 
 const TimeTableBox = () => {
