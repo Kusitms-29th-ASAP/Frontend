@@ -40,7 +40,7 @@ const categoryMap: CategoryMap = {
 
 const SummaryCard = (props: AnnouncementsProps) => {
   const {
-    type = "school",
+    type,
     summaryType = "simple",
     isNew,
     category,
@@ -54,7 +54,7 @@ const SummaryCard = (props: AnnouncementsProps) => {
 
   const router = useRouter();
 
-  const handleCardClick = (announcementId: number) => {
+  const handleCardClick = (type: string, announcementId: number) => {
     router.push(`/news/${type}/${announcementId}`);
   };
 
@@ -62,8 +62,8 @@ const SummaryCard = (props: AnnouncementsProps) => {
     <StyledCard
       className={summaryType}
       onClick={
-        summaryType === "simple" && announcementId
-          ? () => handleCardClick(announcementId)
+        summaryType === "simple" && type && announcementId
+          ? () => handleCardClick(type, announcementId)
           : undefined
       }
     >

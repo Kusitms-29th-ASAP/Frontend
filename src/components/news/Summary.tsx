@@ -21,13 +21,20 @@ interface AnnouncementsProps {
   announcementId?: number;
 }
 
-const Summary = ({ dummyData }: { dummyData: AnnouncementsProps[] }) => {
+const Summary = ({
+  type,
+  dummyData,
+}: {
+  type: string;
+  dummyData: AnnouncementsProps[];
+}) => {
   return (
     <Container>
       <Content>
         <Title>가정통신문, 세 문장 요약해드려요</Title>
         {dummyData.map((data, index) => (
           <SummaryCard
+            type={type === "school" ? "school" : "eduOffice"}
             key={index}
             isNew={data.isNew}
             category={data.category}
