@@ -56,7 +56,7 @@ const SchoolHomeTop = (props: SchoolHomeTopProps) => {
       <TitleBox>
         <Title>{title}</Title>
         <SubTitle>
-          {schoolName}초등학교 | {grade}학년 {classNum}반
+          {schoolName} | {grade}학년 {classNum}반
         </SubTitle>
       </TitleBox>
       <Image
