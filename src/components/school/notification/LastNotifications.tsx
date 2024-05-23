@@ -25,7 +25,6 @@ const LastNotifications = () => {
         const { teacherName, announcements } = response.data;
         setTeacher(teacherName);
         setLastNotiData(announcements);
-        // console.log("All Noti Get Success:", teacher, announcements);
       })
       .catch(() => {
         console.error("All Noti Get Error");

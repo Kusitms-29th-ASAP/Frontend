@@ -19,11 +19,8 @@ const TimeTable = () => {
       .then((response) => {
         const timeToday: Timetable[] = response.data.timetables;
         setTimeToday(timeToday);
-        // console.log("Today Time Table Get Success:", response.data);
       })
-      .catch(() => {
-        // console.error("Today Time Table Get Error");
-      });
+      .catch(() => {});
   }, []);
 
   return (

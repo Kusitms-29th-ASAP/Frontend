@@ -34,7 +34,6 @@ const SigninProcess3 = () => {
 
   const handleSchoolChange = async (value: string) => {
     setSchool(value);
-    console.log("change");
     if (value !== "") {
       const data = await getSchool(value);
       setSchoolList(data.schools);

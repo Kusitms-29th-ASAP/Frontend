@@ -23,11 +23,8 @@ const Notification = () => {
       .then((response) => {
         const notiData: Description[] = response.data.descriptions;
         setNotiData(notiData);
-        console.log("Today Noti Get Success:", response.data);
       })
-      .catch(() => {
-        console.error("Today Noti Get Error");
-      });
+      .catch(() => {});
   }, []);
 
   return (
