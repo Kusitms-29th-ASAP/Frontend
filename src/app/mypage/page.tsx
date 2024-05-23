@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-interface Child {
+export interface Child {
   childName: string;
   schoolName: string;
   grade: number;
@@ -40,7 +40,6 @@ const Mypage = () => {
     allergies: [],
   });
   const [childList, setChildList] = useState<Child[]>([]);
-  // const [primaryChild, setPrimaryChild] = useState<Child>();
   const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 

@@ -33,6 +33,7 @@ const TodayNotification = () => {
         setTeacher(teacherName);
         setToday(writeDate);
         setLastNotiData(announcements);
+        console.log(response.data);
       })
       .catch(() => {});
   }, []);

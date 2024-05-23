@@ -106,7 +106,6 @@ const ListBox = (props: ListBoxProps) => {
           {listboxType === "content" && (
             <Row>
               <Content1>{content1}</Content1>
-              <D>date</D>
             </Row>
           )}
           {type}

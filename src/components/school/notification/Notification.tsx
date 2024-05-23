@@ -29,9 +29,11 @@ const Notificaiton = (props: NotificationProps) => {
 
   return (
     <WhiteBox>
-      <TopContent isToday={isToday} day={day} teacher={teacher} />
-      {notifications && notifications.descriptions.length > 0 ? (
-        <ListNumberBox data={notifications.descriptions} />
+      {teacher && notifications ? (
+        <>
+          <TopContent isToday={isToday} day={day} teacher={teacher} />
+          <ListNumberBox data={notifications.descriptions} /> :
+        </>
       ) : (
         <NoData>알림 내용이 없어요!</NoData>
       )}

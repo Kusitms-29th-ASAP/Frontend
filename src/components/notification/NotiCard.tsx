@@ -17,7 +17,7 @@ const NotiCard = (props: NotiProps) => {
     if (id === "notification") {
       router.push("/news/school");
     } else if (id === "study") {
-      router.push("/study");
+      router.push("/study/home");
     }
   };
 

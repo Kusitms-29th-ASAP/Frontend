@@ -1,25 +1,8 @@
 import CustomInput from "@/components/common/CustomInput";
 import ListBox from "@/components/common/ListBox";
+import { HomeGideReplyCompletedData } from "@/data/notifyData";
 import { useState } from "react";
 import styled from "styled-components";
-
-const HomeGideReplyCompletedData = [
-  {
-    id: 1,
-    content1: "방과후학교 프로그램 신청서",
-    content2: "어쩌구저쩌구어쩌구저쩌구",
-  },
-  {
-    id: 2,
-    content1: "방과후학교 프로그램 신청서",
-    content2: "어쩌구저쩌구어쩌구저쩌구",
-  },
-  {
-    id: 3,
-    content1: "방과후학교 프로그램 신청서",
-    content2: "어쩌구저쩌구어쩌구저쩌구",
-  },
-];
 
 const ReplyCompleted = () => {
   const [selected, setSelected] = useState<string>("지난주");
