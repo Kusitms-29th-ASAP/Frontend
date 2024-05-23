@@ -32,7 +32,7 @@ const Notificaiton = (props: NotificationProps) => {
       {teacher && notifications ? (
         <>
           <TopContent isToday={isToday} day={day} teacher={teacher} />
-          <ListNumberBox data={notifications.descriptions} /> :
+          <ListNumberBox data={notifications.descriptions} />
         </>
       ) : (
         <NoData>알림 내용이 없어요!</NoData>
