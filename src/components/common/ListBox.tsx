@@ -18,6 +18,7 @@ export interface ListBoxProps {
   style?: React.CSSProperties & { fontSize?: string };
   content1?: string;
   content2?: string;
+  date?: string;
   value?: string;
   checked?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -36,6 +37,7 @@ const ListBox = (props: ListBoxProps) => {
     style,
     content1,
     content2,
+    date,
     value,
     checked,
     onClick,
@@ -87,15 +89,26 @@ const ListBox = (props: ListBoxProps) => {
         <Type className={listboxClassName}>
           {listboxType === "none" && (
             <>
-              <span style={{ fontSize: "14px", fontWeight: "700" }}>
-                D-{dday}
-              </span>
+              {dday > 0 ? (
+                <span style={{ fontSize: "14px", fontWeight: "700" }}>
+                  D-{dday}
+                </span>
+              ) : (
+                <span style={{ fontSize: "14px", fontWeight: "700" }}>
+                  D+{-dday}
+                </span>
+              )}
               <span style={{ fontSize: "12px", fontWeight: "500" }}>
                 {month} {day} ({futureWeekday}) 까지
               </span>
             </>
           )}
-          {listboxType === "content" && <Content1>{content1}</Content1>}
+          {listboxType === "content" && (
+            <Row>
+              <Content1>{content1}</Content1>
+              <D>date</D>
+            </Row>
+          )}
           {type}
           {listboxType === "direct" && <DirectSpan>{time}</DirectSpan>}
         </Type>
@@ -143,6 +156,7 @@ const StyledListBox = styled.div<ListBoxProps>`
   &.content {
     border: none;
     cursor: pointer;
+    background: white;
     &.mint {
       border: none;
     }
@@ -157,9 +171,20 @@ const Content = styled.div`
   gap: 0px;
 `;
 
+const Row = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+`;
+
 const Content1 = styled.div`
   ${(props) => props.theme.fonts.body3_m};
-  color: ${theme.colors.b400};
+  color: ${theme.colors.b700};
+`;
+
+const D = styled.div`
+  ${(props) => props.theme.fonts.caption1_m};
+  color: ${theme.colors.b600};
 `;
 
 const Content2 = styled.div`

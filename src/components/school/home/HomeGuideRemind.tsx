@@ -20,15 +20,15 @@ const HomeGuideRemind = () => {
       </TitleBox>
       <ListBox
         color="orange"
-        text="방과후학교 가정통신문 회신"
+        text="현장체험학습 실시 찬반의견 조사"
         time="회신 필요"
         dday={2}
       />
       <ListBox
         color="mint"
-        text="방과후학교 프로그램 신청서"
+        text="양원숲 토닥토닥 상담실 운영 안내 및 보호자 동의 안내"
         time="제출 완료"
-        dday={5}
+        dday={-2}
       />
     </WhiteBox>
   );

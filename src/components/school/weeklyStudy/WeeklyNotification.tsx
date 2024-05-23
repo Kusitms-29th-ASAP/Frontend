@@ -3,12 +3,12 @@ import WhiteBox from "../WhiteBox";
 import { useState } from "react";
 
 const WeeklyNotificationData = [
-  "목요일 체육시간에는 줄넘기 수행평가가 진행됩니다. 다양한 줄넘기를 잘 하는지 평가하기 때문에 가정에서 주말동안 연습시키는 것을 추천드립니다. \n\n금요일 음악시간에는 준비물로 리코더가 있습니다. 아이들이 리코더를 챙겨올 수 있도록 꼭 확인부탁드립니다. \n\n주말에 독후감 1편 쓰기가 숙제로 있습니다. 주말 독서를 할 수 있도록 지도해주시고, 책에 대한 내용을 정리해보고 글로 표현하는 연습을 할 수 있도록 챙겨주세요",
+  "1. 5/21 (화) 에는 ‘우리 고장 알기' 수업으로 해설사 초빙 수업이 있습니다.\n\n2. 안전한 등하교를 위해 자전거, 인라인 등을 타지 않으며, 수업 종료 후 곧바로 귀가해요.\n\n3. 하지 말아요 학교 폭력, 실천해요 친구사랑!\n\n4. 등하교길 어린이 교통사고 예방을 위한 보행안전 3원칙 기억하기\n: 서다 - 보다 - 걷다",
 ];
 
 const WeeklyNotification = () => {
-  const [month, setMonth] = useState(4);
-  const [week, setWeek] = useState(2);
+  const [month, setMonth] = useState(5);
+  const [week, setWeek] = useState(4);
 
   return (
     <WhiteBox>
