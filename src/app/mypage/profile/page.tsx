@@ -27,6 +27,8 @@ const Profile = () => {
     email: "",
   });
 
+  const [signImage, setSignImage] = useState<string | null>(null);
+
   useEffect(() => {
     const userInfoFunction = async () => {
       const data = await getUserInfo();
@@ -67,7 +69,13 @@ const Profile = () => {
     router.push("/mypage");
   };
 
-  const signImage = localStorage.getItem("signImage");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedSignImage = localStorage.getItem("signImage");
+      setSignImage(storedSignImage);
+    }
+  }, []);
+
   return (
     <>
       <Row>
