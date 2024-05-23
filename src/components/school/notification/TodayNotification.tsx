@@ -33,11 +33,8 @@ const TodayNotification = () => {
         setTeacher(teacherName);
         setToday(writeDate);
         setLastNotiData(announcements);
-        // console.log("All(Today) Noti Get Success:", teacher, announcements);
       })
-      .catch(() => {
-        // console.error("All(Today) Noti Get Error");
-      });
+      .catch(() => {});
   }, []);
 
   return (

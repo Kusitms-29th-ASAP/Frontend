@@ -12,10 +12,6 @@ const TitleBox = (props: TitleBoxProps) => {
 
   const parsedDate = new Date(day);
 
-  // console.log("day", day);
-  // const month = day.getMonth() + 1;
-  // const date = day.getDate();
-  // const week = day.getDay();
   const month = parsedDate.getMonth() + 1;
   const date = parsedDate.getDate();
   const week = parsedDate.getDay();

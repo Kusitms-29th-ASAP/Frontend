@@ -55,21 +55,17 @@ const AddTodoPopup = ({
 
   const handleButtonClick = () => {
     const formattedDate = formatDate(selectedDate);
-    // console.log(todo, category, formattedDate);
     Axios.post(`/api/v1/todos`, {
       description: todo,
       todoType: category,
       deadline: formattedDate,
     })
       .then((response) => {
-        // console.log("Add Todo Post Success:", response.data);
         onClose();
         setShowToast(true);
         setRenderData(!render);
       })
-      .catch((error) => {
-        // console.error("Add Todo Post Error", error);
-      });
+      .catch((error) => {});
   };
 
   return (
