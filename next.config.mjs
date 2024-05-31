@@ -15,6 +15,9 @@ const nextConfig = {
   images: {
     domains: ["kr.object.ncloudstorage.com"],
   },
+  compiler: {
+    styledComponents: true,
+  },
 };
 
 export default withPlugins(
