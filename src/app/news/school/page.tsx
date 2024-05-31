@@ -84,7 +84,6 @@ export default School;
 
 const Layout = styled.div`
   width: 100%;
-  height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
   display: flex;
