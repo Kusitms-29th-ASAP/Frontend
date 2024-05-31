@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyles = createGlobalStyle`    
 * {
   box-sizing: border-box;
   padding: 0;
@@ -31,3 +34,12 @@ a {
 ::-webkit-scrollbar {
   display: none;
 }
+
+
+@font-face {
+    font-family: "Pretendard";
+    src: url("/public/assets/fonts/PretendardVariable.woff2") format('font-woff2'); 
+  }
+`;
+
+export default GlobalStyles;
