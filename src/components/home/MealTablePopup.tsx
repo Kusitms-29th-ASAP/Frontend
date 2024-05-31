@@ -40,10 +40,6 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
   const [mealTable, setMealTable] = useState<MealTable[]>([]);
   /* 주간별 급식 데이터 */
   const [weeklyMealTable, setWeeklyMealTable] = useState<MealTable[][]>([]);
-  /* 매달 시작 요일 */
-  const [dayOfWeek, setDayOfWeek] = useState<string>("");
-
-  let remainingDays = 0;
 
   useEffect(() => {
     Axios.get(`/api/v1/menus/month`)
@@ -51,31 +47,39 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
         const mealTableData: MealTable[] = response.data.menus;
         setMealTable(mealTableData);
 
-        const dayNames = ["월", "화", "수", "목", "금", "토", "일"];
-        const date = new Date(mealTableData[0].date);
-        const dayOfWeek = dayNames[date.getDay()];
-        setDayOfWeek(dayOfWeek);
-
-        // 첫 번째 주차의 데이터 개수 결정
-        if (dayOfWeek === "월") {
-          remainingDays = 5;
-        } else if (dayOfWeek === "화") {
-          remainingDays = 4;
-        } else if (dayOfWeek === "수") {
-          remainingDays = 3;
-        } else if (dayOfWeek === "목") {
-          remainingDays = 2;
-        } else if (dayOfWeek === "금") {
-          remainingDays = 1;
-        }
-
         const weeklyMealTable: MealTable[][] = [];
-        if (remainingDays > 0) {
-          weeklyMealTable.push(mealTableData.slice(0, remainingDays));
-        }
+        let currentWeek: MealTable[] = [];
+        /* 주차별 시작일 */
+        let currentWeekStartDay: number | null = null;
 
-        for (let i = remainingDays; i < mealTableData.length; i += 5) {
-          weeklyMealTable.push(mealTableData.slice(i, i + 5));
+        mealTableData.forEach((meal) => {
+          const mealDate = new Date(meal.date);
+          const mealDay = mealDate.getDate();
+          const mealDayOfWeek = mealDate.getDay();
+
+          /* 이번 주차 시작일 */
+          if (currentWeekStartDay === null) {
+            currentWeekStartDay = mealDay;
+          }
+
+          /* 이번 주차에 있는 날짜인지 확인 */
+          if (
+            (currentWeekStartDay !== null &&
+              mealDay >= currentWeekStartDay &&
+              mealDay < currentWeekStartDay + 5 &&
+              mealDayOfWeek !== 0) || // 일요일 제외
+            currentWeek.length === 0
+          ) {
+            currentWeek.push(meal);
+          } else {
+            weeklyMealTable.push(currentWeek);
+            currentWeek = [meal];
+            currentWeekStartDay = mealDay;
+          }
+        });
+
+        if (currentWeek.length > 0) {
+          weeklyMealTable.push(currentWeek);
         }
 
         setWeeklyMealTable(weeklyMealTable);
