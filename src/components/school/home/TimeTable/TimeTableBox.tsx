@@ -2,27 +2,40 @@ import TimeBox from "./TimeBox";
 import SubjectBox from "./SubjectBox";
 import styled, { css } from "styled-components";
 import getWeekTimetable from "@/apis/timetable/getWeekTimetable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+type DayOfWeek = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY";
 
 const TimeTableBox = () => {
   const TimeData = [1, 2, 3, 4, 5];
   const Week = ["월", "화", "수", "목", "금"];
   const todayIndex = new Date().getDay() - 1;
-  const [mondaySubject, setMondaySubject] = useState([]);
-  const [tuesdaySubject, setTuesdaySubject] = useState([]);
-  const [wednesdaySubject, setWednesdaySubject] = useState([]);
-  const [thursdaySubject, setThursdaySubject] = useState([]);
-  const [fridaySubject, setFridaySubject] = useState([]);
 
-  const getTimetableData = async () => {
-    const response = await getWeekTimetable();
-    setMondaySubject(response.timetables.MONDAY);
-    setTuesdaySubject(response.timetables.TUESDAY);
-    setWednesdaySubject(response.timetables.WEDNESDAY);
-    setThursdaySubject(response.timetables.THURSDAY);
-    setFridaySubject(response.timetables.FRIDAY);
+  const [subjects, setSubjects] = useState({
+    MONDAY: [],
+    TUESDAY: [],
+    WEDNESDAY: [],
+    THURSDAY: [],
+    FRIDAY: [],
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getWeekTimetable();
+      setSubjects(response.timetables);
+    };
+    fetchData();
+  }, []);
+
+  const renderSubjectColumns = () => {
+    return (Object.keys(subjects) as DayOfWeek[]).map((day, index) => (
+      <SubjectCol highlight={index === todayIndex} key={day}>
+        {subjects[day].map(({ subject }, idx) => (
+          <SubjectBox subject={subject} key={idx} />
+        ))}
+      </SubjectCol>
+    ));
   };
-  getTimetableData();
 
   return (
     <Container>
@@ -42,33 +55,7 @@ const TimeTableBox = () => {
             <TimeBox time={time} key={index} />
           ))}
         </TimeListBox>
-        <SubjectListBox>
-          <SubjectCol highlight={todayIndex === 0}>
-            {mondaySubject.map(({ subject }, index) => (
-              <SubjectBox subject={subject} key={index} />
-            ))}
-          </SubjectCol>
-          <SubjectCol highlight={todayIndex === 1}>
-            {tuesdaySubject.map(({ subject }, index) => (
-              <SubjectBox subject={subject} key={index} />
-            ))}
-          </SubjectCol>
-          <SubjectCol highlight={todayIndex === 2}>
-            {wednesdaySubject.map(({ subject }, index) => (
-              <SubjectBox subject={subject} key={index} />
-            ))}
-          </SubjectCol>
-          <SubjectCol highlight={todayIndex === 3}>
-            {thursdaySubject.map(({ subject }, index) => (
-              <SubjectBox subject={subject} key={index} />
-            ))}
-          </SubjectCol>
-          <SubjectCol highlight={todayIndex === 4}>
-            {fridaySubject.map(({ subject }, index) => (
-              <SubjectBox subject={subject} key={index} />
-            ))}
-          </SubjectCol>
-        </SubjectListBox>
+        <SubjectListBox>{renderSubjectColumns()}</SubjectListBox>
       </TimetableBottom>
     </Container>
   );
