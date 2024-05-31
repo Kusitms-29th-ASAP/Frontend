@@ -8,5 +8,5 @@ export interface Week {
 }
 
 export interface GetWeekTimetableResponse {
-  timetables: Week[];
+  timetables: Week[] | any;
 }
