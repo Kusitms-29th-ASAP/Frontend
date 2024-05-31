@@ -20,7 +20,7 @@ export default TimeBox;
 const Container = styled.div`
   display: flex;
   width: 30px;
-  height: 30px;
+  height: 40px;
   justify-content: center;
   align-items: center;
   gap: 3px;
@@ -29,6 +29,7 @@ const Container = styled.div`
   background: ${({ theme }) => theme.colors.b200};
 
   &.zero {
+    height: 30px;
     background: ${({ theme }) => theme.colors.b100};
     color: ${({ theme }) => theme.colors.b100};
   }

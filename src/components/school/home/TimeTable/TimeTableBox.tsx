@@ -1,19 +1,41 @@
 import TimeBox from "./TimeBox";
 import SubjectBox from "./SubjectBox";
 import styled, { css } from "styled-components";
+import getWeekTimetable from "@/apis/timetable/getWeekTimetable";
+import { useEffect, useState } from "react";
 
-const subjectsData = [
-  { id: 1, subject: ["영어", "수학", "체육", "사회", "국어"] },
-  { id: 2, subject: ["사회", "사회", "영어", "체육", "과학", "국어"] },
-  { id: 3, subject: ["도덕", "수학", "자율", "자율", "국어"] },
-  { id: 4, subject: ["음악", "미술", "미술", "수학", "과학"] },
-  { id: 5, subject: ["수학", "음악", "국어", "과학", "국어"] },
-];
+type DayOfWeek = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY";
 
 const TimeTableBox = () => {
   const TimeData = [1, 2, 3, 4, 5];
   const Week = ["월", "화", "수", "목", "금"];
   const todayIndex = new Date().getDay() - 1;
+
+  const [subjects, setSubjects] = useState({
+    MONDAY: [],
+    TUESDAY: [],
+    WEDNESDAY: [],
+    THURSDAY: [],
+    FRIDAY: [],
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getWeekTimetable();
+      setSubjects(response.timetables);
+    };
+    fetchData();
+  }, []);
+
+  const renderSubjectColumns = () => {
+    return (Object.keys(subjects) as DayOfWeek[]).map((day, index) => (
+      <SubjectCol highlight={index === todayIndex} key={day}>
+        {subjects[day].map(({ subject }, idx) => (
+          <SubjectBox subject={subject} key={idx} />
+        ))}
+      </SubjectCol>
+    ));
+  };
 
   return (
     <Container>
@@ -33,15 +55,7 @@ const TimeTableBox = () => {
             <TimeBox time={time} key={index} />
           ))}
         </TimeListBox>
-        <SubjectListBox>
-          {subjectsData.map((data, index) => (
-            <SubjectCol key={index} highlight={index === todayIndex}>
-              {data.subject.map((subject, index) => (
-                <SubjectBox subject={subject} key={index} />
-              ))}
-            </SubjectCol>
-          ))}
-        </SubjectListBox>
+        <SubjectListBox>{renderSubjectColumns()}</SubjectListBox>
       </TimetableBottom>
     </Container>
   );

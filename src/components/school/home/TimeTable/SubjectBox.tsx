@@ -14,11 +14,11 @@ export default SubjectBox;
 
 const Container = styled.div`
   display: flex;
-  padding: 6px;
+  padding: 6px 10px;
   justify-content: center;
   align-items: center;
-  height: 30px;
-  white-space: nowrap;
+  height: 40px;
+  text-align: center;
 
   ${(props) => props.theme.fonts.caption1_m};
   color: ${({ theme }) => theme.colors.b400};
