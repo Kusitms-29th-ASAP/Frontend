@@ -103,7 +103,9 @@ const SummaryCard = (props: AnnouncementsProps) => {
 
         {summaryType === "detail" &&
           highlight?.summaries.map((data, index) => (
-            <StyledListNumber key={index} index={index + 1} text={data} />
+            <Background key={index}>
+              <StyledListNumber key={index} index={index + 1} text={data} />
+            </Background>
           ))}
       </Sentence>
     </StyledCard>
@@ -216,7 +218,7 @@ const StyledKeyword = styled.div`
   align-items: center;
   gap: 10px;
   border-radius: 6px;
-  background: rgba(255, 135, 0, 0.15);
+  background: #ffedd9;
   color: ${theme.colors.primary500};
   text-align: center;
   ${(props) => props.theme.fonts.caption1_b};
@@ -239,4 +241,10 @@ const StyledListNumber = styled(ListNumber)`
     border-radius: 10px;
     background: ${theme.colors.b100};
   }
+`;
+
+const Background = styled.div`
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: ${theme.colors.b100};
 `;

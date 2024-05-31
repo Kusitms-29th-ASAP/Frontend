@@ -32,11 +32,12 @@ const StyledListNumber = styled.div`
 const Number = styled.div`
   display: inline-flex;
   width: 24px;
+  height: 25px;
   padding: 4px 8px;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  background: rgba(255, 135, 0, 0.15);
+  background: #ffedd9;
   color: ${theme.colors.primary700};
   ${(props) => props.theme.fonts.caption1_b}
 `;

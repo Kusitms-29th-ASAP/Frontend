@@ -149,6 +149,9 @@ const StyledListBox = styled.div<ListBoxProps>`
   align-items: center;
   padding: 12px 0px 12px 12px;
 
+  &.none {
+    background: ${theme.colors.white};
+  }
   &.mint {
     border: 1px solid ${theme.colors.b300};
   }
