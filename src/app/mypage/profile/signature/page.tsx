@@ -24,13 +24,6 @@ const Signature = () => {
     setIsSignatureEmpty(false);
   };
 
-  useEffect(() => {
-    const dataURL = sigPad.current?.toDataURL("image/png");
-    if (dataURL) {
-      localStorage.setItem("signImage", dataURL);
-    }
-  }, []);
-
   /* dataURL을 File로 반환하는 함수 */
   const convertDataUrlToFile = () => {
     const dataURL = sigPad.current?.toDataURL("image/png");
@@ -53,19 +46,25 @@ const Signature = () => {
       return;
     }
 
+    /* 서명 localStorage 저장 */
+    const dataURL = sigPad.current?.toDataURL("image/png");
+    if (dataURL) {
+      localStorage.setItem("signImage", dataURL);
+    }
+
     /* signature 파일 */
     const signImage = convertDataUrlToFile();
 
     router.push("/mypage/profile");
 
     /* signature 파일 post */
-    Axios.post(`엔드포인트`, signImage)
-      .then((response) => {
-        router.push("/mypage/profile");
-      })
-      .catch(() => {
-        console.error("Signature Post Error");
-      });
+    // Axios.post(`엔드포인트`, signImage)
+    //   .then((response) => {
+    //     router.push("/mypage/profile");
+    //   })
+    //   .catch(() => {
+    //     console.error("Signature Post Error");
+    //   });
   };
 
   return (

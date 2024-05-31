@@ -71,7 +71,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const storedSignImage = localStorage.getItem("signImage");
+      const storedSignImage = localStorage?.getItem("signImage");
       setSignImage(storedSignImage);
     }
   }, []);
