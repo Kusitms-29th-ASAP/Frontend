@@ -168,6 +168,8 @@ const Search = styled.div`
 `;
 
 const SearchBoxList = styled.div`
+  width: calc(100% - 84px);
+  max-height: 200px;
   display: flex;
   flex-direction: column;
   margin-top: 8px;
@@ -178,9 +180,6 @@ const SearchBoxList = styled.div`
   position: absolute;
   top: 36px;
   left: 0;
-  right: 0;
-  width: 100%;
-  max-height: 200px;
   overflow-y: auto;
   background: ${({ theme }) => theme.colors.white};
 
@@ -188,6 +187,7 @@ const SearchBoxList = styled.div`
 `;
 
 const SearchBox = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 16px;
