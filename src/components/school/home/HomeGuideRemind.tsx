@@ -41,6 +41,10 @@ const TitleBox = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+
+  @media screen and (max-width: 360px) {
+    flex-direction: column;
+  }
 `;
 
 const Title = styled.div`
