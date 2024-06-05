@@ -90,7 +90,6 @@ const SigninProcess4 = () => {
                   checkboxType="checkBtn"
                   checked={checkedItems[item] || false}
                   onChange={() => handleCheckboxChange(item)}
-                  width="auto"
                 />
               ))}
             </CheckboxBox>

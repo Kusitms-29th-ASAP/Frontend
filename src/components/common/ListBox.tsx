@@ -147,7 +147,7 @@ const StyledListBox = styled.div<ListBoxProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 12px 0px 12px 12px;
+  padding: 12px 12px 12px 12px;
 
   &.none {
     background: ${theme.colors.white};
@@ -167,10 +167,10 @@ const StyledListBox = styled.div<ListBoxProps>`
 `;
 
 const Content = styled.div`
+  width: calc(100% - 61px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 0px;
 `;
 
 const Row = styled.div`
@@ -182,11 +182,6 @@ const Row = styled.div`
 const Content1 = styled.div`
   ${(props) => props.theme.fonts.body3_m};
   color: ${theme.colors.b700};
-`;
-
-const D = styled.div`
-  ${(props) => props.theme.fonts.caption1_m};
-  color: ${theme.colors.b600};
 `;
 
 const Content2 = styled.div`
@@ -222,6 +217,7 @@ const Span = styled.span`
 `;
 
 const Text = styled.div`
+  width: 100%;
   color: ${theme.colors.b700};
   ${(props) => props.theme.fonts.body3_m};
 `;
