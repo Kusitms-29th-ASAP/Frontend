@@ -1,1 +1,0 @@
-export { ReactComponent as HomeEgg } from '../assets/images/home_egg.svg'

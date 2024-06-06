@@ -12,11 +12,18 @@ import dayjs from "dayjs";
 export interface CalendarProps {
   value: string;
   onChange: (value: string) => void;
+  placeholder?: string;
   color?: "black";
   disabled?: boolean;
 }
 
-const Calendar = ({ value, onChange, color, disabled }: CalendarProps) => {
+const Calendar = ({
+  value,
+  onChange,
+  placeholder = "날짜를 선택해주세요",
+  color,
+  disabled,
+}: CalendarProps) => {
   const [date, setDate] = useState<dayjs.Dayjs | null>(null);
 
   const handleDateChange = (newDate: dayjs.Dayjs | null) => {
@@ -36,10 +43,10 @@ const Calendar = ({ value, onChange, color, disabled }: CalendarProps) => {
           <CustomInputContainer>
             <CalendarInput
               value={value}
-              placeholder="날짜를 선택해주세요"
+              placeholder={placeholder}
               onChange={() => {}}
               readonly={true}
-              color="black"
+              color={color}
               disabled={disabled}
             />
             <IconImage

@@ -3,12 +3,12 @@ import WhiteBox from "../WhiteBox";
 import { useState } from "react";
 
 const WeeklyNotificationData = [
-  "1. 5/21 (화) 에는 ‘우리 고장 알기' 수업으로 해설사 초빙 수업이 있습니다.\n\n2. 안전한 등하교를 위해 자전거, 인라인 등을 타지 않으며, 수업 종료 후 곧바로 귀가해요.\n\n3. 하지 말아요 학교 폭력, 실천해요 친구사랑!\n\n4. 등하교길 어린이 교통사고 예방을 위한 보행안전 3원칙 기억하기\n: 서다 - 보다 - 걷다",
+  "1. 6/11 (화) 에는 ‘우리 고장 알기' 수업으로 해설사 초빙 수업이 있습니다.\n\n2. 안전한 등하교를 위해 자전거, 인라인 등을 타지 않으며, 수업 종료 후 곧바로 귀가해요.\n\n3. 하지 말아요 학교 폭력, 실천해요 친구사랑!\n\n4. 등하교길 어린이 교통사고 예방을 위한 보행안전 3원칙 기억하기\n: 서다 - 보다 - 걷다",
 ];
 
 const WeeklyNotification = () => {
-  const [month, setMonth] = useState(5);
-  const [week, setWeek] = useState(4);
+  const [month, setMonth] = useState(6);
+  const [week, setWeek] = useState(2);
 
   return (
     <WhiteBox>

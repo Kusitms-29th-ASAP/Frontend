@@ -54,6 +54,7 @@ const MyPage = () => {
         (response) => {
           const data = response.data;
           setChild(data);
+          console.log("ckdkf", child.allergies);
         }
       );
     }
@@ -183,9 +184,14 @@ const MyPage = () => {
               hidden={true}
             />
             <KeywordItems>
-              {child.allergies?.map((allergies, index) => (
-                <KeywordItem key={index} keyword={allergies} />
-              ))}
+              {child.allergies
+                ?.slice(0, 3)
+                .map((allergies, index) => (
+                  <KeywordItem key={index} keyword={allergies} />
+                ))}
+              {child.allergies && child.allergies.length > 2 && (
+                <Omission>...</Omission>
+              )}
             </KeywordItems>
           </InputBox>
           {allergyPopup && (
@@ -304,4 +310,17 @@ const KeywordItems = styled.div`
   left: 10px;
   display: flex;
   gap: 10px;
+`;
+
+const Omission = styled.div`
+  width: auto;
+  display: flex;
+  padding: 6px 8px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  background: rgba(255, 135, 0, 0.15);
+  color: ${theme.colors.primary500};
+  ${(props) => props.theme.fonts.caption1_b};
+  cursor: default;
 `;
