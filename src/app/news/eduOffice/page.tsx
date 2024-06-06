@@ -2,7 +2,6 @@
 
 import Axios from "@/apis/axios";
 import Tabbar from "@/components/common/Tabbar";
-import HomeGuide from "@/components/news/HomeGuide";
 import Summary from "@/components/news/Summary";
 import HomeGuideRemind from "@/components/school/home/HomeGuideRemind";
 import { theme } from "@/styles/theme";

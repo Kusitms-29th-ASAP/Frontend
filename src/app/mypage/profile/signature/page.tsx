@@ -5,14 +5,12 @@ import { theme } from "@/styles/theme";
 import Topbar from "@/components/common/Topbar";
 import ListNumber from "@/components/common/ListNumber";
 import { signData } from "@/data/mypageData";
-import Subtitle from "@/components/signin/Subtitle";
 import Button from "@/components/common/Button";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { CheckBox } from "@/components/common/Checkbox.stories";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import SignatureCanvas from "react-signature-canvas";
-import Axios from "@/apis/axios";
 
 const Signature = () => {
   const router = useRouter();
