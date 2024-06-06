@@ -34,7 +34,7 @@ const FormPopup = (props: FormPopupProps) => {
   const [workContent, setWorkContent] = useState("");
   const [workReason, setWorkReason] = useState("");
 
-  const isButtonEnabled =
+  const isAbsentButtonEnabled =
     grade &&
     classNum &&
     studentNum &&
@@ -42,6 +42,17 @@ const FormPopup = (props: FormPopupProps) => {
     reason &&
     date &&
     guardianName;
+
+  const isWorkButtonEnabled =
+    grade &&
+    classNum &&
+    studentNum &&
+    studentName &&
+    destination &&
+    startDate &&
+    endDate &&
+    workContent &&
+    workReason;
 
   const handleButtonClick = () => {
     onClose();
@@ -163,7 +174,9 @@ const FormPopup = (props: FormPopupProps) => {
           <Button
             text="제출하기"
             onClick={handleButtonClick}
-            disabled={!isButtonEnabled}
+            disabled={
+              type === "absent" ? !isAbsentButtonEnabled : !isWorkButtonEnabled
+            }
           />
         </ContentBox>
       </Popup>
