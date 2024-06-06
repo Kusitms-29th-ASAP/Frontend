@@ -1,4 +1,4 @@
-import { AllergyCategories } from "@/data/allergyData";
+import { AllergyCategories, allergiesData } from "@/data/allergyData";
 import Checkbox from "../common/Checkbox";
 import Popup from "../common/Popup";
 import Subtitle from "../signin/Subtitle";
@@ -21,8 +21,19 @@ const AllergyPopup = (props: AllergyProps) => {
     initialCheckedItems
   );
 
+  const getAllergyKey = (description: string) => {
+    const allergyData = allergiesData.find(
+      (data) => data.Description === description
+    );
+    return allergyData ? allergyData.Allergy : description;
+  };
+
   const handleCheckboxChange = (item: string) => {
-    setCheckedItems((prev) => ({ ...prev, [item]: !prev[item] }));
+    const allergyKey = getAllergyKey(item);
+    setCheckedItems((prev) => ({
+      ...prev,
+      [allergyKey]: !prev[allergyKey],
+    }));
   };
 
   const handleCheckComplete = () => {
@@ -30,7 +41,14 @@ const AllergyPopup = (props: AllergyProps) => {
     const selectedAllergy = Object.keys(checkedItems).filter(
       (item) => checkedItems[item]
     );
-    onUpdate(selectedAllergy);
+
+    const sortedAllergy = selectedAllergy.sort((a, b) => {
+      const aIndex = allergiesData.findIndex((data) => data.Allergy === a);
+      const bIndex = allergiesData.findIndex((data) => data.Allergy === b);
+      return aIndex - bIndex;
+    });
+
+    onUpdate(sortedAllergy);
     setModify(true);
     onClose();
   };
@@ -53,7 +71,7 @@ const AllergyPopup = (props: AllergyProps) => {
                     key={item}
                     label={item}
                     checkboxType="checkBtn"
-                    checked={checkedItems[item] || false}
+                    checked={checkedItems[getAllergyKey(item)] || false}
                     onChange={() => handleCheckboxChange(item)}
                   />
                 ))}
