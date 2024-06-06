@@ -92,8 +92,9 @@ const ContentBox = styled.div`
 `;
 
 const CheckboxBox = styled.div`
+  width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 8px;
 `;
 
