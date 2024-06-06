@@ -31,6 +31,7 @@ const Container = styled.div`
 `;
 
 const Background = styled.div`
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   padding: 20px;
