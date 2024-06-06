@@ -8,7 +8,7 @@ import Card from "@/components/common/Card";
 
 const WeeklyStudyList = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDay, setSelectedDay] = useState<number | null>(null);
+  const [selectedDay, setSelectedDay] = useState<number | null>(0);
   const Week = ["월", "화", "수", "목", "금"];
 
   /* 주의 시작일과 마지막일 계산 (월요일 ~ 금요일) */
@@ -97,8 +97,20 @@ const WeeklyStudyList = () => {
     return `${dateForDay.getDate()}`;
   };
 
+  /* selectedDay 필터 */
+  const getFilteredData = () => {
+    if (selectedDay === null) return [];
+
+    // selectedDay가 0부터 시작하므로 +1 해서 week 번호 맞춤
+    const selectedWeek = selectedDay + 1;
+
+    return TodayStudyData.filter((data) => data.week === selectedWeek);
+  };
+
+  const filteredData = getFilteredData();
+
   return (
-    <WhiteBox>
+    <StyledWhiteBox>
       <Container>
         <DateSelect>
           <DateLine>
@@ -136,8 +148,10 @@ const WeeklyStudyList = () => {
             ))}
           </CardList>
         </DateSelect>
+      </Container>
+      {diff === 0 && filteredData.length > 0 && (
         <TodayStudyList>
-          {WeekTodayStudyData.map((data) => (
+          {filteredData.map((data) => (
             <TodayStudyBox
               key={data.id}
               week={data.week}
@@ -146,12 +160,16 @@ const WeeklyStudyList = () => {
             />
           ))}
         </TodayStudyList>
-      </Container>
-    </WhiteBox>
+      )}
+    </StyledWhiteBox>
   );
 };
 
 export default WeeklyStudyList;
+
+const StyledWhiteBox = styled(WhiteBox)`
+  gap: 0;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -163,6 +181,7 @@ const TodayStudyList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-top: 15px;
 `;
 
 const DateSelect = styled.div`
