@@ -14,14 +14,13 @@ interface TodayStudyBoxProps {
 }
 
 const TodayStudyBox = (props: TodayStudyBoxProps) => {
-  const { week, subject, studies } = props;
+  const { subject, studies } = props;
 
   return (
     <Container>
       <LeftBox>
         <SubjectTag>{subject}</SubjectTag>
       </LeftBox>
-
       <RightBox>
         {studies.map((study) => (
           <Study key={study.id}>
@@ -44,17 +43,23 @@ const TodayStudyBox = (props: TodayStudyBoxProps) => {
 export default TodayStudyBox;
 
 const Container = styled.div`
+  width: 100%;
   background: ${({ theme }) => theme.colors.b80};
   padding: 12px;
   border-radius: 8px;
-
   display: flex;
   gap: 10px;
 `;
 
-const LeftBox = styled.div``;
+const LeftBox = styled.div`
+  width: 82px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
 
 const RightBox = styled.div`
+  width: calc(100% - 82px);
   display: flex;
   flex-direction: column;
   gap: 8px;
