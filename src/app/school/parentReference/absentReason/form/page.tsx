@@ -33,7 +33,11 @@ const AbsentReasonForm = () => {
         />
       </ImageBox>
       {writeForm && (
-        <FormPopup onClose={handleWriteFormClick} setShowToast={setShowToast} />
+        <FormPopup
+          type="absent"
+          onClose={handleWriteFormClick}
+          setShowToast={setShowToast}
+        />
       )}
       {showToast && (
         <Toast

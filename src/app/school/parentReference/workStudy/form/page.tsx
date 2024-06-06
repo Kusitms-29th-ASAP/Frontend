@@ -4,8 +4,17 @@ import Button from "@/components/common/Button";
 import Topbar from "@/components/common/Topbar";
 import styled from "styled-components";
 import Image from "next/image";
+import { useState } from "react";
+import FormPopup from "@/components/school/parentReference/FormPopup";
+import Toast from "@/components/common/Toast";
 
 const WorkStudyForm = () => {
+  const [writeForm, setWriteForm] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const handleWriteFormClick = () => {
+    setWriteForm(!writeForm);
+  };
+
   return (
     <Container>
       <div>
@@ -15,7 +24,7 @@ const WorkStudyForm = () => {
           작성을 시작해보세요
         </Title>
       </div>
-      <ImageBox style={{ width: "90%" }}>
+      <ImageBox style={{ width: "90%" }} onClick={handleWriteFormClick}>
         <Image
           src="/assets/school/workstudy_form.svg"
           alt="workstudy_form"
@@ -23,6 +32,21 @@ const WorkStudyForm = () => {
           objectFit="contain"
         />
       </ImageBox>
+      {writeForm && (
+        <FormPopup
+          type="work"
+          onClose={handleWriteFormClick}
+          setShowToast={setShowToast}
+        />
+      )}
+      {showToast && (
+        <Toast
+          message="제출이 완료되었어요!"
+          type="basic"
+          duration={3000}
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <Button type={"gray"} text={"제출하기"} />
     </Container>
   );
