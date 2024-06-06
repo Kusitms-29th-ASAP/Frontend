@@ -40,12 +40,20 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
   const [mealTable, setMealTable] = useState<MealTable[]>([]);
   /* 주간별 급식 데이터 */
   const [weeklyMealTable, setWeeklyMealTable] = useState<MealTable[][]>([]);
+  const [month, setMonth] = useState<string>("");
 
   useEffect(() => {
     Axios.get(`/api/v1/menus/month`)
       .then((response) => {
         const mealTableData: MealTable[] = response.data.menus;
         setMealTable(mealTableData);
+
+        /* 월 계산 */
+        let month = mealTableData[0].date.slice(5, 7);
+        if (month[0] === "0") {
+          month = month[1];
+        }
+        setMonth(month);
 
         const weeklyMealTable: MealTable[][] = [];
         let currentWeek: MealTable[] = [];
@@ -90,11 +98,13 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
   }, []);
 
   return (
-    <Popup onClose={onClose} title="5월 급식표" height="716px">
+    <Popup onClose={onClose} title={`${month}월 급식표`} height="716px">
       <StyledTable>
         {weeklyMealTable.map((week, weekIndex) => (
           <>
-            <Title>5월 {weekIndex + 1}주차</Title>
+            <Title>
+              {month}월 {weekIndex + 1}주차
+            </Title>
             <Week key={weekIndex}>
               {week.map((data, index) => (
                 <MenuCard key={index} date={data.date} foods={data.foods} />

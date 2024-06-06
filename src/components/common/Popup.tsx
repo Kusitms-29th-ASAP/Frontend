@@ -63,6 +63,13 @@ const Overlay = styled.div`
   z-index: 1000;
 `;
 
+/* 문자열 height 0.8배 계산 함수 ("800px(%)"=>"640px(%)") */
+const calculateHeight = (height: string) => {
+  const value = parseFloat(height);
+  const unit = height.replace(value.toString(), "");
+  return `${value * 0.8}${unit}`;
+};
+
 const StyledPopup = styled(motion.div)<{ height: string }>`
   max-width: 480px;
   width: 100%;
@@ -73,6 +80,10 @@ const StyledPopup = styled(motion.div)<{ height: string }>`
   color: ${theme.colors.b700};
   border-radius: 12px 12px 0px 0px;
   z-index: 300;
+
+  @media screen and (max-height: 800px) {
+    height: ${(props) => calculateHeight(props.height)};
+  }
 `;
 
 const Title = styled.div`
