@@ -64,6 +64,7 @@ const TimeTableBox = () => {
 export default TimeTableBox;
 
 const Container = styled.div`
+  min-width: 278px;
   display: flex;
   flex-direction: column;
   gap: 10px;

@@ -19,7 +19,9 @@ const TimeTable = () => {
           <DateSelect type={"week"} />
           <More text="일정 자세히 보기" onClick={handleDetailClick} />
         </TopBox>
-        <TimeTableBox />
+        <TimeTableBoxContainer>
+          <TimeTableBox />
+        </TimeTableBoxContainer>
       </Container>
     </WhiteBox>
   );
@@ -37,4 +39,12 @@ const TopBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media screen and (max-width: 360px) {
+    flex-direction: column;
+  }
+`;
+
+const TimeTableBoxContainer = styled.div`
+  overflow-x: scroll;
 `;

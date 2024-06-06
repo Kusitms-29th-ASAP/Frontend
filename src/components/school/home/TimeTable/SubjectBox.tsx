@@ -1,3 +1,4 @@
+import subjectTransformData from "@/data/subjectTransformData";
 import styled from "styled-components";
 
 interface SubjectBoxProps {
@@ -7,14 +8,17 @@ interface SubjectBoxProps {
 const SubjectBox = (props: SubjectBoxProps) => {
   const { subject } = props;
 
-  return <Container>{subject}</Container>;
+  const transformSubject = (subject: string) => {
+    return subjectTransformData[subject] || subject;
+  };
+
+  return <Container>{transformSubject(subject)}</Container>;
 };
 
 export default SubjectBox;
 
 const Container = styled.div`
   display: flex;
-  padding: 6px 10px;
   justify-content: center;
   align-items: center;
   height: 40px;
@@ -26,4 +30,8 @@ const Container = styled.div`
   border-radius: 6px;
   border: 1px solid ${({ theme }) => theme.colors.b200};
   background: ${({ theme }) => theme.colors.b50};
+
+  @media screen and (max-width: 380px) {
+    ${(props) => props.theme.fonts.caption2_m};
+  }
 `;
