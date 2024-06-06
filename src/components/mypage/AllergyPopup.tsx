@@ -21,10 +21,6 @@ const AllergyPopup = (props: AllergyProps) => {
     initialCheckedItems
   );
 
-  //   useEffect(() => {
-  //     setCheckedItems(initialCheckedItems); // 체크된 항목이 변경될 때 업데이트
-  //   }, [initialCheckedItems]);
-
   const handleCheckboxChange = (item: string) => {
     setCheckedItems((prev) => ({ ...prev, [item]: !prev[item] }));
   };
