@@ -65,6 +65,6 @@ export const allergiesData = [
   { Number: 15, Allergy: 'CHICKEN', Description: '닭고기' },
   { Number: 16, Allergy: 'BEEF', Description: '쇠고기' },
   { Number: 17, Allergy: 'SQUID', Description: '오징어' },
-  { Number: 18, Allergy: 'SHELLFISH', Description: '조개류(굴, 전복, 홍합 포함)' },
+  { Number: 18, Allergy: 'SHELLFISH', Description: '조개류' },
   { Number: 19, Allergy: 'PINE_NUT', Description: '잣' }
 ];

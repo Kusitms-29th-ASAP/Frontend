@@ -45,6 +45,16 @@ const AllergyPopup = (props: AllergyProps) => {
     const sortedAllergy = selectedAllergy.sort((a, b) => {
       const aIndex = allergiesData.findIndex((data) => data.Allergy === a);
       const bIndex = allergiesData.findIndex((data) => data.Allergy === b);
+
+      // 숫자 형식으로 변환
+      const aNumber = parseInt(a, 10);
+      const bNumber = parseInt(b, 10);
+
+      // 숫자를 기준으로 비교
+      if (!isNaN(aNumber) && !isNaN(bNumber)) {
+        return aNumber - bNumber;
+      }
+
       return aIndex - bIndex;
     });
 
