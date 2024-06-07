@@ -47,7 +47,7 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
       .then((response) => {
         const mealTableData: MealTable[] = response.data.menus;
         setMealTable(mealTableData);
-
+        console.log(mealTableData);
         /* 월 계산 */
         let month = mealTableData[0].date.slice(5, 7);
         if (month[0] === "0") {
@@ -74,7 +74,7 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
           if (
             (currentWeekStartDay !== null &&
               mealDay >= currentWeekStartDay &&
-              mealDay < currentWeekStartDay + 5 &&
+              mealDay < currentWeekStartDay + 6 &&
               mealDayOfWeek !== 0) || // 일요일 제외
             currentWeek.length === 0
           ) {
