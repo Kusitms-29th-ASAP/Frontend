@@ -11,7 +11,7 @@ export async function postKakaoToken(
 ): Promise<PostKakaoTokenResponse> {
   try {
     const response = await axios.post<PostKakaoTokenResponse>(
-      "https://api.ncp.simproject.kr/api/v1/auth/login/KAKAO",
+      "https://api.schoolpoint.site/api/v1/auth/login/KAKAO",
       {
         accessToken: accessToken,
       }
