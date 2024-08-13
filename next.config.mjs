@@ -30,14 +30,7 @@ export default withPlugins(
         },
       },
     ],
-    [
-      typescript,
-      {
-        typescriptLoaderOptions: {
-          transpileOnly: false,
-        },
-      },
-    ],
+    [typescript],
   ],
   nextConfig
 );

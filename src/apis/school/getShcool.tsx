@@ -7,7 +7,7 @@ interface GetSchoolResponse {
 
 export async function getSchool(keyword: string): Promise<GetSchoolResponse> {
   const response = await axios.get(
-    `https://api.ncp.simproject.kr/api/v1/schools?keyword=${keyword}`
+    `https://api.schoolpoint.site/api/v1/schools?keyword=${keyword}`
   );
   return response.data;
 }

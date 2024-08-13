@@ -47,7 +47,7 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
       .then((response) => {
         const mealTableData: MealTable[] = response.data.menus;
         setMealTable(mealTableData);
-
+        console.log(mealTableData);
         /* 월 계산 */
         let month = mealTableData[0].date.slice(5, 7);
         if (month[0] === "0") {
@@ -58,37 +58,31 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
         const weeklyMealTable: MealTable[][] = [];
         let currentWeek: MealTable[] = [];
         /* 주차별 시작일 */
-        let currentWeekStartDay: number | null = null;
 
         mealTableData.forEach((meal) => {
           const mealDate = new Date(meal.date);
-          const mealDay = mealDate.getDate();
           const mealDayOfWeek = mealDate.getDay();
 
-          /* 이번 주차 시작일 */
-          if (currentWeekStartDay === null) {
-            currentWeekStartDay = mealDay;
+          /* 주차별로 월요일에 새로운 주차를 시작 */
+          if (mealDayOfWeek === 1 && currentWeek.length > 0) {
+            weeklyMealTable.push(currentWeek);
+            currentWeek = [];
           }
 
-          /* 이번 주차에 있는 날짜인지 확인 */
+          currentWeek.push(meal);
+
+          /* 마지막 날에 현재 주차 데이터를 추가 */
+          const lastMealDate = new Date(
+            mealTableData[mealTableData.length - 1].date
+          );
           if (
-            (currentWeekStartDay !== null &&
-              mealDay >= currentWeekStartDay &&
-              mealDay < currentWeekStartDay + 5 &&
-              mealDayOfWeek !== 0) || // 일요일 제외
-            currentWeek.length === 0
+            mealDayOfWeek === 5 ||
+            mealDate.getTime() === lastMealDate.getTime()
           ) {
-            currentWeek.push(meal);
-          } else {
             weeklyMealTable.push(currentWeek);
-            currentWeek = [meal];
-            currentWeekStartDay = mealDay;
+            currentWeek = [];
           }
         });
-
-        if (currentWeek.length > 0) {
-          weeklyMealTable.push(currentWeek);
-        }
 
         setWeeklyMealTable(weeklyMealTable);
       })
