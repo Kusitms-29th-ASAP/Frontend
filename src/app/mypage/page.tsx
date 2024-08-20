@@ -48,7 +48,7 @@ const Mypage = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const [language, setLanguage] = useState<string>("");
-  const [fontSize, setFontSize] = useState<number>(FONT_SIZE[0].id);
+  const [fontSize, setFontSize] = useState<number>(1);
   const [openDropdown, setOpenDropdown] = useState(false);
 
   const userInfo = async () => {
@@ -80,10 +80,11 @@ const Mypage = () => {
     }
   };
 
-  const handleCheckboxChange = (item: { id: number }) => {
-    setFontSize(item.id);
+  const handleCheckboxChange = (item: { size: number }) => {
+    setFontSize(item.size);
+    localStorage.setItem("fontSize", item.size.toString());
 
-    localStorage.setItem("fontSize", item.id.toString());
+    window.location.reload();
   };
 
   const handleLogout = () => {
@@ -129,7 +130,7 @@ const Mypage = () => {
 
     const storedFontSize = localStorage.getItem("fontSize");
     if (storedFontSize) {
-      setFontSize(parseInt(storedFontSize));
+      setFontSize(parseFloat(storedFontSize));
     } else {
       localStorage.setItem("fontSize", 0 + "");
     }
@@ -233,7 +234,7 @@ const Mypage = () => {
                   key={item.id}
                   label={item.label}
                   checkboxType="checkBtn"
-                  checked={fontSize === item.id}
+                  checked={fontSize === item.size}
                   onChange={() => handleCheckboxChange(item)}
                   justifyContent="space-between"
                 />

@@ -35,11 +35,17 @@ interface Font {
   size: number;
 }
 
+const getFontSizeMultiplier = (): number => {
+    const storedFontSize = localStorage.getItem("fontSize");
+    return storedFontSize ? parseFloat(storedFontSize) : 1;
+};
+
 const FONT = ({ weight, size }: Font): string => {
+  const fontSizeMultiplier = getFontSizeMultiplier();
   return `
     font-family : "Pretendard";
     font-weight : ${weight};
-    font-size : ${size}px; 
+    font-size : ${size *fontSizeMultiplier}px; 
     line-height : ${size * 1.5}px;
     `;
 };
