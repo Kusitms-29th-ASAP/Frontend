@@ -4,6 +4,7 @@ import Image from "next/image";
 
 type checkboxType = "checkbox" | "grayCheckbox" | "checkBtn" | "checkArrow";
 type checkboxColor = "primary" | "gray" | "black";
+type justifyContentType = "" | "space-between";
 
 export interface CheckBoxProps {
   checkboxType?: checkboxType;
@@ -14,6 +15,7 @@ export interface CheckBoxProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   essential?: boolean;
   color?: checkboxColor;
+  justifyContent?: justifyContentType;
 }
 
 const Checkbox = (props: CheckBoxProps) => {
@@ -26,6 +28,7 @@ const Checkbox = (props: CheckBoxProps) => {
     onChange,
     essential,
     color = "gray",
+    justifyContent = "",
   } = props;
 
   let checkboxClassName = checkboxType;
@@ -38,6 +41,7 @@ const Checkbox = (props: CheckBoxProps) => {
       <CheckboxContainer
         essential={essential ? true : false}
         checked={checked || false}
+        justifyContent={justifyContent}
       >
         <CheckboxInput
           className={checkboxClassName}
@@ -47,7 +51,7 @@ const Checkbox = (props: CheckBoxProps) => {
           onChange={onChange}
         />
         {label}
-        <span className={checkboxClassName}>{text}</span>
+        {text && <span className={checkboxClassName}>{text}</span>}
       </CheckboxContainer>
       {checkboxType === "checkArrow" && (
         <Image
@@ -108,9 +112,11 @@ const CheckBoxLayout = styled.div<{ $check: boolean }>`
 const CheckboxContainer = styled.label<{
   essential: boolean;
   checked: boolean;
+  justifyContent: string;
 }>`
   display: flex;
   align-items: center;
+  justify-content: ${({ justifyContent }) => justifyContent && justifyContent};
   flex-grow: 1;
   cursor: pointer;
 

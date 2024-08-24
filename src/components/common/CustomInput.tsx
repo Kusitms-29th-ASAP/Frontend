@@ -101,7 +101,6 @@ const StyledInput = styled.input<CustomInputProps>`
     props.hidden ? "rgba(255, 135, 0, 0.01)" : theme.colors.b700};
   ${(props) => props.theme.fonts.body3_m};
   outline: none;
-  ${(props) => props.theme.fonts.caption1_m};
 
   &::placeholder {
     color: ${theme.colors.b400};
