@@ -46,7 +46,7 @@ const ListBox = (props: ListBoxProps) => {
   } = props;
 
   const [futureDate, setFutureDate] = useState("");
-  const [language, setLanguage] = useState<string | null>("ko");
+  const [language, setLanguage] = useState<string>("ko");
 
   useEffect(() => {
     setLanguage(localStorage.getItem("language") || "ko");
