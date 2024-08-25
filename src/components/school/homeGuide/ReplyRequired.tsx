@@ -1,12 +1,25 @@
 import ListBox from "@/components/common/ListBox";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { HomeGuideReplyRequiredData } from "@/data/notifyData";
 
 const ReplyRequired = () => {
   const router = useRouter();
+  const [language, setLanguage] = useState<string | null>("ko");
+
+  useEffect(() => {
+    setLanguage(localStorage.getItem("language") || "ko");
+  }, []);
+
   const handleHomeGuideClick = () => {
     router.push("/school/homeGuide/reply");
   };
+
+  const currentText =
+    HomeGuideReplyRequiredData[0][
+      language as keyof (typeof HomeGuideReplyRequiredData)[0]
+    ] || HomeGuideReplyRequiredData[0].ko;
 
   return (
     <Container>
@@ -18,15 +31,15 @@ const ReplyRequired = () => {
       </TitleBox>
       <ListBoxContainer>
         <ListBox
-          text={"현장체험학습 실시 찬반의견 조사"}
-          time={"회신 필요"}
+          text={currentText.listBox1.text}
+          time={currentText.listBox1.time}
           dday={2}
           color={"orange"}
           onClick={handleHomeGuideClick}
         />
         <ListBox
-          text={"방과후학교 프로그램 신청서"}
-          time={"제출 완료"}
+          text={currentText.listBox2.text}
+          time={currentText.listBox2.time}
           dday={5}
           color={"mint"}
           onClick={handleHomeGuideClick}

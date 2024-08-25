@@ -25,6 +25,7 @@ export interface ListBoxProps {
   onClick?: () => void;
   onDelete?: () => void;
 }
+
 const ListBox = (props: ListBoxProps) => {
   const {
     id,
@@ -45,27 +46,47 @@ const ListBox = (props: ListBoxProps) => {
   } = props;
 
   const [futureDate, setFutureDate] = useState("");
-  const [futureWeekday, setFutureWeekday] = useState("");
+  const [language, setLanguage] = useState<string | null>("ko");
+
+  useEffect(() => {
+    setLanguage(localStorage.getItem("language") || "ko");
+  }, []);
 
   useEffect(() => {
     const now = new Date();
     const future = new Date(now.setDate(now.getDate() + dday));
-    const futureDateString = future.toLocaleDateString("ko-KR", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-    setFutureDate(futureDateString);
-    setFutureWeekday(
-      future
-        .toLocaleDateString("ko-KR", { weekday: "short" })
-        .replace("요일", "")
-    );
-  }, [dday]);
 
-  const month = futureDate.split(" ")[1];
-  const day = futureDate.split(" ")[2];
+    const formatDateString = (date: Date) => {
+      const options: Intl.DateTimeFormatOptions = {
+        month: "short",
+        day: "numeric",
+      };
+
+      let formattedDate = date.toLocaleDateString(language, options);
+
+      switch (language) {
+        case "ko":
+          return `${formattedDate} (${future.toLocaleDateString(language, {
+            weekday: "short",
+          })}) 까지`;
+        case "en":
+          return `By ${formattedDate}`;
+        case "zh":
+          return `${formattedDate}`;
+        case "ja":
+          return `${formattedDate}`;
+        case "vi":
+          return `Trước ${formattedDate}`;
+        case "pi":
+          const day = date.getDate();
+          return `Hanggang ${day} Ago`;
+        default:
+          return `${formattedDate} 까지`;
+      }
+    };
+
+    setFutureDate(formatDateString(future));
+  }, [dday, language]);
 
   let listboxClassName = listboxType;
   if (color === "orange") {
@@ -99,7 +120,7 @@ const ListBox = (props: ListBoxProps) => {
                 </span>
               )}
               <span style={{ fontSize: "12px", fontWeight: "500" }}>
-                {month} {day} ({futureWeekday}) 까지
+                {futureDate}
               </span>
             </>
           )}
