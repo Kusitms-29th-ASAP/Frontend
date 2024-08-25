@@ -36,8 +36,11 @@ interface Font {
 }
 
 const getFontSizeMultiplier = (): number => {
+  if (typeof window !== "undefined") {
     const storedFontSize = localStorage.getItem("fontSize");
     return storedFontSize ? parseFloat(storedFontSize) : 1;
+  }
+  return 1;
 };
 
 const FONT = ({ weight, size }: Font): string => {
@@ -45,7 +48,7 @@ const FONT = ({ weight, size }: Font): string => {
   return `
     font-family : "Pretendard";
     font-weight : ${weight};
-    font-size : ${size *fontSizeMultiplier}px; 
+    font-size : ${size * fontSizeMultiplier}px; 
     line-height : ${size * 1.5}px;
     `;
 };
