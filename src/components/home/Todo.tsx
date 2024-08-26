@@ -10,6 +10,7 @@ import { setAudio } from "@/redux/slices/audioSlice";
 import { useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
+import { getSpeech } from "@/utils/getSpeech";
 
 interface Todo {
   todoId: number;
@@ -40,6 +41,7 @@ const Todo = () => {
       .then((response) => {
         const todoData: Todo[] = response.data.todoList;
         setTodoData(todoData);
+        console.log("조회", response);
       })
       .catch(() => {});
   }, [currentDate, render]);
@@ -48,6 +50,7 @@ const Todo = () => {
   const changeTodo = (todoId: number) => {
     Axios.put(`/api/v1/todos/${todoId}`).then((response) => {
       setRenderData(!render);
+      console.log("수정", response);
     });
   };
 
@@ -117,25 +120,39 @@ const Todo = () => {
   /* 날짜(일수) 차이 문자열 */
   const getDateString = (date: any) => {
     if (isToday(date)) {
-      return <span style={{ color: theme.colors.primary500 }}>오늘</span>;
+      return "오늘";
     } else {
       const diff = getDayDifference(date);
-      return (
-        <span style={{ color: theme.colors.primary500 }}>
-          {diff > 0 ? `${diff}일 전` : `${-diff}일 후`}
-        </span>
-      );
+      return diff > 0 ? `${diff}일 전` : `${-diff}일 후`;
     }
   };
+
+  /* 음성 변환 목소리 preload */
+  useEffect(() => {
+    window.speechSynthesis.getVoices();
+  }, []);
 
   const [voice, setVoice] = useState<boolean>(false);
 
   const test = useSelector((state: RootState) => state.audio.audio);
 
+  let date = `${todayMonth}월 ${todayDate}일 ${dayOfWeek}요일`;
+
   const handleVoiceConversion = () => {
     setVoice(!voice);
     console.log("audio", voice);
     dispatch(setAudio(voice));
+    const unassignedTodos = todoData
+      .filter((todo: Todo) => todo.status === "INCOMPLETE")
+      .map((todo: Todo) => todo.description + ".");
+    console.log("unassignedTodos", unassignedTodos);
+    const text =
+      date +
+      `.  ${getDateString(currentDate)} ${getDateString(currentDate) === "오늘" ? "해야할" : "했어야 할"} 일은.  ` +
+      unassignedTodos +
+      "입니다.";
+
+    getSpeech(text);
   };
 
   useEffect(() => {
@@ -168,7 +185,9 @@ const Todo = () => {
               style={{ cursor: "pointer" }}
             />
             {todayMonth}월 {todayDate}일 {dayOfWeek}요일
-            {getDateString(currentDate)}
+            <span style={{ color: theme.colors.primary500 }}>
+              {getDateString(currentDate)}
+            </span>
             <Image
               src="/assets/icons/ic_chevron_right.svg"
               alt="right"
