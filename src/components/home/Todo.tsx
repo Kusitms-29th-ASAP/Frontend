@@ -41,7 +41,6 @@ const Todo = () => {
       .then((response) => {
         const todoData: Todo[] = response.data.todoList;
         setTodoData(todoData);
-        console.log("조회", response);
       })
       .catch(() => {});
   }, [currentDate, render]);
@@ -50,7 +49,6 @@ const Todo = () => {
   const changeTodo = (todoId: number) => {
     Axios.put(`/api/v1/todos/${todoId}`).then((response) => {
       setRenderData(!render);
-      console.log("수정", response);
     });
   };
 

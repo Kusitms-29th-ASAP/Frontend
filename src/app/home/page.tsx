@@ -17,13 +17,7 @@ const Home = () => {
   const router = useRouter();
   const audio = useSelector((state: RootState) => state.audio.audio);
 
-  useEffect(() => {
-    if (audio) {
-      console.log("Audio is enabled");
-    } else {
-      console.log("Audio is disabled");
-    }
-  }, [audio]);
+  useEffect(() => {}, [audio]);
 
   return (
     <>
