@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 import AddTodoPopup, { categories } from "./AddTodoPopup";
 import Toast from "../common/Toast";
 import Axios from "@/apis/axios";
+import { setAudio } from "@/redux/slices/audioSlice";
+import { useDispatch } from "react-redux";
+import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
 
 interface Todo {
   todoId: number;
@@ -17,6 +21,7 @@ interface Todo {
 }
 
 const Todo = () => {
+  const dispatch = useDispatch();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [addTodo, setAddTodo] = useState(false);
   const [todoData, setTodoData] = useState<Todo[]>([]);
@@ -123,6 +128,20 @@ const Todo = () => {
     }
   };
 
+  const [voice, setVoice] = useState<boolean>(false);
+
+  const test = useSelector((state: RootState) => state.audio.audio);
+
+  const handleVoiceConversion = () => {
+    setVoice(!voice);
+    console.log("audio", voice);
+    dispatch(setAudio(voice));
+  };
+
+  useEffect(() => {
+    console.log("test", test);
+  }, [voice]);
+
   /* Toast 메세지 유무 */
   const [showToast, setShowToast] = useState(false);
 
@@ -135,90 +154,103 @@ const Todo = () => {
   };
 
   return (
-    <TodoContainer>
-      오늘 할 일 잊지마세요!
-      <DateLine>
-        <Image
-          src="/assets/icons/ic_chevron_left.svg"
-          alt="left"
-          width={20}
-          height={20}
-          onClick={handleBackDay}
-          style={{ cursor: "pointer" }}
-        />
-        {todayMonth}월 {todayDate}일 {dayOfWeek}요일
-        {getDateString(currentDate)}
-        <Image
-          src="/assets/icons/ic_chevron_right.svg"
-          alt="right"
-          width={20}
-          height={20}
-          onClick={handleForwardDay}
-          style={{
-            opacity: isToday(currentDate) ? 0.5 : 1,
-            cursor: isToday(currentDate) ? "" : "pointer",
-          }}
-        />
-      </DateLine>
-      <TodoLists>
-        {todoData && todoData.length > 0 ? (
-          todoData.map((data, index) => (
-            <ListBox
-              key={index}
-              id={data.todoId}
-              listboxType={data.isAssigned ? "check" : "direct"}
-              color={data.deadline === "내일까지" ? "orange" : "mint"}
-              type={
-                categories.find((category) => category.value === data.todoType)
-                  ?.label || data.todoType
-              }
-              onClick={() => {
-                changeTodo(data.todoId);
-              }}
-              text={data.description}
-              time={`${getDayOfWeek(data.deadline)}까지`}
-              checked={data.status === "COMPLETE"}
-              onDelete={() => deleteTodo(data.todoId)}
+    <>
+      <TodoContainer $overlay={voice}>
+        오늘 할 일 잊지마세요!
+        <Row>
+          <DateLine>
+            <Image
+              src="/assets/icons/ic_chevron_left.svg"
+              alt="left"
+              width={20}
+              height={20}
+              onClick={handleBackDay}
+              style={{ cursor: "pointer" }}
             />
-          ))
-        ) : (
-          <NoData>할 일이 없어요!</NoData>
-        )}
-      </TodoLists>
-      <Plus>
-        <PlusButton onClick={handleOpenAddTodo}>
+            {todayMonth}월 {todayDate}일 {dayOfWeek}요일
+            {getDateString(currentDate)}
+            <Image
+              src="/assets/icons/ic_chevron_right.svg"
+              alt="right"
+              width={20}
+              height={20}
+              onClick={handleForwardDay}
+              style={{
+                opacity: isToday(currentDate) ? 0.5 : 1,
+                cursor: isToday(currentDate) ? "" : "pointer",
+              }}
+            />
+          </DateLine>
           <Image
-            src="/assets/icons/ic_plus.svg"
-            alt="add"
-            width={20}
-            height={20}
+            src="/assets/icons/ic_volumn.svg"
+            alt="sound"
+            width={21}
+            height={21}
+            onClick={handleVoiceConversion}
+            style={{ cursor: "pointer" }}
           />
-          할 일 직접 추가하기
-        </PlusButton>
-      </Plus>
-      {addTodo && (
-        <AddTodoPopup
-          onClose={handleCloseAddTodo}
-          setShowToast={setShowToast}
-          render={render}
-          setRenderData={setRenderData}
-        />
-      )}
-      {showToast && (
-        <Toast
-          message="할 일이 추가되었어요!"
-          type="basic"
-          duration={2000}
-          onClose={() => setShowToast(false)}
-        />
-      )}
-    </TodoContainer>
+        </Row>
+        <TodoLists>
+          {todoData && todoData.length > 0 ? (
+            todoData.map((data, index) => (
+              <ListBox
+                key={index}
+                id={data.todoId}
+                listboxType={data.isAssigned ? "check" : "direct"}
+                color={data.deadline === "내일까지" ? "orange" : "mint"}
+                type={
+                  categories.find(
+                    (category) => category.value === data.todoType
+                  )?.label || data.todoType
+                }
+                onClick={() => {
+                  changeTodo(data.todoId);
+                }}
+                text={data.description}
+                time={`${getDayOfWeek(data.deadline)}까지`}
+                checked={data.status === "COMPLETE"}
+                onDelete={() => deleteTodo(data.todoId)}
+              />
+            ))
+          ) : (
+            <NoData>할 일이 없어요!</NoData>
+          )}
+        </TodoLists>
+        <Plus>
+          <PlusButton onClick={handleOpenAddTodo}>
+            <Image
+              src="/assets/icons/ic_plus.svg"
+              alt="add"
+              width={20}
+              height={20}
+            />
+            할 일 직접 추가하기
+          </PlusButton>
+        </Plus>
+        {addTodo && (
+          <AddTodoPopup
+            onClose={handleCloseAddTodo}
+            setShowToast={setShowToast}
+            render={render}
+            setRenderData={setRenderData}
+          />
+        )}
+        {showToast && (
+          <Toast
+            message="할 일이 추가되었어요!"
+            type="basic"
+            duration={2000}
+            onClose={() => setShowToast(false)}
+          />
+        )}
+      </TodoContainer>
+    </>
   );
 };
 
 export default Todo;
 
-const TodoContainer = styled.div`
+const TodoContainer = styled.div<{ $overlay: boolean }>`
   width: 100%;
   padding: 16px;
   gap: 10px;
@@ -227,9 +259,14 @@ const TodoContainer = styled.div`
   box-shadow: 0px 0px 64px 0px rgba(30, 41, 59, 0.1);
   ${(props) => props.theme.fonts.body2_b};
   color: ${theme.colors.b700};
-  z-index: 10;
+  z-index: 2000;
   letter-spacing: -0.28px;
-  position: relative;
+`;
+
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const DateLine = styled.div`

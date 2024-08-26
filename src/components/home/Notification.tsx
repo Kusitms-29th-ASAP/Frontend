@@ -63,6 +63,7 @@ const NotiContainer = styled.div`
   ${(props) => props.theme.fonts.body2_b};
   color: ${theme.colors.b700};
   letter-spacing: -0.28px;
+  z-index: -10;
 `;
 
 const Title = styled.div`

@@ -59,8 +59,8 @@ const Ready = () => {
           height={230}
         />
       </Top>
-      <Todo />
-      <Notification />
+      {/* <Todo />
+      <Notification /> */}
     </Box>
   );
 };
