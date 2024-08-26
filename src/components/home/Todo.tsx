@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme } from "@/styles/theme";
 import Image from "next/image";
 import ListBox from "../common/ListBox";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AddTodoPopup, { categories } from "./AddTodoPopup";
 import Toast from "../common/Toast";
 import Axios from "@/apis/axios";
@@ -132,21 +132,14 @@ const Todo = () => {
     window.speechSynthesis.getVoices();
   }, []);
 
-  const [voice, setVoice] = useState<boolean>(false);
-
-  const test = useSelector((state: RootState) => state.audio.audio);
-
   let date = `${todayMonth}월 ${todayDate}일 ${dayOfWeek}요일`;
 
   const handleVoiceConversion = () => {
-    setVoice(true);
-    console.log("audio", voice);
     dispatch(setAudio(true));
 
     const unassignedTodos = todoData
       .filter((todo: Todo) => todo.status === "INCOMPLETE")
       .map((todo: Todo) => todo.description + ".");
-    console.log("unassignedTodos", unassignedTodos);
 
     const text =
       date +
@@ -155,14 +148,28 @@ const Todo = () => {
       "입니다.";
 
     getSpeech(text, () => {
-      setVoice(false);
       dispatch(setAudio(false));
     });
   };
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    console.log("test", test);
-  }, [voice]);
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        window.speechSynthesis.cancel();
+        dispatch(setAudio(false));
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dispatch]);
 
   /* Toast 메세지 유무 */
   const [showToast, setShowToast] = useState(false);
@@ -177,7 +184,7 @@ const Todo = () => {
 
   return (
     <>
-      <TodoContainer $overlay={voice}>
+      <TodoContainer ref={containerRef}>
         오늘 할 일 잊지마세요!
         <Row>
           <DateLine>
@@ -274,7 +281,7 @@ const Todo = () => {
 
 export default Todo;
 
-const TodoContainer = styled.div<{ $overlay: boolean }>`
+const TodoContainer = styled.div`
   width: 100%;
   padding: 16px;
   gap: 10px;
