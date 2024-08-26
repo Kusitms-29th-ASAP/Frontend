@@ -1,4 +1,4 @@
-export const getSpeech = (text: string) => {
+export const getSpeech = (text: string, onEndCallback?: () => void) => {
   let voices: any[] = [];
 
   const setVoiceList = () => {
@@ -10,6 +10,8 @@ export const getSpeech = (text: string) => {
   if (window.speechSynthesis.onvoiceschanged !== undefined) {
     window.speechSynthesis.onvoiceschanged = setVoiceList;
   }
+
+  window.speechSynthesis.cancel();
 
   const speech = (txt: string) => {
     const lang = "ko-KR";
@@ -25,6 +27,10 @@ export const getSpeech = (text: string) => {
       utterThis.voice = kor_voice;
     } else {
       return;
+    }
+
+    if (onEndCallback) {
+      utterThis.onend = onEndCallback;
     }
 
     window.speechSynthesis.speak(utterThis);

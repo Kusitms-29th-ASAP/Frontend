@@ -139,20 +139,25 @@ const Todo = () => {
   let date = `${todayMonth}월 ${todayDate}일 ${dayOfWeek}요일`;
 
   const handleVoiceConversion = () => {
-    setVoice(!voice);
+    setVoice(true);
     console.log("audio", voice);
-    dispatch(setAudio(voice));
+    dispatch(setAudio(true));
+
     const unassignedTodos = todoData
       .filter((todo: Todo) => todo.status === "INCOMPLETE")
       .map((todo: Todo) => todo.description + ".");
     console.log("unassignedTodos", unassignedTodos);
+
     const text =
       date +
       `.  ${getDateString(currentDate)} ${getDateString(currentDate) === "오늘" ? "해야할" : "했어야 할"} 일은.  ` +
       unassignedTodos +
       "입니다.";
 
-    getSpeech(text);
+    getSpeech(text, () => {
+      setVoice(false);
+      dispatch(setAudio(false));
+    });
   };
 
   useEffect(() => {
