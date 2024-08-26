@@ -1,11 +1,32 @@
 import CustomInput from "@/components/common/CustomInput";
 import ListBox from "@/components/common/ListBox";
-import { HomeGideReplyCompletedData } from "@/data/notifyData";
-import { useState } from "react";
+import { HomeGuideReplyCompletedData } from "@/data/notifyData";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
+const weekTranslations = {
+  ko: "지난주",
+  en: "Last week",
+  zh: "上周",
+  ja: "先週",
+  vi: "Tuần trước",
+};
+
 const ReplyCompleted = () => {
-  const [selected, setSelected] = useState<string>("지난주");
+  const [language, setLanguage] = useState<"ko" | "en" | "zh" | "ja" | "vi">(
+    "ko"
+  );
+  const selected = weekTranslations[language];
+
+  useEffect(() => {
+    const lang = localStorage.getItem("language") as
+      | "ko"
+      | "en"
+      | "zh"
+      | "ja"
+      | "vi";
+    setLanguage(lang);
+  }, []);
 
   return (
     <>
@@ -17,13 +38,13 @@ const ReplyCompleted = () => {
         <CustomInput inputType="select" value={selected} onChange={() => {}} />
       </Container>
       <Background>
-        {HomeGideReplyCompletedData.map((data) => (
+        {HomeGuideReplyCompletedData.map((data) => (
           <ListBox
             key={data.id}
-            time={"제출 완료"}
+            time={data.content[language].time}
             listboxType={"content"}
-            content1={data.content1}
-            content2={data.content2}
+            content1={data.content[language].content1}
+            content2={data.content[language].content2}
             color={"mint"}
           />
         ))}

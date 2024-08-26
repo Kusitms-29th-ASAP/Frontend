@@ -4,16 +4,26 @@ import Button from "@/components/common/Button";
 import Topbar from "@/components/common/Topbar";
 import styled from "styled-components";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Toast from "@/components/common/Toast";
 import FormPopup from "@/components/school/homeGuide/FormPopup";
+import { ToastMessages } from "@/data/toastMessagesData";
 
 const HomeGuideForm = () => {
   const [writeForm, setWriteForm] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [language, setLanguage] = useState<string>("ko");
+
+  useEffect(() => {
+    const lang = localStorage.getItem("language") || "ko";
+    setLanguage(lang);
+  }, []);
+
   const handleWriteFormClick = () => {
     setWriteForm(!writeForm);
   };
+
+  const message = ToastMessages[language as keyof typeof ToastMessages];
 
   return (
     <Container>
@@ -37,7 +47,7 @@ const HomeGuideForm = () => {
       )}
       {showToast && (
         <Toast
-          message="제출이 완료되었어요!"
+          message={message}
           type="basic"
           duration={3000}
           onClose={() => setShowToast(false)}
