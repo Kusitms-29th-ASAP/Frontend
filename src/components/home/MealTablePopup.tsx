@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Popup from "../common/Popup";
 import { useEffect, useState } from "react";
 import Axios from "@/apis/axios";
+import { dayText, monthText, weekText } from "@/data/mealData";
 
 interface MealTable {
   date: string;
@@ -21,9 +22,15 @@ const MenuCard = ({
     day = day[1];
   }
 
+  const [language, setLanguage] = useState<string>("ko");
+
+  useEffect(() => {
+    setLanguage(localStorage.getItem("language") || "ko");
+  }, []);
+
   return (
     <Card>
-      <DateBox>{day}일</DateBox>
+      <DateBox>{dayText(day, language)}</DateBox>
       <Menus>
         {foods.map((item, index) => (
           <MenuItem key={index} $warning={item.warning}>
@@ -41,6 +48,11 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
   /* 주간별 급식 데이터 */
   const [weeklyMealTable, setWeeklyMealTable] = useState<MealTable[][]>([]);
   const [month, setMonth] = useState<string>("");
+  const [language, setLanguage] = useState<string>("ko");
+
+  useEffect(() => {
+    setLanguage(localStorage.getItem("language") || "ko");
+  }, []);
 
   useEffect(() => {
     Axios.get(`/api/v1/menus/month`)
@@ -92,13 +104,15 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
   }, []);
 
   return (
-    <Popup onClose={onClose} title={`${month}월 급식표`} height="716px">
+    <Popup
+      onClose={onClose}
+      title={`${monthText(month, language)}`}
+      height="716px"
+    >
       <StyledTable>
         {weeklyMealTable.map((week, weekIndex) => (
           <>
-            <Title>
-              {month}월 {weekIndex + 1}주차
-            </Title>
+            <Title>{weekText(month, weekIndex + 1, language)}</Title>
             <Week key={weekIndex}>
               {week.map((data, index) => (
                 <MenuCard key={index} date={data.date} foods={data.foods} />

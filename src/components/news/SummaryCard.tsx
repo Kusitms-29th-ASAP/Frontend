@@ -1,7 +1,9 @@
 import ListNumber from "@/components/common/ListNumber";
+import { newText } from "@/data/newsData";
 import { theme } from "@/styles/theme";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 interface Line {
@@ -23,19 +25,89 @@ interface AnnouncementsProps {
 }
 
 interface CategoryMap {
-  [key: string]: string;
+  [key: string]: {
+    ko: string;
+    en: string;
+    zh: string;
+    ja: string;
+    vi: string;
+    pi: string;
+  };
 }
 
 const categoryMap: CategoryMap = {
-  NONE: "미선택",
-  MENU: "급식",
-  INTERNAL_EXTERNAL_PROGRAM: "교내외 프로그램",
-  SCHOOL_MANAGEMENT: "학교 운영",
-  HEALTH: "보건",
-  SCHOOL_SCHEDULE: "학교 일정",
-  EDUCATION_BENEFIT: "교육 혜택",
-  LIFE_SAFE: "생활/안전",
-  ETC: "기타",
+  NONE: {
+    ko: "미선택",
+    en: "None",
+    zh: "到明天为止",
+    ja: "明日までに",
+    vi: "Đến-ngày Mai",
+    pi: "Hanggang-Bukas",
+  },
+  MENU: {
+    ko: "급식",
+    en: "Lunch",
+    zh: "餐",
+    ja: "給食",
+    vi: "Ăn trưa",
+    pi: "Kain",
+  },
+  INTERNAL_EXTERNAL_PROGRAM: {
+    ko: "교내외 프로그램",
+    en: "Program",
+    zh: "程序",
+    ja: "プログラム",
+    vi: "Chương trình",
+    pi: "Programa",
+  },
+  SCHOOL_MANAGEMENT: {
+    ko: "학교 운영",
+    en: "Operation",
+    zh: "运营",
+    ja: "運営",
+    vi: "Vận hành",
+    pi: "Pamamahala",
+  },
+  HEALTH: {
+    ko: "보건",
+    en: "None",
+    zh: "健康",
+    ja: "健康",
+    vi: "Sức khỏe",
+    pi: "Kalusugan",
+  },
+  SCHOOL_SCHEDULE: {
+    ko: "학교 일정",
+    en: "Schedule",
+    zh: "日程",
+    ja: "予定",
+    vi: "Lịch",
+    pi: "Iskedyul",
+  },
+  EDUCATION_BENEFIT: {
+    ko: "교육 혜택",
+    en: "Benefit",
+    zh: "优惠",
+    ja: "特典",
+    vi: "Lợi ích",
+    pi: "Benepisyo",
+  },
+  LIFE_SAFE: {
+    ko: "생활/안전",
+    en: "Safety",
+    zh: "安全",
+    ja: "安全",
+    vi: "An toàn",
+    pi: "Ligtas",
+  },
+  ETC: {
+    ko: "기타",
+    en: "ETC",
+    zh: "等",
+    ja: "等",
+    vi: "Vân vân",
+    pi: "Atbp",
+  },
 };
 
 const SummaryCard = (props: AnnouncementsProps) => {
@@ -53,6 +125,11 @@ const SummaryCard = (props: AnnouncementsProps) => {
   } = props;
 
   const router = useRouter();
+  const [language, setLanguage] = useState<string>("ko");
+
+  useEffect(() => {
+    setLanguage(localStorage.getItem("language") || "ko");
+  }, []);
 
   const handleCardClick = (type: string, announcementId: number) => {
     router.push(`/news/${type}/${announcementId}`);
@@ -69,8 +146,16 @@ const SummaryCard = (props: AnnouncementsProps) => {
     >
       <Top>
         <Label>
-          {isNew && <New>NEW</New>}
-          {category !== "NONE" && <Category>{categoryMap[category]}</Category>}
+          {isNew && <New>{newText[language as keyof typeof newText]}</New>}
+          {category !== "NONE" && (
+            <Category>
+              {
+                categoryMap[category][
+                  language as keyof (typeof categoryMap)[keyof CategoryMap]
+                ]
+              }
+            </Category>
+          )}
         </Label>
       </Top>
       <Title className={summaryType}>{title}</Title>

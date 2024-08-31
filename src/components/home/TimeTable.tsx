@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Card, { CardProps } from "../common/Card";
 import Axios from "@/apis/axios";
 import { useEffect, useState } from "react";
+import { noDataMessage } from "@/data/timeTableData";
 
 interface Timetable {
   time: number;
@@ -13,6 +14,12 @@ const TimeTable = () => {
   const [timeToday, setTimeToday] = useState<Timetable[]>([]);
   let now = new Date();
   const week = ["일", "월", "화", "수", "목", "금", "토"];
+
+  const [language, setLanguage] = useState<string>("ko");
+
+  useEffect(() => {
+    setLanguage(localStorage.getItem("language") || "ko");
+  }, []);
 
   useEffect(() => {
     Axios.get(`/api/v1/timetables/today`)
@@ -38,7 +45,9 @@ const TimeTable = () => {
             />
           ))
         ) : (
-          <NoData>시간표 정보가 없어요 :(</NoData>
+          <NoData>
+            {noDataMessage[language as keyof typeof noDataMessage]}
+          </NoData>
         )}
       </TableContainer>
     </TimeContainer>
