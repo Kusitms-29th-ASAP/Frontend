@@ -1,6 +1,8 @@
 import { theme } from "@/styles/theme";
 import styled from "styled-components";
 import SummaryCard from "./SummaryCard";
+import { summaryTranslation } from "@/data/newsData";
+import { useEffect, useState } from "react";
 
 export type summaryType = "simple" | "detail";
 
@@ -28,10 +30,18 @@ const Summary = ({
   type: string;
   dummyData: AnnouncementsProps[];
 }) => {
+  const [language, setLanguage] = useState<string>("ko");
+
+  useEffect(() => {
+    setLanguage(localStorage.getItem("language") || "ko");
+  }, []);
+
   return (
     <Container>
       <Content>
-        <Title>가정통신문, 세 문장 요약해드려요</Title>
+        <Title>
+          {summaryTranslation[language as keyof typeof summaryTranslation]}
+        </Title>
         {dummyData.map((data, index) => (
           <SummaryCard
             type={type === "school" ? "school" : "eduOffice"}
