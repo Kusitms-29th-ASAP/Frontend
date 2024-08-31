@@ -152,8 +152,9 @@ const Todo = () => {
     const text =
       date +
       `.  ${getDateString(currentDate)} ${getDateString(currentDate) === "오늘" ? "해야할" : "했어야 할"} 일은.  ` +
-      unassignedTodos +
-      "입니다.";
+      (unassignedTodos.length > 0
+        ? `${unassignedTodos.join(" ")} 입니다.`
+        : "없습니다.");
 
     getSpeech(text, () => {
       dispatch(setAudio(false));
@@ -220,14 +221,16 @@ const Todo = () => {
               }}
             />
           </DateLine>
-          <Image
-            src="/assets/icons/ic_volumn.svg"
-            alt="sound"
-            width={21}
-            height={21}
-            onClick={handleVoiceConversion}
-            style={{ cursor: "pointer" }}
-          />
+          {language === "ko" && (
+            <Image
+              src="/assets/icons/ic_volumn.svg"
+              alt="sound"
+              width={21}
+              height={21}
+              onClick={handleVoiceConversion}
+              style={{ cursor: "pointer" }}
+            />
+          )}
         </Row>
         <TodoLists>
           {todoData && todoData.length > 0 ? (
