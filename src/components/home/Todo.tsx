@@ -16,6 +16,7 @@ import {
   LanguageKeys,
   noTodoMessage,
 } from "@/data/todoData";
+import { addTodoToast } from "@/data/toastMessagesData";
 
 interface Todo {
   todoId: number;
@@ -281,7 +282,7 @@ const Todo = () => {
         )}
         {showToast && (
           <Toast
-            message="할 일이 추가되었어요!"
+            message={`${addTodoToast[language as keyof typeof addTodoToast]}`}
             type="basic"
             duration={2000}
             onClose={() => setShowToast(false)}
