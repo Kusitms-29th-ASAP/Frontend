@@ -1,19 +1,18 @@
 import { theme } from "@/styles/theme";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../common/Button";
 import CustomInput from "../common/CustomInput";
 import Popup from "../common/Popup";
 import Calendar from "../common/Calendar";
 import Axios from "@/apis/axios";
-
-export const categories = [
-  { value: "SCHOOL_ANNOUNCEMENT", label: "가정통신문" },
-  { value: "HOMEWORK", label: "숙제" },
-  { value: "SUPPLY", label: "준비물" },
-  { value: "ETC", label: "기타" },
-  { value: "NONE", label: "없음" },
-];
+import {
+  addTodoMessage,
+  categories,
+  LanguageKeys,
+  submitMessage,
+  whenTodoMessage,
+} from "@/data/todoData";
 
 interface AddTodoPopupProps {
   onClose: () => void;
@@ -32,6 +31,11 @@ const AddTodoPopup = ({
   const [category, setCategory] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const isButtonEnabled = todo !== "" && category !== "" && selectedDate !== "";
+  const [language, setLanguage] = useState<string>("ko");
+
+  useEffect(() => {
+    setLanguage(localStorage.getItem("language") || "ko");
+  }, []);
 
   const handleCategoryChange = (value: string) => {
     setCategory(value);
@@ -70,7 +74,11 @@ const AddTodoPopup = ({
 
   return (
     <>
-      <Popup onClose={onClose} title="할 일 직접 추가하기" height="435px">
+      <Popup
+        onClose={onClose}
+        title={`${addTodoMessage[language as keyof typeof addTodoMessage]}`}
+        height="435px"
+      >
         <CustomInput
           value={todo}
           placeholder="할 일을 입력해주세요"
@@ -83,16 +91,16 @@ const AddTodoPopup = ({
               selected={category === categoryItem.value}
               onClick={() => handleCategoryChange(categoryItem.value)}
             >
-              {categoryItem.label}
+              {categoryItem.label[language as LanguageKeys]}
             </RadioButton>
           ))}
         </RadioButtonGroup>
         <SubTitle>
-          언제까지 할 일인가요?
+          {whenTodoMessage[language as keyof typeof whenTodoMessage]}
           <Calendar value={selectedDate} onChange={handleDateChange} />
         </SubTitle>
         <Button
-          text="등록하기"
+          text={`${submitMessage[language as keyof typeof submitMessage]}`}
           onClick={handleButtonClick}
           disabled={!isButtonEnabled}
         />

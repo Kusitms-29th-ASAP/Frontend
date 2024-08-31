@@ -3,14 +3,19 @@ import { theme } from "@/styles/theme";
 import Image from "next/image";
 import ListBox from "../common/ListBox";
 import { useEffect, useRef, useState } from "react";
-import AddTodoPopup, { categories } from "./AddTodoPopup";
+import AddTodoPopup from "./AddTodoPopup";
 import Toast from "../common/Toast";
 import Axios from "@/apis/axios";
 import { setAudio } from "@/redux/slices/audioSlice";
 import { useDispatch } from "react-redux";
-import { RootState } from "@/redux/store";
-import { useSelector } from "react-redux";
 import { getSpeech } from "@/utils/getSpeech";
+import {
+  addTodoMessage,
+  categories,
+  dayOfWeekText,
+  LanguageKeys,
+  noTodoMessage,
+} from "@/data/todoData";
 
 interface Todo {
   todoId: number;
@@ -29,11 +34,16 @@ const Todo = () => {
   /* useEffect에서 의존성 배열로 넘기는, 렌더링 알림 역할 */
   const [render, setRenderData] = useState(false);
   const week = ["일", "월", "화", "수", "목", "금", "토"];
+  const [language, setLanguage] = useState<string>("ko");
 
   /* 날짜를 yyyy-mm-dd 형식으로 변환하는 함수 */
   const formatDate = (date: Date) => {
     return date.toISOString().split("T")[0];
   };
+
+  useEffect(() => {
+    setLanguage(localStorage.getItem("language") || "ko");
+  }, []);
 
   useEffect(() => {
     let formattedDate = formatDate(currentDate);
@@ -230,19 +240,21 @@ const Todo = () => {
                 type={
                   categories.find(
                     (category) => category.value === data.todoType
-                  )?.label || data.todoType
+                  )?.label[language as LanguageKeys] || data.todoType
                 }
                 onClick={() => {
                   changeTodo(data.todoId);
                 }}
                 text={data.description}
-                time={`${getDayOfWeek(data.deadline)}까지`}
+                time={`${dayOfWeekText(getDayOfWeek(data.deadline))[language as keyof typeof dayOfWeekText]}`}
                 checked={data.status === "COMPLETE"}
                 onDelete={() => deleteTodo(data.todoId)}
               />
             ))
           ) : (
-            <NoData>할 일이 없어요!</NoData>
+            <NoData>
+              {noTodoMessage[language as keyof typeof noTodoMessage]}
+            </NoData>
           )}
         </TodoLists>
         <Plus>
@@ -253,7 +265,7 @@ const Todo = () => {
               width={20}
               height={20}
             />
-            할 일 직접 추가하기
+            {addTodoMessage[language as keyof typeof addTodoMessage]}
           </PlusButton>
         </Plus>
         {addTodo && (
