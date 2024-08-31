@@ -30,10 +30,7 @@ const MenuCard = ({
 
   return (
     <Card>
-      <DateBox>
-        {day}
-        {dayText[language as keyof typeof dayText]}
-      </DateBox>
+      <DateBox>{dayText(day, language)}</DateBox>
       <Menus>
         {foods.map((item, index) => (
           <MenuItem key={index} $warning={item.warning}>
@@ -109,16 +106,13 @@ const MealTablePopup = ({ onClose }: { onClose: () => void }) => {
   return (
     <Popup
       onClose={onClose}
-      title={`${monthText(month, language)}월 급식표`}
+      title={`${monthText(month, language)}`}
       height="716px"
     >
       <StyledTable>
         {weeklyMealTable.map((week, weekIndex) => (
           <>
-            <Title>
-              {weekText(month, weekIndex + 1, language)}
-              {/* {month}월 {weekIndex + 1}주차 */}
-            </Title>
+            <Title>{weekText(month, weekIndex + 1, language)}</Title>
             <Week key={weekIndex}>
               {week.map((data, index) => (
                 <MenuCard key={index} date={data.date} foods={data.foods} />

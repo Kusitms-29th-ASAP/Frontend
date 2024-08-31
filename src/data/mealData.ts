@@ -9,7 +9,7 @@ export const cautionMessage = {
 
   export const noDataMessage = {
     ko: "급식 정보가 없어요 :(",
-    en: "I don't have any information about school meals :(",
+    en: "No information about school meals :(",
     zh: "伙食信息不存在 :(",
     ja: "給食情報がありません :(",
     vi: "Không có thông tin về bữa ăn :(",
@@ -54,11 +54,21 @@ export const cautionMessage = {
     }
   };
 
-  export const dayText = {
-    ko: "일",
-    en: "Day",
-    zh: "日",
-    ja: "日",
-    vi: "Ngày",
-    pi: "Araw",
+  export const dayText = (day:string, language:string) => {
+    switch(language) {
+        case "ko":
+            return `${day}일`;
+        case "en":
+            return `Day ${day}`;
+        case "zh":
+            return `${day}日`;
+        case "ja":
+            return `${day}日`;
+        case "vi":
+            return `Ngày ${day}`;
+        case "pi":
+            return `${day} araw`;
+        default:
+            return null;
+    }
   };

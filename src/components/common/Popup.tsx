@@ -98,11 +98,13 @@ const Title = styled.div`
   position: sticky;
   top: 0;
   background: ${theme.colors.white};
-  z-index: 1;
+  z-index: 100;
 `;
 
 const TitleBox = styled.div`
   width: 100%;
+  background: ${theme.colors.white};
+  z-index: 100;
 `;
 
 const ImageBox = styled.div`
