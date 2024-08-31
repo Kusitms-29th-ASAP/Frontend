@@ -8,9 +8,11 @@ import Calendar from "../common/Calendar";
 import Axios from "@/apis/axios";
 import {
   addTodoMessage,
+  calendarPlaceHolder,
   categories,
   LanguageKeys,
   submitMessage,
+  todoPlaceHolder,
   whenTodoMessage,
 } from "@/data/todoData";
 
@@ -81,7 +83,7 @@ const AddTodoPopup = ({
       >
         <CustomInput
           value={todo}
-          placeholder="할 일을 입력해주세요"
+          placeholder={`${todoPlaceHolder[language as keyof typeof todoPlaceHolder]}`}
           onChange={(value: string) => setTodo(value)}
         />
         <RadioButtonGroup>
@@ -97,7 +99,11 @@ const AddTodoPopup = ({
         </RadioButtonGroup>
         <SubTitle>
           {whenTodoMessage[language as keyof typeof whenTodoMessage]}
-          <Calendar value={selectedDate} onChange={handleDateChange} />
+          <Calendar
+            value={selectedDate}
+            onChange={handleDateChange}
+            placeholder={`${calendarPlaceHolder[language as keyof typeof calendarPlaceHolder]}`}
+          />
         </SubTitle>
         <Button
           text={`${submitMessage[language as keyof typeof submitMessage]}`}
@@ -124,6 +130,7 @@ const RadioButtonGroup = styled.div`
   display: flex;
   margin: 12px 0px 24px 0px;
   gap: 8px;
+  overflow-x: scroll;
 `;
 
 const RadioButton = styled.label<{ selected: boolean }>`
@@ -139,5 +146,6 @@ const RadioButton = styled.label<{ selected: boolean }>`
   color: ${(props) =>
     props.selected ? theme.colors.primary500 : theme.colors.b500};
   cursor: pointer;
+  white-space: nowrap;
   ${(props) => props.theme.fonts.body3_m};
 `;

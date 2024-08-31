@@ -139,6 +139,15 @@ export const dayOfWeekText = (day: string) => {
     pi: "Direktang Magdagdag ng Gawain",
   };
   
+  export const todoPlaceHolder = {
+    ko: "할 일을 입력해주세요",
+    en: "Please enter a task",
+    zh: "请输入任务",
+    ja: "タスクを入力してください",
+    vi: "Vui lòng nhập công việc",
+    pi: "Pakilagay ang gawain",
+  };
+  
   export const whenTodoMessage = {
     ko: "언제까지 할 일인가요?",
     en: "Until when will you be doing it?",
@@ -148,6 +157,15 @@ export const dayOfWeekText = (day: string) => {
     pi: "Hanggang kailan ito gagawin?",
   };
   
+  export const calendarPlaceHolder = {
+    ko: "날짜를 선택해주세요",
+    en: "Please select a date",
+    zh: "请选择日期",
+    ja: "日付を選択してください",
+    vi: "Vui lòng chọn ngày",
+    pi: "Pakipili ang petsa",   
+  };
+
   export const submitMessage = {
     ko: "등록하기",
     en: "To add",
