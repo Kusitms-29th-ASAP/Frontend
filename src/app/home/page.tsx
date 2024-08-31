@@ -2,14 +2,22 @@
 
 import Tabbar from "@/components/common/Tabbar";
 import Meal from "@/components/home/Meal";
+import Notification from "@/components/home/Notification";
 import Ready from "@/components/home/Ready";
+import Todo from "@/components/home/Todo";
+import { RootState } from "@/redux/store";
 import { theme } from "@/styles/theme";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const Home = () => {
   const router = useRouter();
+  const audio = useSelector((state: RootState) => state.audio.audio);
+
+  useEffect(() => {}, [audio]);
 
   return (
     <>
@@ -27,7 +35,13 @@ const Home = () => {
               style={{ cursor: "pointer" }}
             />
           </Header>
-          <Ready />
+          <ReadyContainer>
+            <TodoOverlay $audio={audio} />
+            {audio && <AudioText>오늘 할 일을 들려드릴게요!</AudioText>}
+            <Ready />
+            <Todo />
+            <Notification />
+          </ReadyContainer>
           <Meal />
         </Container>
       </HomeLayout>
@@ -84,4 +98,35 @@ const Header = styled.div`
   justify-content: space-between;
   color: ${theme.colors.white};
   ${(props) => props.theme.fonts.body1_b};
+`;
+
+const ReadyContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 9px 0px;
+  gap: 31px;
+  z-index: 1000;
+  position: relative;
+`;
+
+const TodoOverlay = styled.div<{ $audio: boolean }>`
+  position: fixed;
+  background-color: ${({ $audio }) => ($audio ? "#00000078" : "transparent")};
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  pointer-events: none;
+`;
+
+const AudioText = styled.div`
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: ${theme.colors.white};
+  ${(props) => props.theme.fonts.heading2_b};
+  z-index: 2000;
 `;
