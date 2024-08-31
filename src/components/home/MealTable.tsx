@@ -5,6 +5,7 @@ import MealTablePopup from "./MealTablePopup";
 import More from "../common/More";
 import Axios from "@/apis/axios";
 import Image from "next/image";
+import { cautionMessage, noDataMessage } from "@/data/mealData";
 
 interface Food {
   food: string;
@@ -18,6 +19,7 @@ interface Meal {
 const MealTable = () => {
   const [mealToday, setMealToday] = useState<Meal>({ foods: [] });
   const [mealTable, setMealTable] = useState(false);
+  const [language, setLanguage] = useState<string>("ko");
 
   const handleOpenMealTable = () => {
     setMealTable(true);
@@ -26,6 +28,10 @@ const MealTable = () => {
   const handleCloseMealTable = () => {
     setMealTable(false);
   };
+
+  useEffect(() => {
+    setLanguage(localStorage.getItem("language") || "ko");
+  }, []);
 
   useEffect(() => {
     Axios.get(`/api/v1/menus/today`)
@@ -49,7 +55,7 @@ const MealTable = () => {
               {data.food}
               {data.warning && (
                 <Caution>
-                  자녀가 주의해야 할 메뉴예요
+                  {cautionMessage[language as keyof typeof cautionMessage]}
                   <Image
                     src="/assets/icons/ic_alert.svg"
                     width={16}
@@ -61,7 +67,9 @@ const MealTable = () => {
             </List>
           ))
         ) : (
-          <NoData>급식 정보가 없어요 :(</NoData>
+          <NoData>
+            {noDataMessage[language as keyof typeof noDataMessage]}
+          </NoData>
         )}
       </TableContainer>
       {mealTable && <MealTablePopup onClose={handleCloseMealTable} />}
