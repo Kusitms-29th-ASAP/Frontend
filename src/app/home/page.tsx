@@ -106,7 +106,6 @@ const ReadyContainer = styled.div`
   flex-direction: column;
   padding: 9px 0px;
   gap: 31px;
-  z-index: 1000;
   position: relative;
 `;
 
@@ -129,4 +128,5 @@ const AudioText = styled.div`
   color: ${theme.colors.white};
   ${(props) => props.theme.fonts.heading2_b};
   z-index: 2000;
+  white-space: nowrap;
 `;
