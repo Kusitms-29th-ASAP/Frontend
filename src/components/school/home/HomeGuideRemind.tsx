@@ -94,13 +94,13 @@ const HomeGuideRemind = () => {
         color="orange"
         text={currentText.listBox1.text}
         time={currentText.listBox1.time}
-        dday={2}
+        dday={1}
       />
       <ListBox
         color="mint"
         text={currentText.listBox2.text}
         time={currentText.listBox2.time}
-        dday={-2}
+        dday={-3}
       />
     </WhiteBox>
   );

@@ -17,13 +17,13 @@ export const notiCardData = [
   {
     category: "가정통신문",
     id: "notification",
-    date: "2024년 6월 7일",
-    text: "6월 7일, 오늘의 가정통신문 1건을 확인해보세요!",
+    date: "2024년 9월 5일",
+    text: "9월 5일, 오늘의 가정통신문 1건을 확인해보세요!",
   },
   {
     category: "학습정보",
     id: "study",
-    date: "2024년 6월 7일",
+    date: "2024년 9월 5일",
     text: "이번주 업로드 된 학습정보를 살펴보세요!",
   },
 ];
