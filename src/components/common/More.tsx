@@ -23,7 +23,7 @@ const More: React.FC<MoreProps> = (props: MoreProps) => {
 
   return (
     <StyledMore onClick={onClick} className={moreClassName}>
-      <div>{text}</div>
+      <StyledText>{text}</StyledText>
       <Image
         src="/assets/icons/ic_chevron_right.svg"
         alt="right"
@@ -55,4 +55,11 @@ const StyledMore = styled.div`
     ${(props) => props.theme.fonts.body3_b};
     color: ${theme.colors.b600};
   }
+`;
+
+const StyledText = styled.div`
+  width: 100%;
+  word-break: keep-all;
+  white-space: pre-wrap;
+  text-align: right;
 `;
