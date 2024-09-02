@@ -277,10 +277,7 @@ const Time = styled.div<{ $language: string }>`
   background: rgba(255, 135, 0, 0.15);
   white-space: ${({ $language }) => ($language === "ko" ? "nowrap" : "normal")};
   overflow-wrap: break-word;
-  word-break: break-word;
-  -webkit-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
+  hyphens: manual;
   &.mint {
     color: ${theme.colors.sub_mint};
     background: rgba(5, 206, 194, 0.15);
