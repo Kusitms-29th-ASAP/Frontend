@@ -190,7 +190,7 @@ const StyledListBox = styled.div<ListBoxProps>`
 `;
 
 const Content = styled.div`
-  width: calc(100% - 61px);
+  width: calc(100% - 100px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -263,7 +263,7 @@ const Delete = styled.div`
 
 const Time = styled.div<{ $language: string }>`
   display: inline-flex;
-  width: 61px;
+  width: 65px;
   height: 100%;
   padding: 16.5px 12px 16.5px 12px;
   justify-content: center;

@@ -154,7 +154,7 @@ const Week = styled.div`
 `;
 
 const Card = styled.div`
-  height: 50px;
+  height: auto;
   display: flex;
   flex-direction: row;
   padding: 10px 12px;
