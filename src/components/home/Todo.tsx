@@ -17,6 +17,8 @@ import {
   noTodoMessage,
 } from "@/data/todoData";
 import { addTodoToast } from "@/data/toastMessagesData";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 interface Todo {
   todoId: number;
@@ -36,6 +38,10 @@ const Todo = () => {
   const [render, setRenderData] = useState(false);
   const week = ["일", "월", "화", "수", "목", "금", "토"];
   const [language, setLanguage] = useState<string>("ko");
+
+  const audio = useSelector((state: RootState) => state.audio.audio);
+
+  useEffect(() => {}, [audio]);
 
   /* 날짜를 yyyy-mm-dd 형식으로 변환하는 함수 */
   const formatDate = (date: Date) => {
@@ -194,7 +200,7 @@ const Todo = () => {
 
   return (
     <>
-      <TodoContainer ref={containerRef}>
+      <TodoContainer ref={containerRef} $audio={audio}>
         오늘 할 일 잊지마세요!
         <Row>
           <DateLine>
@@ -295,7 +301,7 @@ const Todo = () => {
 
 export default Todo;
 
-const TodoContainer = styled.div`
+const TodoContainer = styled.div<{ $audio: boolean }>`
   width: 100%;
   padding: 16px;
   gap: 10px;
@@ -304,7 +310,7 @@ const TodoContainer = styled.div`
   box-shadow: 0px 0px 64px 0px rgba(30, 41, 59, 0.1);
   ${(props) => props.theme.fonts.body2_b};
   color: ${theme.colors.b700};
-  z-index: 1000;
+  z-index: ${({ $audio }) => ($audio ? "2000" : "300")};
   letter-spacing: -0.28px;
 `;
 
