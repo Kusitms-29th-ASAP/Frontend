@@ -79,7 +79,7 @@ const StyledPopup = styled(motion.div)<{ height: string }>`
   position: relative;
   color: ${theme.colors.b700};
   border-radius: 12px 12px 0px 0px;
-  z-index: 300;
+  z-index: 3000;
 
   @media screen and (max-height: 800px) {
     height: ${(props) => calculateHeight(props.height)};
