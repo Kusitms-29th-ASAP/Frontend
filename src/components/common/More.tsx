@@ -9,10 +9,16 @@ export interface MoreProps {
   text?: string;
   onClick: () => void;
   moreType?: moreType;
+  align?: string;
 }
 
 const More: React.FC<MoreProps> = (props: MoreProps) => {
-  const { text = "자세히 보기", onClick, moreType = "default" } = props;
+  const {
+    text = "자세히 보기",
+    onClick,
+    moreType = "default",
+    align = "left",
+  } = props;
 
   let moreClassName = moreType;
   if (moreType === "default") {
@@ -23,7 +29,7 @@ const More: React.FC<MoreProps> = (props: MoreProps) => {
 
   return (
     <StyledMore onClick={onClick} className={moreClassName}>
-      <StyledText>{text}</StyledText>
+      <StyledText $align={align}>{text}</StyledText>
       <Image
         src="/assets/icons/ic_chevron_right.svg"
         alt="right"
@@ -57,9 +63,9 @@ const StyledMore = styled.div`
   }
 `;
 
-const StyledText = styled.div`
+const StyledText = styled.div<{ $align: string }>`
   width: 100%;
   word-break: keep-all;
   white-space: pre-wrap;
-  text-align: right;
+  text-align: ${({ $align }) => ($align ? $align : "left")};
 `;

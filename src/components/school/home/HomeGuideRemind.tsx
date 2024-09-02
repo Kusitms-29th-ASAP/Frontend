@@ -88,7 +88,7 @@ const HomeGuideRemind = () => {
         <Title>
           <span>가정통신문 제출</span> 잊지마세요!
         </Title>
-        <More onClick={handleDetailClick} />
+        <More align="center" onClick={handleDetailClick} />
       </TitleBox>
       <ListBox
         color="orange"

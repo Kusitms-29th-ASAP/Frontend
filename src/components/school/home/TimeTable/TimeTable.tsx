@@ -17,7 +17,11 @@ const TimeTable = () => {
       <Container>
         <TopBox>
           <DateSelect type={"week"} />
-          <More text="일정 자세히 보기" onClick={handleDetailClick} />
+          <More
+            text="일정 자세히 보기"
+            align="center"
+            onClick={handleDetailClick}
+          />
         </TopBox>
         <TimeTableBoxContainer>
           <TimeTableBox />
