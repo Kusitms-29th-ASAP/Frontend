@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { InternalAxiosRequestConfig } from "axios";
 
 const getToken = () => {
   if (typeof window !== "undefined") {
@@ -17,9 +17,23 @@ const getLanguage = () => {
 const Axios = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
-    Authorization: `Bearer ${getToken()}`,
     "Content-Type": "application/json;charset=UTF-8",
-    "Accept-Language": `${getLanguage()}`,
   },
 });
+
+Axios.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+  const token = getToken();
+  const language = getLanguage();
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  if (language) {
+    config.headers["Accept-Language"] = language;
+  }
+
+  return config;
+});
+
 export default Axios;
