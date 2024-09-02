@@ -2,8 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const ReviewTitle = () => {
-  const [month, setMonth] = useState(6);
-  const [week, setWeek] = useState(2);
+  const [month, setMonth] = useState(9);
+  const [week, setWeek] = useState(1);
 
   return (
     <ReviewText>

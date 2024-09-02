@@ -125,7 +125,7 @@ const Mypage = () => {
         setLanguage(matchingLanguage.text);
       }
     } else {
-      localStorage.setItem("language", "한국어");
+      localStorage.setItem("language", "ko");
     }
 
     const storedFontSize = localStorage.getItem("fontSize");

@@ -64,6 +64,7 @@ const DateSelect = (props: DateSelectProps) => {
     return date >= startDate && date <= endDate;
   };
 
+  const [firstPart, secondPart] = weekString.split(" ~ ");
   return (
     <Container>
       <DateLine>
@@ -75,7 +76,10 @@ const DateSelect = (props: DateSelectProps) => {
           onClick={handleBackWeek}
           style={{ cursor: "pointer" }}
         />
-        {weekString}
+        <Span>
+          <div>{firstPart}</div>
+          <div>~ {secondPart}</div>
+        </Span>
         <Image
           src="/assets/icons/ic_chevron_right.svg"
           alt="right"
@@ -104,8 +108,16 @@ const DateLine = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
 
   ${({ theme }) => theme.fonts.body3_m};
   color: ${({ theme }) => theme.colors.b600};
+`;
+
+const Span = styled.div`
+  display: flex;
+  text-align: center;
+  word-break: keep-all;
+  white-space: nowrap;
 `;

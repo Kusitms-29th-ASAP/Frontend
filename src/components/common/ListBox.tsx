@@ -150,7 +150,9 @@ const ListBox = (props: ListBoxProps) => {
           />
         </Delete>
       ) : (
-        <Time className={listboxClassName}>{time}</Time>
+        <Time className={listboxClassName} $language={language}>
+          {time}
+        </Time>
       )}
     </StyledListBox>
   );
@@ -259,7 +261,7 @@ const Delete = styled.div`
   cursor: pointer;
 `;
 
-const Time = styled.div`
+const Time = styled.div<{ $language: string }>`
   display: inline-flex;
   width: 61px;
   height: 100%;
@@ -273,12 +275,9 @@ const Time = styled.div`
   ${(props) => props.theme.fonts.caption2_m};
   border-radius: 0px 8px 8px 0px;
   background: rgba(255, 135, 0, 0.15);
-  white-space: normal;
+  white-space: ${({ $language }) => ($language === "ko" ? "nowrap" : "normal")};
   overflow-wrap: break-word;
-  word-break: break-word;
-  -webkit-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
+  hyphens: manual;
   &.mint {
     color: ${theme.colors.sub_mint};
     background: rgba(5, 206, 194, 0.15);
