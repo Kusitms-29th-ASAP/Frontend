@@ -24,7 +24,7 @@ const LastNotifications = () => {
       .then((response) => {
         const { teacherName, announcements } = response.data;
         setTeacher(teacherName);
-        setLastNotiData(announcements);
+        setLastNotiData(announcements.slice(1));
       })
       .catch(() => {
         console.error("All Noti Get Error");
