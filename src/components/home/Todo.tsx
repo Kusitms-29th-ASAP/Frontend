@@ -45,7 +45,10 @@ const Todo = () => {
 
   /* 날짜를 yyyy-mm-dd 형식으로 변환하는 함수 */
   const formatDate = (date: Date) => {
-    return date.toISOString().split("T")[0];
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
   };
 
   useEffect(() => {
@@ -54,6 +57,8 @@ const Todo = () => {
 
   useEffect(() => {
     let formattedDate = formatDate(currentDate);
+    console.log("new Date()", new Date());
+    console.log("formattedDate", formattedDate);
     Axios.get(`/api/v1/todos?date=${formattedDate}`)
       .then((response) => {
         const todoData: Todo[] = response.data.todoList;
